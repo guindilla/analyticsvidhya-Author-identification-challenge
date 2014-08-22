@@ -2,6 +2,7 @@
 # Load libraries
 ################################################################################
 library(httr)
+library(lubridate)
 library(XML)
 
 ################################################################################
@@ -26,12 +27,12 @@ scrape.urls <- function(blog.url, author) {
     #   Vector of characters with URLs of all articles
     
     links <- vector()
-
+    
     my.url <- paste0(blog.url, author)
     
     repeat{
-        content <- content(GET(my.url), as="text")
-        parsedHTML <- htmlParse(content, asText=TRUE)
+        my.content <- content(GET(my.url), as="text")
+        parsedHTML <- htmlParse(my.content, asText=TRUE)
         page.links <- xpathSApply(parsedHTML,
                                   "//h2[@class='post-title entry-title']/a",
                                   xmlGetAttr, 'href')
@@ -51,8 +52,64 @@ scrape.urls <- function(blog.url, author) {
             break
         }
     }
-    typeof(links)
+
     return(links)
+}
+
+scrape.post <- function(file) {
+    # Extracts from the file passed as an argument the date of article
+    # publish, day of article publish, tags of article publish and the content
+    # of the article. 
+    #
+    # Args:
+    #   file: HTML code from a post of the Abalytics Vidhya blog 
+    #
+    # Returns:
+    #   A list with the characteristics of the post
+    
+    parsedHTML <- htmlParse(file, asText=TRUE)
+
+    title <- xpathSApply(parsedHTML,
+                         "//title",
+                         xmlValue)
+    author <- xpathSApply(parsedHTML,
+                          "//span[@class='fn nickname']",
+                          xmlValue)
+    date <- xpathSApply(parsedHTML,
+                        "//span[@class='value-title']",
+                        xmlGetAttr, 'title')
+    date <- ymd_hm(date)
+    week.day <- wday(date)
+    content <- xpathSApply(parsedHTML,
+                           "//div[@class='entry-content clearfix']",
+                           xmlValue)
+    tags <- xpathSApply(parsedHTML,
+                        "//p[@class='post-tags']/a",
+                        xmlValue)
+    list(title = title,
+         author = author,
+         date = date,
+         week.day = week.day,
+         content = content,
+         tags = tags)
+}
+
+download.urls <- function(urls, directory){
+    # Downloads and stores a vector of urls on a specific location.
+    #
+    # Args:
+    #   urls: Vector of urls to download
+    #   directory: Folder where the downloaded url's will be stored
+    #
+    # Returns:
+    #   Nothing
+    
+    urls <- sort(urls)
+    i <- 0
+    for (u in urls) {
+        i <- i + 1
+        download.file(u, paste0(directory, "/", i, ".html"), "auto")
+    }
 }
 
 ################################################################################
@@ -62,3 +119,8 @@ urls <- vector()
 for(a in authors) {
     urls <- c(urls, scrape.urls(blog.url, a))
 }
+
+download.urls(urls, "../data/")
+
+my.content <- paste(readLines("1.txt"), sep="\n")
+scrape.post(my.content)
