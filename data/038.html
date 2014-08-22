@@ -1,0 +1,1750 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head profile="http://gmpg.org/xfn/11">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Some tricky SAS interview questions</title>
+    <link rel="pingback" href="http://www.analyticsvidhya.com/blog/xmlrpc.php" /> 
+    
+<!-- SEO Ultimate (http://www.seodesignsolutions.com/wordpress-seo/) -->
+	<meta name="description" content="This article will take you through some commonly asked tricky SAS questions." />
+	<meta name="keywords" content="Business Analytics,SAS,Analytics,base SAS,interview,interview questions, ,data,[stextbox" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="4 tricky SAS questions commonly asked in interview" />
+	<meta property="og:description" content="This article will take you through some commonly asked tricky SAS questions." />
+	<meta property="og:url" content="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/" />
+	<meta property="article:published_time" content="2013-11-24" />
+	<meta property="article:modified_time" content="2014-04-14" />
+	<meta property="article:author" content="http://www.analyticsvidhya.com/blog/author/tavish/" />
+	<meta property="article:tag" content="Business Analytics" />
+	<meta property="article:tag" content="SAS" />
+	<meta property="article:tag" content="Analytics" />
+	<meta property="article:tag" content="base SAS" />
+	<meta property="article:tag" content="Business Analytics" />
+	<meta property="article:tag" content="interview" />
+	<meta property="article:tag" content="interview questions" />
+	<meta property="article:tag" content="SAS" />
+	<meta property="og:site_name" content="Analytics Vidhya" />
+	<meta name="twitter:card" content="summary" />
+<!-- /SEO Ultimate -->
+
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Feed" href="http://www.analyticsvidhya.com/blog/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Comments Feed" href="http://www.analyticsvidhya.com/blog/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; 4 tricky SAS questions commonly asked in interview Comments Feed" href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/feed/" />
+	<script type="text/javascript">
+	WebFontConfig = {
+		google: { families: ['Pontano+Sans::latin'] }
+	};
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})(); 
+    </script>
+    <link rel='stylesheet' id='jetpack-subscriptions-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/subscriptions/subscriptions.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='fb_data_style-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/feedburner-form/control/fbstyle.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='cntctfrm_stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/contact-form-plugin/css/style.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='social-widget-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/social_widget.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widgets-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20121003' type='text/css' media='all' />
+<link rel='stylesheet' id='graphene-stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/style.css?ver=3.9.2' type='text/css' media='screen' />
+<link rel='stylesheet' id='stbCoreCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/stb-core.css?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='stbCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/wp-special-textboxes.css.php?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='sharedaddy-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.css?ver=3.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css?ver=3.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/useful-banner-manager/scripts.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/jquery.tools.min.js?ver=3.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var grapheneJS = {"templateUrl":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/themes\/graphene","isSingular":"1","shouldShowComments":"1","commentsOrder":"newest","sliderDisable":"","sliderAnimation":"fade","sliderTransSpeed":"400","sliderInterval":"7000","sliderDisplay":"bgimage-excerpt","infScroll":"","infScrollClick":"","infScrollComments":"","totalPosts":"1","postsPerPage":"15","isPageNavi":"","infScrollMsgText":"Fetching window.grapheneInfScrollItemsPerPage more item from window.grapheneInfScrollItemsLeft left ...","infScrollMsgTextPlural":"Fetching window.grapheneInfScrollItemsPerPage more items from window.grapheneInfScrollItemsLeft left ...","infScrollFinishedText":"No more items to fetch","commentsPerPage":"50","totalComments":"14","infScrollCommentsMsg":"Fetching window.grapheneInfScrollCommentsPerPage more top level comment from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsMsgPlural":"Fetching window.grapheneInfScrollCommentsPerPage more top level comments from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsFinishedMsg":"No more comments to fetch"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/graphene.js?ver=3.9.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.analyticsvidhya.com/blog/xmlrpc.php?rsd" />
+<link rel='prev' title='Review: Tableau 8.1' href='http://www.analyticsvidhya.com/blog/2013/11/view-release-tableau-8-1/' />
+<link rel='next' title='Interview with data scientist and top Kaggler, Mr. Steve Donoho' href='http://www.analyticsvidhya.com/blog/2013/11/interview-top-data-scientist-kaggler-mr-steve-donoho/' />
+<link rel='canonical' href='http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/' />
+<link rel='shortlink' href='http://wp.me/p3Zl4g-qI' />
+<!-- WordPress Most Popular --><script type="text/javascript">/* <![CDATA[ */ jQuery.post("http://www.analyticsvidhya.com/blog/wp-admin/admin-ajax.php", { action: "wmp_update", id: 1656, token: "a4d0601573" }); /* ]]> */</script><!-- /WordPress Most Popular --><style type="text/css">
+#header-menu-wrap{ background: #0F2D4D; background: -moz-linear-gradient(#2880C3, #0F2D4D); background: -webkit-linear-gradient(#2880C3, #0F2D4D); background: -o-linear-gradient(#2880C3, #0F2D4D); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#0F2D4D')"; background: linear-gradient(#2880C3, #0F2D4D); }#header-menu ul li:hover,#header-menu ul li.current-menu-item,#header-menu ul li.current-menu-ancestor,.primary-menu-preview.dropdown ul li.current-menu-item,.primary-menu-preview.dropdown ul li.current-menu-ancestor{ background: #212121; background: -moz-linear-gradient(#2880C3, #212121); background: -webkit-linear-gradient(#2880C3, #212121); background: -o-linear-gradient(#2880C3, #212121); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#212121')"; background: linear-gradient(#2880C3, #212121); }#sidebar_bottom .sidebar-wrap{width:440px}#nav li ul{width:200px} #nav li ul ul{margin-left:200px}#header-menu ul li a, #secondary-menu ul li a{width:180px}.post-title a, .post-title a:visited{display:block;margin-right:45px;padding-bottom:0}#header{height:90px}
+</style>
+	<!--[if lte IE 7]>
+      <style type="text/css" media="screen">
+      	#footer, div.sidebar-wrap, .block-button, .featured_slider, #slider_root, #nav li ul, .pie{behavior: url(http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/PIE.php);}
+        .featured_slider{margin-top:0 !important;}
+        #header-menu-wrap {z-index:5}
+      </style>
+    <![endif]-->
+        <!-- BEGIN Google Analytics script -->
+    	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40101183-1', 'analyticsvidhya.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40101183-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>    <!-- END Google Analytics script -->
+    </head>
+<body class="single single-post postid-1656 single-format-standard two_col_left two-columns">
+
+<div class="bg-gradient">
+
+
+<div id="container" class="container_16">
+    
+    
+        <div id="header">
+    	
+        <img src="http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/images/headers/fluid.jpg" alt="" width="960" height="90" class="header-img" />        	       
+        		
+        			<h2 class="header_title push_1 grid_15">				<a href="http://www.analyticsvidhya.com/blog" title="Go back to the front page">					Analytics Vidhya				</a>			</h2>			
+            <h3 class="header_desc push_1 grid_15">				Learn everything about Analytics			</h3>                
+		    </div>
+    <div id="nav">
+                <div id="header-menu-wrap" class="clearfix">
+			<ul id="header-menu" class="menu clearfix"><li id="menu-item-1463" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a href="http://www.analyticsvidhya.com/blog/"><strong>Home</strong></a></li>
+<li id="menu-item-1464" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/about-me/"><strong>About us</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-1561" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/team/">Our team</a></li>
+	<li id="menu-item-3817" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/write/">Write for us</a></li>
+	<li id="menu-item-4067" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/analytics-vidhya-apprentice-programme/">AV Apprentice</a></li>
+</ul>
+</li>
+<li id="menu-item-2474" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/big-data/"><strong>Big data</strong></a></li>
+<li id="menu-item-2475" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/"><strong>Business Analytics</strong></a></li>
+<li id="menu-item-2476" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/"><strong>Business Intelligence</strong></a></li>
+<li id="menu-item-2477" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/"><strong>Qlikview</strong></a></li>
+<li id="menu-item-2478" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent"><a href="http://www.analyticsvidhya.com/blog/category/sas/"><strong>SAS</strong></a></li>
+<li id="menu-item-2479" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/"><strong>Web Analytics</strong></a></li>
+<li id="menu-item-2616" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/category/jobs/"><strong>Jobs</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-2760" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/">Jobs &#8211; Business Analytics</a></li>
+	<li id="menu-item-2761" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/">Jobs &#8211; Business Intelligence</a></li>
+	<li id="menu-item-2762" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/">Jobs- Big Data</a></li>
+	<li id="menu-item-2763" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/">Jobs- MIS</a></li>
+</ul>
+</li>
+</ul>            
+            <div class="clear"></div>
+            
+			            
+                    
+        </div>
+		
+                
+        <div class="menu-bottom-shadow">&nbsp;</div>
+
+
+        
+    </div>
+
+    
+    <div id="content" class="clearfix hfeed">
+                
+                
+        <div id="content-main" class="clearfix grid_11">
+        
+	
+	<div class="post-nav clearfix">
+		<p class="previous">&laquo; <a href="http://www.analyticsvidhya.com/blog/2013/11/view-release-tableau-8-1/" rel="prev">Review: Tableau 8.1</a></p>
+		<p class="next-post"><a href="http://www.analyticsvidhya.com/blog/2013/11/interview-top-data-scientist-kaggler-mr-steve-donoho/" rel="next">Interview with data scientist and top Kaggler, Mr. Steve Donoho</a> &raquo;</p>
+			</div>
+	        
+<div id="post-1656" class="post-1656 post type-post status-publish format-standard hentry category-business-analytics category-sas tag-analytics tag-base-sas tag-business-analytics tag-interview tag-interview-questions tag-sas clearfix post">
+	
+		
+	<div class="entry clearfix">
+    	
+                    	<div class="date updated alpha with-year">
+        	<span class="value-title" title="2013-11-24T20:18" />
+            <p class="default_date">
+            	<span class="month">Nov</span>
+                <span class="day">24</span>
+                	                <span class="year">2013</span>
+                            </p>
+                    </div>
+    		
+        <div class="post-avatar-wrap gutter-left"><img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=45&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D45&amp;r=G' class='avatar avatar-45 photo' height='45' width='45' /></div>        
+                
+                
+		        <h1 class="post-title entry-title">
+			4 tricky SAS questions commonly asked in interview			        </h1>
+		
+				<div class="post-meta clearfix">
+			
+									<span class="printonly">Categories: </span>
+			<p class="meta_categories"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts in Business Analytics" rel="category tag">Business Analytics</a>, <a href="http://www.analyticsvidhya.com/blog/category/sas/" title="View all posts in SAS" rel="category tag">SAS</a></p>
+						
+									
+									
+									<p class="post-author author vcard">
+				by <span class="fn nickname"><a href="http://www.analyticsvidhya.com/blog/author/tavish/" class="url">Tavish Srivastava</a></span>			</p>
+											
+						
+					</div>
+		
+				<div class="entry-content clearfix">
+							
+										
+						<p style="text-align: justify;">While working extensively on SAS-EG , I lost touch of coding in Base SAS. I had to brush up my base SAS before appearing for my first lateral interview. SAS is highly capable of data triangulation, and what distinguishes SAS from other such languages is its simplicity to code. <strong>There are some very tricky SAS questions and handling them might become overwhelming for some candidates. </strong>I strongly feel a need of a common thread which has all the tricky SAS questions asked in interviews. This article will give a kick start to such a thread. This article will cover 4 of such questions with relevant examples. This article is the first part of tricky SAS questions series. (Next article : http://www.analyticsvidhya.com/blog/2014/04/tricky-base-sas-interview-questions-part-ii/  ) Please note that the content of these articles is based on the information I gathered from various SAS sources.</p>
+<p><strong><div id='stb-container-9243' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-9243' class='stb-section_box stb-box' ><span style="color: #ffffff;">1. Merging data in SAS :</span></div></div></strong></p>
+<p style="text-align: justify;">Merging datasets is the most important step for an analyst. Merging data can be done through both DATA step and PROC SQL. Usually people ignore the difference in the method used by SAS in the two different steps. This is because generally there is no difference in the output created by the two routines. Lets look at the following example :</p>
+<p><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/11/Merge1.png"><img class="alignnone size-large wp-image-1672" alt="Merge" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/11/Merge1-1024x259.png" width="620" height="156" /></a></p>
+<p style="text-align: justify;">Problem Statement : In this example, we have 2 datasets. First table gives the product holding for a particular household. Second table gives the gender of each customer in these households. What you need to find out is that if the product is Male biased or neutral. The Male biased product is a product bought by males more than females. You can assume that the product bought by a household belongs to each customer of that household.</p>
+<p style="text-align: justify;">Thought process: The first step of this problem is to merge the two tables. We need a Cartesian product of the two tables in this case. After getting the merged dataset, all you need to do is summarize the merged dataset and find the bias.</p>
+<p><strong><span style="text-decoration: underline;">Code 1</span></strong></p>
+<div id='stb-container-9286' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-9286' class='stb-grey_box stb-box' >
+<pre>Proc sort data = PROD out =A1; by household;run;</pre>
+<pre>Proc sort data = GENDER out =A2; by household;run;</pre>
+<pre>Data MERGED;</pre>
+<pre>    merge A1(in=a) A2(in=b);</pre>
+<pre>    by household;</pre>
+<pre>    if a AND b;</pre>
+<pre>run;</div></div></pre>
+<p><strong>Code 2 :</strong></p>
+<div id='stb-container-3900' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-3900' class='stb-grey_box stb-box' >
+<pre>PROC SQL;</pre>
+<pre>     Create table work.merged as</pre>
+<pre>           select t1.household,  t1.type,t2.gender</pre>
+<pre>           from prod as t1, gender as t2</pre>
+<pre>           where t1.household = t2.household;</pre>
+<pre>quit; </div></div></pre>
+<p style="text-align: justify;">Will both the codes give the same result?</p>
+<p style="text-align: justify;">The answer is NO. As you might have noticed, the two tables have many-to-many mapping. For getting a cartesian product, we can only use PROC SQL. Apart from many-to-many tables, all the results of merging using the two steps will be exactly same.</p>
+<p style="text-align: justify;">Why do we use DATA &#8211; MERGE step at all?</p>
+<p style="text-align: justify;">DATA-MERGE step is much faster compared to PROC SQL. For big data sets except one having many-to-many mapping, always use DATA- MERGE.</p>
+<p><strong><div id='stb-container-2964' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-2964' class='stb-section_box stb-box' ><span style="color: #ffffff;">2. Transpose data-sets :</span></div></div></strong></p>
+<p style="text-align: justify;">When working on transactions data, we frequently transpose datasets to analyze data. There are two kinds of transposition. First, transposing from wide structure to narrow structure. Consider the following example :</p>
+<p style="text-align: justify;"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/11/transpose-1.jpg"><img class="alignnone size-full wp-image-1686" alt="transpose 1" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/11/transpose-1.jpg" width="599" height="195" /></a></p>
+<p>Following are the two methods to do this kind of transposition :</p>
+<p>a. DATA STEP :</p>
+<div id='stb-container-4685' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-4685' class='stb-grey_box stb-box' >
+<pre>data transposed;set base;</pre>
+<pre>        array Qtr{3} Q:;</pre>
+<pre>        do i = 1 to 3;Period = cat('Qtr',i);Amount = Qtr{i} ;output;end;</pre>
+<pre>        drop Q1:Q3;</pre>
+<pre>        if Amount ne .;</pre>
+<pre>run; </div></div></pre>
+<p>b. PROC TRANSPOSE :</p>
+<div id='stb-container-8788' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-8788' class='stb-grey_box stb-box' >
+<pre>proc transpose data = base out = transposed 
+                (rename=(Col1=Amount) where=(Amount ne .)) name=Period;</pre>
+<pre>by cust; run; </div></div></pre>
+<p style="text-align: justify;">In this kind of transposition, both the methods are equally good. PROC TRANSPOSE however takes lesser time because it uses indexing to transpose.</p>
+<p style="text-align: justify;">Second, narrow to wide structure. Consider an opposite of the last example.</p>
+<p><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/11/transpose-21.png"><img class="alignnone size-full wp-image-1661" alt="transpose 2" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/11/transpose-21.png" width="598" height="193" /></a></p>
+<p style="text-align: justify;">For this kind of transposition, data step becomes very long and time consuming. Following is a much shorter way to do the same task,</p>
+<div id='stb-container-3061' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-3061' class='stb-grey_box stb-box' >
+<pre>Proc transpose data=transposed out=base (drop=_name_) prefix Q;</pre>
+<pre>       by cust;</pre>
+<pre>       id period;</pre>
+<pre>       var amount;</pre>
+<pre>run; </div></div></pre>
+<p><strong><div id='stb-container-2014' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-2014' class='stb-section_box stb-box' ><span style="color: #ffffff;">3. Passing values from one routine to other:</span></div></div></strong></p>
+<p style="text-align: justify;">Imagine a scenario, we want to compare the total marks scored by two classes. Finally the output should be simply the name of the class with the higher score. The score of the two datasets is stored in two separate tables.</p>
+<p style="text-align: justify;">There are two methods of doing this question. First, append the two tables and sum the total marks for each or the classes. But imagine if the number of students were too large, we will just multiply the operation time by appending the two tables. Hence, we need a method to pass the value from one table to another. Try the following code:</p>
+<p><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/11/Pass.png"><img class="alignnone size-full wp-image-1665" alt="Pass" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/11/Pass.png" width="570" height="131" /></a></p>
+<div id='stb-container-2297' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-2297' class='stb-grey_box stb-box' >
+<pre>DATA _null_;set class_1;</pre>
+<pre>       total + marks;</pre>
+<pre>       call symputx ('class1_tot',total);</pre>
+<pre>run;</pre>
+<pre>DATA _null_;set class_2;</pre>
+<pre>       total + marks;</pre>
+<pre>       call symputx ('class2_tot',total);</pre>
+<pre>run;</pre>
+<pre>DATA results;</pre>
+<pre>       if &amp;class1_tot &gt; &amp;class2_tot then better_class = 1;</pre>
+<pre>       else if &amp;class1_tot &gt; &amp;class2_tot then better_class = 2;</pre>
+<pre>       else better_class = 0;</pre>
+<pre>run; </div></div></pre>
+<p style="text-align: justify;">Funtion symputx creates a macro variable which can be passed between various routines and thus gives us an opportunity to link data-sets.</p>
+<p style="text-align: justify;"><strong><div id='stb-container-1998' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-1998' class='stb-section_box stb-box' ><span style="color: #ffffff;">4. Using where and if : </span></div></div></strong></p>
+<p style="text-align: justify;">&#8220;Where&#8221; and &#8220;if&#8221; are both used for sub-setting. Most of the times where and if can be used interchangeably in data step for sub-setting. But, when sub-setting is done on a newly created variable, only if statement can be used. For instance, consider the following two programs,</p>
+<div id='stb-container-8649' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-8649' class='stb-grey_box stb-box' >
+<p>Code 1 :                                                                                  Code 2 :</p>
+<pre>data a;set b;                            data a;set b;</pre>
+<pre>      z= x+y;                                  z= x+y;</pre>
+<pre>      if z &lt; 10;                               where z &lt; 10;</pre>
+<pre>run;                                     run; </div></div></pre>
+<p style="text-align: justify;">Code 2 will give an error in this case, because where cannot be used for sub-setting data based on a newly created variable.</p>
+<p style="text-align: justify;"><strong><div id='stb-container-7198' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-7198' class='stb-section_box stb-box' ><span style="color: #ffffff;">End Notes :</span> </div></div></strong></p>
+<p style="text-align: justify;">These codes come directly from my cheat chit. What is especial about these 4 codes, that in aggregate they give me a quick glance to almost all the statement and options used in SAS. If you were able to solve all the questions covered in this article, we think you are up for the next level. You can read the second part of this article here ( http://www.analyticsvidhya.com/blog/2014/04/tricky-base-sas-interview-questions-part-ii/ ) . The second part of the article will have tougher and lengthier questions as compared to those covered in this article.</p>
+<p style="text-align: justify;">Have you faced any other SAS problem in analytics interview? Are you facing any specific problem with SAS codes?  Do you think this provides a solution to any problem you face? Do you think there are other methods to solve the problems discussed in a more optimized way? Do let us know your thoughts in the comments below.</p>
+<p style="text-align: justify;">
+<p style="text-align: justify;">You can read <a title="Tricky Base SAS interview questions : Part-II" href="http://www.analyticsvidhya.com/blog/2014/04/tricky-base-sas-interview-questions-part-ii/" target="_blank">part II of this article here</a></p>
+<h2 style="text-align: justify;"><strong>If you like what you just read &amp; want to continue your analytics learning, <a href="http://feedburner.google.com/fb/a/mailverify?uri=analyticsvidhya" target="_blank">subscribe to our emails</a> or like our <a href="http://facebook.com/analyticsvidhya" target="_blank">facebook page</a>.</strong></h2>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-linkedin"><div class="linkedin_button"><script type="in/share" data-url="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/" data-counter="right"></script></div></li><li class="share-facebook"><div class="like_button"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F11%2F4-sas-tricky-analytics-interview%2F&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;height=21&amp;locale=en_US&amp;width=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:96px; height:21px;" allowTransparency="true"></iframe></div></li><li class="share-google-plus-1"><div class="googleplus1_button"><div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/"></div></div></li><li class="share-twitter"><div class="twitter_button"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F11%2F4-sas-tricky-analytics-interview%2F&#038;counturl=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F11%2F4-sas-tricky-analytics-interview%2F&#038;count=horizontal&#038;text=4%20tricky%20SAS%20questions%20commonly%20asked%20in%20interview%3A" style="width:101px; height:20px;"></iframe></div></li><li class="share-pocket"><div class="pocket_button"><a href="https://getpocket.com/save" class="pocket-btn" data-lang="en" data-save-url="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/" data-pocket-count="horizontal" >Pocket</a></div></li><li class="share-reddit"><div class="reddit_button"><iframe src="http://www.reddit.com/static/button/button1.html?width=120&amp;url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F11%2F4-sas-tricky-analytics-interview%2F&amp;title=4%20tricky%20SAS%20questions%20commonly%20asked%20in%20interview" height="22" width="120" scrolling="no" frameborder="0"></iframe></div></li><li class="share-stumbleupon"><div class="stumbleupon_button"><iframe src="http://www.stumbleupon.com/badge/embed/1/?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F11%2F4-sas-tricky-analytics-interview%2F&amp;title=4%20tricky%20SAS%20questions%20commonly%20asked%20in%20interview" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:74px; height: 18px;" allowTransparency="true"></iframe></div></li><li class="share-end"></li></ul></div></div></div>			
+						
+						
+		</div>
+		
+				<div class="entry-footer clearfix">
+										<p class="post-tags">Tags: <a href="http://www.analyticsvidhya.com/blog/tag/analytics/" rel="tag">Analytics</a>, <a href="http://www.analyticsvidhya.com/blog/tag/base-sas/" rel="tag">base SAS</a>, <a href="http://www.analyticsvidhya.com/blog/tag/business-analytics/" rel="tag">Business Analytics</a>, <a href="http://www.analyticsvidhya.com/blog/tag/interview/" rel="tag">interview</a>, <a href="http://www.analyticsvidhya.com/blog/tag/interview-questions/" rel="tag">interview questions</a>, <a href="http://www.analyticsvidhya.com/blog/tag/sas/" rel="tag">SAS</a></p>
+						
+			<div class="add-this-right"></div>			
+					</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="comments" class="clearfix">
+        	<h4 class="comments current"><a href="#">23 comments</a></h4>
+	    	    <h4 class="pings"><a href="#">3 pings</a></h4>
+        
+        	<p class="comment-form-jump"><a href="#respond">Skip to comment form</a> &darr;</p>
+	
+	
+	    <div class="comments-list-wrapper">
+        <ol class="clearfix" id="comments_list">
+            		<li id="comment-2816" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/e0185b24d21ac0cab4c8c193da6ccf85?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Priya Varshney</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														November 27, 2013 at 3:49 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-2816">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=2816#respond' onclick='return addComment.moveForm("comment-2816", "2816", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>1. Merging data in SAS :<br />
+is complete answer is<br />
+Data A;<br />
+Input household $ type_of_product $13.;<br />
+Datalines;<br />
+A savings<br />
+A pension<br />
+A investment<br />
+B term<br />
+B pension<br />
+B investment<br />
+C term<br />
+C pension<br />
+;</p>
+<p>run;<br />
+proc print;<br />
+run;<br />
+Data B;<br />
+input household $ Customer $ gender $;<br />
+datalines;<br />
+A Ken M<br />
+A Seni F<br />
+B Fab M<br />
+C Ron M<br />
+C Mary F<br />
+;<br />
+run;<br />
+Proc sort data = a out =A1; by household;run;<br />
+Proc sort data = b out =A2; by household;run;<br />
+Data MERGED;<br />
+    merge A1(in=a) A2(in=b);<br />
+    by household;<br />
+    if a AND b;<br />
+run;</p>
+<p>proc print data=merged;<br />
+run;<br />
+PROC SQL;<br />
+     Create table work.merged as<br />
+           select t1.household,  t1.type,t2.gender<br />
+           from a as t1, b as t2<br />
+           where t1.household = t2.household;<br />
+quit;<br />
+proc sort data=merged out=f;<br />
+by type_of_product;<br />
+run;</p>
+<p>data final;<br />
+retain f 0;<br />
+retain m 0;<br />
+set f;<br />
+by type_of_product;<br />
+if gender=&#8221;F&#8221; then f=f+1;<br />
+if gender=&#8221;M&#8221; then m=m+1;<br />
+if last.type_of_product then do;<br />
+if f&gt;m then product_type=&#8221;Female based&#8221;;<br />
+else<br />
+  if m&gt;f then product_type=&#8221;Male based&#8221;;<br />
+else<br />
+	product_type=&#8221;Neutral&#8221;;<br />
+output;<br />
+f=0;<br />
+m=0;<br />
+end;<br />
+drop  household customer gender f m ;<br />
+run;</p>
+<p>proc print data=final;<br />
+run;</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-2817" class="comment odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/e0185b24d21ac0cab4c8c193da6ccf85?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Priya Varshney</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														November 27, 2013 at 3:51 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-2817">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=2817#respond' onclick='return addComment.moveForm("comment-2817", "2817", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Question 1 answer<br />
+Data A;<br />
+Input household $ type_of_product $13.;<br />
+Datalines;<br />
+A savings<br />
+A pension<br />
+A investment<br />
+B term<br />
+B pension<br />
+B investment<br />
+C term<br />
+C pension<br />
+;</p>
+<p>run;<br />
+proc print;<br />
+run;<br />
+Data B;<br />
+input household $ Customer $ gender $;<br />
+datalines;<br />
+A Ken M<br />
+A Seni F<br />
+B Fab M<br />
+C Ron M<br />
+C Mary F<br />
+;<br />
+run;<br />
+Proc sort data = a out =A1; by household;run;<br />
+Proc sort data = b out =A2; by household;run;<br />
+Data MERGED;<br />
+    merge A1(in=a) A2(in=b);<br />
+    by household;<br />
+    if a AND b;<br />
+run;</p>
+<p>proc print data=merged;<br />
+run;<br />
+PROC SQL;<br />
+     Create table work.merged as<br />
+           select t1.household,  t1.type,t2.gender<br />
+           from a as t1, b as t2<br />
+           where t1.household = t2.household;<br />
+quit;<br />
+proc sort data=merged out=f;<br />
+by type_of_product;<br />
+run;</p>
+<p>data final;<br />
+retain f 0;<br />
+retain m 0;<br />
+set f;<br />
+by type_of_product;<br />
+if gender=&#8221;F&#8221; then f=f+1;<br />
+if gender=&#8221;M&#8221; then m=m+1;<br />
+if last.type_of_product then do;<br />
+if f&gt;m then product_type=&#8221;Female based&#8221;;<br />
+else<br />
+  if m&gt;f then product_type=&#8221;Male based&#8221;;<br />
+else<br />
+	product_type=&#8221;Neutral&#8221;;<br />
+output;<br />
+f=0;<br />
+m=0;<br />
+end;<br />
+drop  household customer gender f m ;<br />
+run;</p>
+<p>proc print data=final;<br />
+run;</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-4098" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c43acd916e689f3dd2e90c0575eb4715?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Anders Sköllermo</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														January 1, 2014 at 2:52 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4098">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4098#respond' onclick='return addComment.moveForm("comment-4098", "4098", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi! COMMENT to the answer to &#8220;4. Using where and if : &#8221;</p>
+<p>Suppose SAS-table B (WORK.B) contains a variable B, then the solution  in Code 2 will work:<br />
+ data a;set b;  z= x+y;  /* The old value of Z, which was &lt; 10, will be replaces. */          where z &lt; 10;       run; </p>
+<p>The WHERE-clause should (in my opinion) immediately follow the SET-statement.<br />
+Easy question! Easy answer!</p>
+<p>Basic questions: What data do You have ? What rules do you have? What results do you want ?<br />
+THEN we can start to discuss what is CORRECT and what is (perhaps) &quot;a little less correct&quot;<br />
+ (British English understatement).<br />
+/ Br Anders</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-4265" class="comment odd alt thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/79519dd95495694c29d915a23caeb6fc?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>sandy</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														January 24, 2014 at 4:25 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4265">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4265#respond' onclick='return addComment.moveForm("comment-4265", "4265", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Reply to answer 4 .<br />
+Simple diff b/w IF and WHERE CLAUSE.<br />
+IF works on pdv, where as WHERE works on source and applies conditions so new cant be created in WHERE.<br />
+so there In code2  shows error.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-4274" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c43acd916e689f3dd2e90c0575eb4715?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Anders Sköllermo</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														January 25, 2014 at 5:26 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4274">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4274#respond' onclick='return addComment.moveForm("comment-4274", "4274", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi!   Type error.  My note should read:   &#8220;Suppose SAS-table B (WORK.B) contains a variable Z, &#8230;&#8221;<br />
+(The drawback of writing the answers late at night..).</p>
+<p>In other words: If you have a variable Z and also create a variable Z, then the result depends strongly<br />
+on the use of WERE (the old Z value)  or IF (the newly calculated Z value).</p>
+<p>The programmers show give some thoughts to data structures, what variables are created where, what results are wanted.<br />
+/ Br  Anders</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-4275" class="comment odd alt thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c43acd916e689f3dd2e90c0575eb4715?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Anders Sköllermo</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														January 25, 2014 at 5:30 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4275">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4275#respond' onclick='return addComment.moveForm("comment-4275", "4275", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Case 4: Bottom Line:    Case 2 with WHERE may work  &#8220;fine&#8221;, without any errors at all.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-4288" class="comment even depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														January 26, 2014 at 12:38 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4288">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4288#respond' onclick='return addComment.moveForm("comment-4288", "4288", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Anders,<br />
+Thanks for bringing this up. You are right in saying that in case &#8220;z&#8221; is already a variable of the set data-set, the code won&#8217;t show error. But the objective of bringing this up was that , as sandy quoted, &#8220;IF works on pdv, where as WHERE works on source and applies conditions&#8221; . But that was a sharp catch for sure.</p>
+<p>Tavish</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-4318" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/87f9b2b632d0dddd9ac969570f391d97?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>bhanu</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														January 28, 2014 at 8:30 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4318">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4318#respond' onclick='return addComment.moveForm("comment-4318", "4318", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,</p>
+<p>I do know about base sas and macros but i want to know more about banking projects how it goes on the daily basis.I want to know about the work of the analyst in a banking domain from the scratch.Can u please help me in guiding me as u r also from the same domain.I really appreciate your efforts u r investing  for the young professionals.</p>
+<p>Thanks in Anticipation<br />
+Bhanu</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-4430" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/fadc459460f208648fd509c935240e5f?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Shivi</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														February 10, 2014 at 10:27 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4430">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4430#respond' onclick='return addComment.moveForm("comment-4430", "4430", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Following on email</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-4434" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c43acd916e689f3dd2e90c0575eb4715?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Anders Sköllermo</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														February 10, 2014 at 5:26 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4434">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4434#respond' onclick='return addComment.moveForm("comment-4434", "4434", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi! The real meaning of the WHERE-statement:<br />
+The WHERE statement  is (approximately) a WHERE data set option:<br />
+data a;<br />
+   set b (where=(z &lt; 10));<br />
+   Z= x+y;<br />
+run; </p>
+<p>The WHERE statement cannot be executed conditionally. That is, you cannot use it as part of an IF-THEN statement. (according to SAS9.3 manuals).</p>
+<p> data a;<br />
+     set b;<br />
+     where=z &lt; 10;<br />
+      Z= x+y;<br />
+run;</p>
+<p>Please note that the following is OK (but I would NEVER write like that)<br />
+ data a;<br />
+     where=z &lt; 10;   /* WHERE on SET WORK.B &#8211; not on  WORK.A !   */<br />
+     set b;<br />
+     Z= x+y;<br />
+run;</p>
+<p>The following is OK and works as it should &#8211; BUT DO NOT USE IT !!<br />
+ data work.a;<br />
+      if x=1 then do;<br />
+           where=z &lt; 10;<br />
+     end;   /* The WHERE-part is a declaration and will always be used! */<br />
+     set work.b;<br />
+     z= x+y;<br />
+    run;</p>
+<p>My way of writing SAS programs:  Learn the actual syntax and functionality of all the parts that you use.<br />
+Write very clear SAS-programs with a lot of documentation.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-4436" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c43acd916e689f3dd2e90c0575eb4715?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Anders Sköllermo</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														February 10, 2014 at 9:53 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4436">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4436#respond' onclick='return addComment.moveForm("comment-4436", "4436", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Use WHERE-data set option and IF statement together!</p>
+<p>It can be handy to use the WHERE data set option (perhaps written as the WHERE statement) to restrict what observation are used in the data step   AND  one or several IF statements do do further calculations and selections on these observations, using the newly calculated variables.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-4596" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c372e7c8f4a6e75129c5e04e86c9ea75?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>DaveG</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														March 2, 2014 at 12:22 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4596">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4596#respond' onclick='return addComment.moveForm("comment-4596", "4596", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>hi,</p>
+<p>good set of four questions.</p>
+<p>the proc transpose vs the data step: These programs do the same thing but they are *not* equivalent or equally useful.<br />
+Why?</p>
+<p>The data step as programmed has to have 3 occurences per set, exactly three.<br />
+The Proc transpose works for any number of occurences (and creates any number of variables when ging from thin to wide).</p>
+<p>In practical use this is important and I would not accept the assertion these methods are the same if I heard that in an interview.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-4598" class="comment byuser comment-author-tavish bypostauthor even depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='' rel='external'>Tavish Srivastava</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														March 2, 2014 at 1:06 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4598">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4598#respond' onclick='return addComment.moveForm("comment-4598", "4598", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Dave,<br />
+You made a really good point here. As is, data step and proc transpose do the same job strictly for the data set mentioned in the article. However, if the number of variable increase you need to change the array length.</p>
+<p>But, in case you want to make the array length variable, it is indeed possible. Here is how it can be done,<br />
+1.Replace 3 by &#8220;*&#8221; in array definition.<br />
+2. Make a variable which will take the length of the array.<br />
+3. Use the defined variable in the Do loop.</p>
+<p>Do let me know in case you still disagree.</p>
+<p>Tavish</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-4597" class="comment odd alt thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c372e7c8f4a6e75129c5e04e86c9ea75?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>DaveG</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														March 2, 2014 at 12:24 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4597">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4597#respond' onclick='return addComment.moveForm("comment-4597", "4597", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>BTW it is easy to do example 3 with one datastep and no macro variables. <img src="http://www.analyticsvidhya.com/blog/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> </p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-4599" class="comment byuser comment-author-tavish bypostauthor even depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='' rel='external'>Tavish Srivastava</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														March 2, 2014 at 1:08 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-4599">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=4599#respond' onclick='return addComment.moveForm("comment-4599", "4599", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Dave,<br />
+It will be great for us and our viewers if you illustrate how it can be done in one data-step. I have no doubts that you know such a method <img src="http://www.analyticsvidhya.com/blog/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" />  </p>
+<p>Tavish</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-7622" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/8a57d25c60bd504c6184f993705014c6?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>priya</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														May 12, 2014 at 10:01 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-7622">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=7622#respond' onclick='return addComment.moveForm("comment-7622", "7622", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>alternative solution for case1 using proc sql:</p>
+<p>data one;<br />
+infile datalines;<br />
+input household $ product_type $10.;<br />
+datalines;<br />
+A Savings<br />
+A Pension<br />
+A Investment<br />
+B Term<br />
+B Pension<br />
+B Investment<br />
+C Term<br />
+C Pension<br />
+;</p>
+<p>data two;<br />
+infile datalines;<br />
+input household $ Customer $ Gender $;<br />
+datalines;<br />
+A Ken M<br />
+A Seni F<br />
+B Fab M<br />
+B Ron M<br />
+C Mary F<br />
+;</p>
+<p>proc sort data=one;<br />
+by household;<br />
+run;<br />
+proc sort data=two;<br />
+by household;<br />
+run;</p>
+<p>PROC SQL;      </p>
+<p>Create table work.merged as<br />
+select t1.household,  t1.product_type,t2.gender<br />
+from one as t1, two as t2<br />
+where t1.household = t2.household;</p>
+<p>create table male(drop=gender)<br />
+as select distinct product_type as saving,gender,count(gender) as Male<br />
+from merged<br />
+group by saving,gender<br />
+having gender=&#8217;M&#8217;; </p>
+<p>create table female(drop=gender)<br />
+as select distinct product_type as saving,gender,count(gender) as female<br />
+from merged<br />
+group by saving,gender<br />
+having gender=&#8217;F&#8217;; </p>
+<p>create table joined as select m.saving,male,female,<br />
+case<br />
+when male&gt;female then &#8216;Male-based&#8217;<br />
+when female&gt;male then &#8216;Female-based&#8217;<br />
+else &#8216;Neutral&#8217;<br />
+end as biased<br />
+from male m,female f<br />
+where m.saving=f.saving<br />
+order by saving;<br />
+quit;</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-9226" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/0ec115d20e621ec2f02a128a5aa8abd9?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Aparna Konda</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														May 27, 2014 at 6:20 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-9226">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=9226#respond' onclick='return addComment.moveForm("comment-9226", "9226", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>What is the major difference between Datalines and Cards in SAS programming?</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-9964" class="comment odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/3d8e7c0e4dbe8b04674e4d9e8e92058e?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Shreesh</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 6, 2014 at 5:50 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-9964">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=9964#respond' onclick='return addComment.moveForm("comment-9964", "9964", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Before datalines come in sas cards are used, its a version up-gradation.<br />
+it is also note hat  cards works on infile also.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-10214" class="comment byuser comment-author-kunalj even depth-3 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com' rel='external'>Kunal Jain</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 9, 2014 at 11:02 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-10214">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=10214#respond' onclick='return addComment.moveForm("comment-10214", "10214", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thanks Shreesh</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-12894" class="comment odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/75fc70bf7e917ba145acd3f41c24adaa?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Anu</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 1, 2014 at 12:22 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-12894">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=12894#respond' onclick='return addComment.moveForm("comment-12894", "12894", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>In short: No difference.</p>
+<p>In detail: Before the invention of  terminals/keyboards,  programs (software) and data all were prepared in cards with special punching machines that make holes in the cards to represent numbers and characters. In those years SAS developers used the statement cards to refer data,  indirectly meaning &#8220;beyond this card, data are provided&#8221;. In fact they should have used the term &#8220;datacards&#8221; instead of cards.</p>
+<p>Most of the programs are written once but used repeatedly. Data are varying for each use. So we prepare the programs, of course, in cards. After verifying it works correct  we record the program in Tapes or disks permanently.  Second time on wards we call the program from tape or disks and supply the data via cards. To each job, there will a few cards at the beginning of the card stack that will have job control lines giving information about the storage location and name of the program. Then data follow after a card that carries the message &#8220;cards&#8221;.</p>
+<p>Other than this reason, there is absolutely no difference between cards and datalines.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-10029" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c43acd916e689f3dd2e90c0575eb4715?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Anders</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 7, 2014 at 7:03 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-10029">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=10029#respond' onclick='return addComment.moveForm("comment-10029", "10029", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Comment about CARDS;  and DATALINES;<br />
+In 1976 when SAS was (officially) released, data were read from records 80 bytes broad.<br />
+Often the data were included, so you first had the Data step, which ended with CARDS; statement. After that came the data rows. The end of the data cards / data rows was signalled using RUN;</p>
+<p>DATALINES means exactly the same as CARDS (as far as I know).</p>
+<p>     Often it is better to store the data in a separate file, which you refer to using the INFILE statement. Then specify how to read the data using the INPUT statement. CARDS or DATLINES is not used.<br />
+/ BAr Anders</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-10202" class="comment byuser comment-author-kunalj odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com' rel='external'>Kunal Jain</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 9, 2014 at 9:00 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-10202">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=10202#respond' onclick='return addComment.moveForm("comment-10202", "10202", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thanks Anders for answering the question.</p>
+<p>Regards,<br />
+Kunal</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-10211" class="comment even depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c43acd916e689f3dd2e90c0575eb4715?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Anders</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 9, 2014 at 9:52 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-10211">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=10211#respond' onclick='return addComment.moveForm("comment-10211", "10211", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi! A reply to myself.<br />
+Please note that  INFILE CARDS;   is the default. This means that after the Cards; or Datalines; statement, there will be datalines. (CARDS on the INFILE statement is an option for INFILE).<br />
+/ Br Anders</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        </ol>
+       	
+            </div>
+        
+            <ol class="clearfix" id="pings_list">
+            		<li id="comment-5430" class="pingback even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com/blog/2014/04/tricky-base-sas-interview-questions-part-ii/' rel='external nofollow' class='url'>Tricky Base SAS interview questions : Part-II</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														April 13, 2014 at 11:22 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-5430">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=5430#respond' onclick='return addComment.moveForm("comment-5430", "5430", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>[&#8230;] of our previous articles (<a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/" rel="nofollow">http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/</a>) covers four tricky questions asked in SAS interviews. In this article, I will cover some tricky [&#8230;]</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-7904" class="pingback odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com/blog/2014/05/tricky-interview-questions/' rel='external nofollow' class='url'>4 Tricky R interview questions</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														May 14, 2014 at 12:52 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-7904">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=7904#respond' onclick='return addComment.moveForm("comment-7904", "7904", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>[&#8230;] will give a kick-start to such a thread.  We have a similar series of articles published on SAS (Part 1 and Part 2). Please note that the content of this article is based on the information I gathered [&#8230;]</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13593" class="pingback even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com/blog/2014/07/definitive-guide-prepare-analytics-interview/' rel='external nofollow' class='url'>The definitive guide to prepare for analytics interview</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 8, 2014 at 3:40 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#comment-13593">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/11/4-sas-tricky-analytics-interview/?replytocom=13593#respond' onclick='return addComment.moveForm("comment-13593", "13593", "respond", "1656")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>[&#8230;] Tricky questions on SAS &#8211; part I and part II [&#8230;]</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+        </ol>
+        
+    </div>
+
+
+
+
+
+	<div id="comment-form-wrap" class="clearfix">
+										<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blog/2013/11/4-sas-tricky-analytics-interview/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://www.analyticsvidhya.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author clearfix">
+						<label for="author" class="graphene_form_label">Name: <span class="required">*</span></label>
+						<input id="author" name="author" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-email clearfix">
+						<label for="email" class="graphene_form_label">Email: <span class="required">*</span></label>
+						<input id="email" name="email" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-url clearfix">
+						<label for="url" class="graphene_form_label">Website: </label>
+						<input id="url" name="url" type="text" class="graphene-form-field" value="" />
+					</p>
+												<p class="comment-form-message comment-form-comment clearfix">
+										<label class="graphene_form_label" for="comment">Message: <span class="required">*</span></label>
+										<textarea name="comment" id="comment" cols="40" rows="20" class="graphene-form-field" aria-required="true"></textarea>
+									 </p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Submit Comment" />
+							<input type='hidden' name='comment_post_ID' value='1656' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="c166798621" /></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="182"/></p><div class="clear"></div>					</form>
+							</div><!-- #respond -->
+				</div>
+    
+
+            
+  
+    </div><!-- #content-main -->
+    
+    	
+    
+<div id="sidebar1" class="sidebar grid_5">
+
+	
+    <div id="useful-banner-manager-banners-rotation-3" class="sidebar-wrap clearfix useful_banner_manager_rotation_widget">            <div id="useful-banner-manager-banners-rotation-3" data-interval="5000" class="useful_banner_manager_banners_rotation" style="overflow: hidden; width: 256px; height: 258px;">
+                            <div id="9_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner">
+                                            <a href="http://www.analyticsvidhya.com/blog/category/jobs/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/9-jobsopening1.jpg" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                                <div id="10_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner" style="display: none">
+                                            <a href="http://www.analyticsvidhya.com/blog/2014/06/unveiling-analytics-vidhya-apprentice-programme/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/10-apprentice_4.png" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                            </div>
+            </div>
+
+    <div id="feedburnerformwidget-2" class="sidebar-wrap clearfix widget_feedburnerformwidget">
+    <!-- Plugin Feedburner Form-->
+    <div class="fb-container">
+        <h3>Subscribe</h3>        <div class="fbf-text">
+                Join Analytics Vidhya to continue your learning on Analytics        </div>
+        <form  class="fbf-widget" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=AnalyticsVidhya', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+        <input class="subscription_email" type="text" name="email" placeholder="" /><input type="hidden" value="AnalyticsVidhya" name="uri"/>
+        <input type="hidden" name="loc" value="en_US"/>
+        <input class="subscription_btn" type="submit" value ="OK"/>
+        </form>
+
+    
+    
+    </div>
+    <!-- Plugin Feedburner Form-->
+		</div>
+    <div id="search-2" class="sidebar-wrap clearfix widget_search"><h3>Search Analytics Vidhya</h3><form id="searchform" class="searchform" method="get" action="http://www.analyticsvidhya.com/blog">
+    <p class="clearfix default_searchform">
+        <input type="text" name="s" 
+        	onblur="if (this.value == '') {this.value = 'Search';}" 
+            onfocus="if (this.value == 'Search') {this.value = '';}" 
+            value="Search" />
+        <button type="submit"><span>Search</span></button>
+    </p>
+    </form></div><div id="social-widget-2" class="sidebar-wrap clearfix Social_Widget"><h3>Follow Us!</h3><div class="socialmedia-buttons smw_left"><a href="http://www.facebook.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/facebook.png" 
+				alt="Follow Us on Facebook" 
+				title="Follow Us on Facebook" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.linkedin.com/groups/Analytics-Vidhya-Learn-everything-about-5057165" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/linkedin.png" 
+				alt="Follow Us on LinkedIn" 
+				title="Follow Us on LinkedIn" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://feeds.feedburner.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/rss.png" 
+				alt="Follow Us on RSS" 
+				title="Follow Us on RSS" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://plus.google.com/+analyticsvidhya" rel="publisher" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/googleplus.png" 
+				alt="Follow Us on Google+" 
+				title="Follow Us on Google+" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://twitter.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/twitter.png" 
+				alt="Follow Us on Twitter" 
+				title="Follow Us on Twitter" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.youtube.com/channel/UCH6gDteHtH4hg3o2343iObA" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/youtube.png" 
+				alt="Follow Us on YouTube" 
+				title="Follow Us on YouTube" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a></div></div><div id="wmp_widget-2" class="sidebar-wrap clearfix widget_wmp_widget"><h3>Popular posts</h3><ul>			<li><a href="http://www.analyticsvidhya.com/blog/2013/07/advanced-analytics-certifications/" title="Advanced analytics certifications in India">Advanced analytics certifications in India</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/" title="4 tricky SAS questions commonly asked in interview">4 tricky SAS questions commonly asked in interview</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/start-career-business-analytics/" title="How to start a career in Business Analytics?">How to start a career in Business Analytics?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/03/sas-vs-vs-python-tool-learn/" title="SAS vs. R (vs. Python) &#8211; which tool should I learn?">SAS vs. R (vs. Python) &#8211; which tool should I learn?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/set-analysis-qlikview/" title="Set Analysis in QlikView &#8211; simplified!">Set Analysis in QlikView &#8211; simplified!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/read-books-analysts-or-interested-analytics/" title="Must read books for Analysts (or people interested in Analytics)">Must read books for Analysts (or people interested in Analytics)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/02/aggr/" title="How to Use AGGR () function in Qlikview?">How to Use AGGR () function in Qlikview?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/06/books-data-scientists-or-aspiring-ones/" title="Must have books for data scientists (or aspiring ones)">Must have books for data scientists (or aspiring ones)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/05/planning-late-career-shift-analytics-big-data-prepared/" title="Planning a late career shift to Analytics / Big data? Better be prepared!">Planning a late career shift to Analytics / Big data? Better be prepared!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/tips-crack-guess-estimate-case-study/" title="Tips to crack a guess estimate (Analytics case study)">Tips to crack a guess estimate (Analytics case study)</a></li>
+			</ul></div><div id="text-2" class="sidebar-wrap clearfix widget_text"><h3>Contact Us</h3>			<div class="textwidget"> <form method="post" id="cntctfrm_contact_form" action="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/#cntctfrm_contact_form" enctype="multipart/form-data"><div style="text-align: left; padding-top: 5px;">
+						<label for="cntctfrm_contact_name">Name: <span class="required">*</span></label>
+					</div><div style="text-align: left;">
+						<input class="text" type="text" size="40" value="" name="cntctfrm_contact_name" id="cntctfrm_contact_name" style="text-align: left; margin: 0;" />
+					</div><div style="text-align: left;">
+					<label for="cntctfrm_contact_email">Email Address: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_email" id="cntctfrm_contact_email" style="text-align: left; margin: 0;" />
+				</div>
+			<div style="text-align: left;">
+					<label for="cntctfrm_contact_subject">Subject: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_subject" id="cntctfrm_contact_subject" style="text-align: left; margin: 0;" />
+				</div>
+
+				<div style="text-align: left;">
+					<label for="cntctfrm_contact_message">Message: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<textarea rows="5" cols="30" name="cntctfrm_contact_message" id="cntctfrm_contact_message"></textarea>
+				</div><div style="text-align: left;">
+						<input type="checkbox" value="1" name="cntctfrm_contact_send_copy" id="cntctfrm_contact_send_copy" style="text-align: left; margin: 0;"  />
+						<label for="cntctfrm_contact_send_copy">Send me a copy</label>
+					</div><p class="cptch_block" style="text-align:left;"><br /><input type="hidden" name="cptch_result" value="zcs=" />
+		<input type="hidden" name="cptch_time" value="1408730528" />
+		<input type="hidden" value="Version: 2.4" /><input type="text" autocomplete="off" name="cptch_number" value="" maxlength="1" size="1" style="margin-bottom:0;display:inline;font-size: 12px;width: 40px;" /> &minus; &#116;w&#111; = 0</p><div style="text-align: left; padding-top: 8px;"><input type="hidden" value="send" name="cntctfrm_contact_action"><input type="hidden" value="Version: 3.30" />
+					<input type="hidden" value="en" name="cntctfrm_language">
+					<input type="submit" value="Submit" style="cursor: pointer; margin: 0pt; text-align: center;margin-bottom:10px;" /> 
+				</div>
+				</form></div>
+		</div>		<div id="recent-posts-2" class="sidebar-wrap clearfix widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/step-step-guide-extract-inforation-free-text-unstructured-data/">Step by step guide to extract insights from free text (unstructured data)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/market-mix-modeling/">Market mix modeling &#8211; Simplified!</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/author-identification-challenge/">Bring it on! Analytics Vidhya Author identification challenge</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-analytics-government-agencies-run-better/">How Big data &#038; Analytics can help Government agencies run better?</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/baby-steps-python-performing-exploratory-analysis-python/">Baby steps in Python &#8211; Exploratory analysis in Python (using Pandas)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-big-difference/">Training review &#8211; A Big Data Course with a ‘Big’ Difference from Jigsaw Academy</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/visualizing-market-basket-analysis/">Visualizing product relationships in a market Basket analysis</a>
+						</li>
+				</ul>
+		</div><div id="archives-2" class="sidebar-wrap clearfix widget_archive"><h3>Monthly Archives</h3>		<ul>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/08/'>August 2014</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/07/'>July 2014</a>&nbsp;(70)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/06/'>June 2014</a>&nbsp;(131)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/05/'>May 2014</a>&nbsp;(100)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/04/'>April 2014</a>&nbsp;(16)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/03/'>March 2014</a>&nbsp;(11)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/02/'>February 2014</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/01/'>January 2014</a>&nbsp;(9)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/12/'>December 2013</a>&nbsp;(6)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/11/'>November 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/10/'>October 2013</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/09/'>September 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/08/'>August 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/07/'>July 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/06/'>June 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/05/'>May 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/04/'>April 2013</a>&nbsp;(2)</li>
+		</ul>
+</div><div id="categories-2" class="sidebar-wrap clearfix widget_categories"><h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="http://www.analyticsvidhya.com/blog/category/analytics-vidhya/" title="View all posts filed under Analytics Vidhya">Analytics Vidhya</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="http://www.analyticsvidhya.com/blog/category/big-data/" title="View all posts filed under Big data">Big data</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts filed under Business Analytics">Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/" title="View all posts filed under Business Intelligence">Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-170"><a href="http://www.analyticsvidhya.com/blog/category/jobs/" title="View all posts filed under Jobs">Jobs</a>
+</li>
+	<li class="cat-item cat-item-214"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/" title="Jobs in Business Analytics">Jobs &#8211; Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-215"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/" title="Jobs in Business Intelligence">Jobs &#8211; Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-240"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-web-analytics/" title="View all posts filed under Jobs &#8211; Web Analytics">Jobs &#8211; Web Analytics</a>
+</li>
+	<li class="cat-item cat-item-227"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/" title="View all posts filed under Jobs- Big Data">Jobs- Big Data</a>
+</li>
+	<li class="cat-item cat-item-63"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/" title="View all posts filed under Jobs- MIS">Jobs- MIS</a>
+</li>
+	<li class="cat-item cat-item-396"><a href="http://www.analyticsvidhya.com/blog/category/python-2/" title="View all posts filed under Python">Python</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/" title="View all posts filed under Qlikview">Qlikview</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://www.analyticsvidhya.com/blog/category/sas/" title="View all posts filed under SAS">SAS</a>
+</li>
+	<li class="cat-item cat-item-25"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/" title="View all posts filed under Web Analytics">Web Analytics</a>
+</li>
+		</ul>
+</div><div id="text-3" class="sidebar-wrap clearfix widget_text">			<div class="textwidget"><?php wp_list_categories('feed_image=http://www.analyticsvidhya.com/blog/jobs&feed=XML Feed&optioncount=1&children=0'); ?></div>
+		</div>    
+        
+    
+</div><!-- #sidebar1 -->    
+    
+</div><!-- #content -->
+
+
+
+<div id="footer" class="clearfix">
+    
+        <div id="copyright">
+    	<h3>Copyright</h3>
+		            <p>
+            &copy; 2014 Analytics Vidhya.            </p>
+                
+        
+    	    </div>
+
+		<div class="footer-menu-wrap">
+    	<ul id="footer-menu" class="clearfix">
+			<li id="menu-item-1471" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1471"><a href="http://www.analyticsvidhya.com/blog/about-me/">About us</a></li>
+<li id="menu-item-1472" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1472"><a href="http://www.analyticsvidhya.com/blog/privacy-policy-2/">Privacy Policy</a></li>
+                    	<li class="menu-item return-top"><a href="#">Return to top</a></li>
+                    </ul>
+    </div>
+    	
+        <div id="developer" class="grid_7">
+      <!--  <p>
+        Powered by <a href="http://wordpress.org/">WordPress</a> and the <a href="http://www.graphene-theme.com/">Graphene Theme</a>.        </p>-->
+
+	    </div>
+        
+    </div><!-- #footer -->
+
+
+</div><!-- #container -->
+
+    </div><!-- .bg-gradient -->
+
+	<div style="display:none">
+	<div class="grofile-hash-map-51bf7a2a1f2a0dd3a1012fa4cf5a9e80">
+	</div>
+	<div class="grofile-hash-map-e0185b24d21ac0cab4c8c193da6ccf85">
+	</div>
+	<div class="grofile-hash-map-c43acd916e689f3dd2e90c0575eb4715">
+	</div>
+	<div class="grofile-hash-map-79519dd95495694c29d915a23caeb6fc">
+	</div>
+	<div class="grofile-hash-map-87f9b2b632d0dddd9ac969570f391d97">
+	</div>
+	<div class="grofile-hash-map-fadc459460f208648fd509c935240e5f">
+	</div>
+	<div class="grofile-hash-map-c372e7c8f4a6e75129c5e04e86c9ea75">
+	</div>
+	<div class="grofile-hash-map-51bf7a2a1f2a0dd3a1012fa4cf5a9e80">
+	</div>
+	<div class="grofile-hash-map-8a57d25c60bd504c6184f993705014c6">
+	</div>
+	<div class="grofile-hash-map-0ec115d20e621ec2f02a128a5aa8abd9">
+	</div>
+	<div class="grofile-hash-map-3d8e7c0e4dbe8b04674e4d9e8e92058e">
+	</div>
+	<div class="grofile-hash-map-4881b6eff4a916300c9a785c9f103f24">
+	</div>
+	<div class="grofile-hash-map-75fc70bf7e917ba145acd3f41c24adaa">
+	</div>
+	</div>
+	<!--[if IE 8]>
+    <script type="text/javascript">
+        (function($) {
+            var imgs, i, w;
+            var imgs = document.getElementsByTagName( 'img' );
+            maxwidth = 0.98 * $( '.entry-content' ).width();
+            for( i = 0; i < imgs.length; i++ ) {
+                w = imgs[i].getAttribute( 'width' );
+                if ( w > maxwidth ) {
+                    imgs[i].removeAttribute( 'width' );
+                    imgs[i].removeAttribute( 'height' );
+                }
+            }
+        })(jQuery);
+    </script>
+    <![endif]-->
+<div id="su-footer-links" style="text-align: center;"></div>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/www.analyticsvidhya.com\/blog\/2013\/11\/4-sas-tricky-analytics-interview\/":1656}	</script>
+<script type="text/javascript">
+			jQuery( document ).ready( function() {
+			    jQuery.getScript( '//platform.linkedin.com/in.js?async=true', function success() {
+			        IN.init();
+			    });
+			});
+			jQuery( document.body ).on( 'post-load', function() {
+				if ( typeof IN != 'undefined' )
+					IN.parse();
+			});
+			</script>		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+					<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+					<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script>
+		// Don't use Pocket's default JS as it we need to force init new Pocket share buttons loaded via JS.
+		function jetpack_sharing_pocket_init() {
+			jQuery.getScript( 'https://widgets.getpocket.com/v1/j/btn.js?v=1' );
+		}
+		jQuery( document ).on( 'ready', jetpack_sharing_pocket_init );
+		jQuery( document.body ).on( 'post-load', jetpack_sharing_pocket_init );
+		</script>
+		<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/akismet/_inc/form.js?ver=3.0.1'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201434'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2014Augaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/wpgroho.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/comment-reply.min.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect.min.js?ver=1.10.4'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect-blind.min.js?ver=1.10.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var stbUserOptions = {"mode":"css","cssOptions":{"roundedCorners":true,"mbottom":10,"imgHide":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/minus.png","imgShow":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/plus.png","strHide":"Hide","strShow":"Show"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/js/wstb.js?ver=5.0.86'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=20121205'></script>
+
+	<script src="http://stats.wp.com/e-201434.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.1.1',blog:'58948004',post:'1656',tz:'0'});
+	var load_cmc = function(){linktracker_init(58948004,1656,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script></body>
+</html>

@@ -1,0 +1,1147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head profile="http://gmpg.org/xfn/11">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Using statistics: How to understand population distributions?</title>
+    <link rel="pingback" href="http://www.analyticsvidhya.com/blog/xmlrpc.php" /> 
+    
+<!-- SEO Ultimate (http://www.seodesignsolutions.com/wordpress-seo/) -->
+	<link rel="author" href="kunalj101" />
+	<meta name="description" content="This series lays out various concepts of statistics, which an analyst needs to know. This is part one of the article." />
+	<meta name="keywords" content="Business Analytics,histogram,mean,median,mode,standard deciation,statistics,business,-,understand" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Using statistics: How to understand population distributions?" />
+	<meta property="og:description" content="This series lays out various concepts of statistics, which an analyst needs to know. This is part one of the article." />
+	<meta property="og:url" content="http://www.analyticsvidhya.com/blog/2014/07/statistics/" />
+	<meta property="article:published_time" content="2014-07-21" />
+	<meta property="article:modified_time" content="2014-07-22" />
+	<meta property="article:author" content="http://www.analyticsvidhya.com/blog/author/kunalj/" />
+	<meta property="article:section" content="Business Analytics" />
+	<meta property="article:tag" content="histogram" />
+	<meta property="article:tag" content="mean" />
+	<meta property="article:tag" content="median" />
+	<meta property="article:tag" content="mode" />
+	<meta property="article:tag" content="standard deciation" />
+	<meta property="article:tag" content="statistics" />
+	<meta property="og:site_name" content="Analytics Vidhya" />
+	<meta name="twitter:card" content="summary" />
+<!-- /SEO Ultimate -->
+
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Feed" href="http://www.analyticsvidhya.com/blog/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Comments Feed" href="http://www.analyticsvidhya.com/blog/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Using statistics: How to understand population distributions? Comments Feed" href="http://www.analyticsvidhya.com/blog/2014/07/statistics/feed/" />
+	<script type="text/javascript">
+	WebFontConfig = {
+		google: { families: ['Pontano+Sans::latin'] }
+	};
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})(); 
+    </script>
+    <link rel='stylesheet' id='jetpack-subscriptions-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/subscriptions/subscriptions.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='fb_data_style-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/feedburner-form/control/fbstyle.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='cntctfrm_stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/contact-form-plugin/css/style.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='social-widget-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/social_widget.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widgets-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20121003' type='text/css' media='all' />
+<link rel='stylesheet' id='graphene-stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/style.css?ver=3.9.2' type='text/css' media='screen' />
+<link rel='stylesheet' id='stbCoreCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/stb-core.css?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='stbCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/wp-special-textboxes.css.php?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='sharedaddy-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.css?ver=3.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css?ver=3.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/useful-banner-manager/scripts.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/jquery.tools.min.js?ver=3.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var grapheneJS = {"templateUrl":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/themes\/graphene","isSingular":"1","shouldShowComments":"1","commentsOrder":"newest","sliderDisable":"","sliderAnimation":"fade","sliderTransSpeed":"400","sliderInterval":"7000","sliderDisplay":"bgimage-excerpt","infScroll":"","infScrollClick":"","infScrollComments":"","totalPosts":"1","postsPerPage":"15","isPageNavi":"","infScrollMsgText":"Fetching window.grapheneInfScrollItemsPerPage more item from window.grapheneInfScrollItemsLeft left ...","infScrollMsgTextPlural":"Fetching window.grapheneInfScrollItemsPerPage more items from window.grapheneInfScrollItemsLeft left ...","infScrollFinishedText":"No more items to fetch","commentsPerPage":"50","totalComments":"10","infScrollCommentsMsg":"Fetching window.grapheneInfScrollCommentsPerPage more top level comment from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsMsgPlural":"Fetching window.grapheneInfScrollCommentsPerPage more top level comments from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsFinishedMsg":"No more comments to fetch"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/graphene.js?ver=3.9.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.analyticsvidhya.com/blog/xmlrpc.php?rsd" />
+<link rel='prev' title='Practice Leader &#8211; Procurement Analytics (Sourcing Analytics), Bangalore (12+ yrs. experience)' href='http://www.analyticsvidhya.com/blog/2014/07/practice-leader-procurement-analytics-sourcing-analytics-bangalore-12-yrs-experience/' />
+<link rel='next' title='Data Scientists – paytm &#8211; Noida' href='http://www.analyticsvidhya.com/blog/2014/07/data-scientists-paytm-noida/' />
+<link rel='canonical' href='http://www.analyticsvidhya.com/blog/2014/07/statistics/' />
+<link rel='shortlink' href='http://wp.me/p3Zl4g-1jX' />
+<!-- WordPress Most Popular --><script type="text/javascript">/* <![CDATA[ */ jQuery.post("http://www.analyticsvidhya.com/blog/wp-admin/admin-ajax.php", { action: "wmp_update", id: 5081, token: "a4d0601573" }); /* ]]> */</script><!-- /WordPress Most Popular --><style type="text/css">
+#header-menu-wrap{ background: #0F2D4D; background: -moz-linear-gradient(#2880C3, #0F2D4D); background: -webkit-linear-gradient(#2880C3, #0F2D4D); background: -o-linear-gradient(#2880C3, #0F2D4D); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#0F2D4D')"; background: linear-gradient(#2880C3, #0F2D4D); }#header-menu ul li:hover,#header-menu ul li.current-menu-item,#header-menu ul li.current-menu-ancestor,.primary-menu-preview.dropdown ul li.current-menu-item,.primary-menu-preview.dropdown ul li.current-menu-ancestor{ background: #212121; background: -moz-linear-gradient(#2880C3, #212121); background: -webkit-linear-gradient(#2880C3, #212121); background: -o-linear-gradient(#2880C3, #212121); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#212121')"; background: linear-gradient(#2880C3, #212121); }#sidebar_bottom .sidebar-wrap{width:440px}#nav li ul{width:200px} #nav li ul ul{margin-left:200px}#header-menu ul li a, #secondary-menu ul li a{width:180px}.post-title a, .post-title a:visited{display:block;margin-right:45px;padding-bottom:0}#header{height:90px}
+</style>
+	<!--[if lte IE 7]>
+      <style type="text/css" media="screen">
+      	#footer, div.sidebar-wrap, .block-button, .featured_slider, #slider_root, #nav li ul, .pie{behavior: url(http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/PIE.php);}
+        .featured_slider{margin-top:0 !important;}
+        #header-menu-wrap {z-index:5}
+      </style>
+    <![endif]-->
+    <link rel="author" href="https://plus.google.com/104124395851770316607" title="Kunal Jain on Google+" /> 
+    <!-- BEGIN Google Analytics script -->
+    	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40101183-1', 'analyticsvidhya.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40101183-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>    <!-- END Google Analytics script -->
+    </head>
+<body class="single single-post postid-5081 single-format-standard two_col_left two-columns">
+
+<div class="bg-gradient">
+
+
+<div id="container" class="container_16">
+    
+    
+        <div id="header">
+    	
+        <img src="http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/images/headers/fluid.jpg" alt="" width="960" height="90" class="header-img" />        	       
+        		
+        			<h2 class="header_title push_1 grid_15">				<a href="http://www.analyticsvidhya.com/blog" title="Go back to the front page">					Analytics Vidhya				</a>			</h2>			
+            <h3 class="header_desc push_1 grid_15">				Learn everything about Analytics			</h3>                
+		    </div>
+    <div id="nav">
+                <div id="header-menu-wrap" class="clearfix">
+			<ul id="header-menu" class="menu clearfix"><li id="menu-item-1463" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a href="http://www.analyticsvidhya.com/blog/"><strong>Home</strong></a></li>
+<li id="menu-item-1464" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/about-me/"><strong>About us</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-1561" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/team/">Our team</a></li>
+	<li id="menu-item-3817" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/write/">Write for us</a></li>
+	<li id="menu-item-4067" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/analytics-vidhya-apprentice-programme/">AV Apprentice</a></li>
+</ul>
+</li>
+<li id="menu-item-2474" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/big-data/"><strong>Big data</strong></a></li>
+<li id="menu-item-2475" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/"><strong>Business Analytics</strong></a></li>
+<li id="menu-item-2476" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/"><strong>Business Intelligence</strong></a></li>
+<li id="menu-item-2477" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/"><strong>Qlikview</strong></a></li>
+<li id="menu-item-2478" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/sas/"><strong>SAS</strong></a></li>
+<li id="menu-item-2479" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/"><strong>Web Analytics</strong></a></li>
+<li id="menu-item-2616" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/category/jobs/"><strong>Jobs</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-2760" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/">Jobs &#8211; Business Analytics</a></li>
+	<li id="menu-item-2761" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/">Jobs &#8211; Business Intelligence</a></li>
+	<li id="menu-item-2762" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/">Jobs- Big Data</a></li>
+	<li id="menu-item-2763" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/">Jobs- MIS</a></li>
+</ul>
+</li>
+</ul>            
+            <div class="clear"></div>
+            
+			            
+                    
+        </div>
+		
+                
+        <div class="menu-bottom-shadow">&nbsp;</div>
+
+
+        
+    </div>
+
+    
+    <div id="content" class="clearfix hfeed">
+                
+                
+        <div id="content-main" class="clearfix grid_11">
+        
+	
+	<div class="post-nav clearfix">
+		<p class="previous">&laquo; <a href="http://www.analyticsvidhya.com/blog/2014/07/practice-leader-procurement-analytics-sourcing-analytics-bangalore-12-yrs-experience/" rel="prev">Practice Leader &#8211; Procurement Analytics (Sourcing Analytics), Bangalore (12+ yrs. experience)</a></p>
+		<p class="next-post"><a href="http://www.analyticsvidhya.com/blog/2014/07/data-scientists-paytm-noida/" rel="next">Data Scientists – paytm &#8211; Noida</a> &raquo;</p>
+			</div>
+	        
+<div id="post-5081" class="post-5081 post type-post status-publish format-standard hentry category-business-analytics tag-histogram tag-mean tag-median tag-mode tag-standard-deciation tag-statistics clearfix post">
+	
+		
+	<div class="entry clearfix">
+    	
+                    	<div class="date updated alpha with-year">
+        	<span class="value-title" title="2014-07-21T20:40" />
+            <p class="default_date">
+            	<span class="month">Jul</span>
+                <span class="day">21</span>
+                	                <span class="year">2014</span>
+                            </p>
+                    </div>
+    		
+        <div class="post-avatar-wrap gutter-left"><img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=45&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D45&amp;r=G' class='avatar avatar-45 photo' height='45' width='45' /></div>        
+                
+                
+		        <h1 class="post-title entry-title">
+			Using statistics: How to understand population distributions?			        </h1>
+		
+				<div class="post-meta clearfix">
+			
+									<span class="printonly">Categories: </span>
+			<p class="meta_categories"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts in Business Analytics" rel="category tag">Business Analytics</a></p>
+						
+									
+									
+									<p class="post-author author vcard">
+				by <span class="fn nickname"><a href="http://www.analyticsvidhya.com/blog/author/kunalj/" class="url">Kunal Jain</a></span>			</p>
+											
+						
+					</div>
+		
+				<div class="entry-content clearfix">
+							
+										
+						<p>One of the common queries, which I get on the blog is:</p>
+<blockquote>
+<p style="text-align: center;"><em>I am not a Mathematics / Statistics graduate. Can I still become a good business analyst?</em></p>
+</blockquote>
+<p style="text-align: center;">or</p>
+<blockquote>
+<p style="text-align: center;"><em>I am not good at statistics. Can I still change my career to become a business analyst?</em></p>
+</blockquote>
+<p style="text-align: justify;">The simple answer to the question is -<strong> you can&#8217;t become a good analyst until you know statistics. However, you don&#8217;t need to be an expert in statistics to become a good business analyst.</strong></p>
+<p style="text-align: justify;">So, you don&#8217;t need to understand the joke in the strip, in order to qualify as a business analyst:</p>
+<p><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/xkcd_seashell.png"><img class="aligncenter wp-image-5087" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/xkcd_seashell.png" alt="xkcd_seashell" width="255" height="350" /></a></p>
+<p>&nbsp;</p>
+<h3><strong>Two types of Business Analytics:</strong></h3>
+<p style="text-align: justify;">Business anlaytics can be divided in two classes &#8211; applied business analytics and theoretical business analytics. Here are definitions of the two streams:</p>
+<ol>
+<li style="text-align: justify;"><strong>Applied Business Analytics</strong> &#8211; This is the work, where the emphasis is to solve a problem at hand. What matters is that you have a strategy / algorithm, which is better than what is happening currently. You deal with practical problems in this stream &#8211; messy data, missing values, bad data capture etc. More than 95% of times, you would typically use the algorithm and outputs straight from the tools. As long as you are aware of the assumptions in your model, can check whether they are holding good and interpret the output of the algorithms correctly, you are good for applied business analytics.
+<ul>
+<li>For example, if you know the assumptions in Linear regression and can interpret what is R-square and adjusted R-square, you would be good to apply Linear Regression.</li>
+</ul>
+</li>
+<li style="text-align: justify;"><strong>Theoretical Business Analytics</strong> &#8211; This is the research area in business analytics. When you have a problem, where current set of algorithms are already optimized and applying standard techniques would not provide you any further uplift. This is when, you need to get into statistical details of various algorithms and then improve them.</li>
+</ol>
+<p><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/categories-of-business-analytics.png"><img class="aligncenter wp-image-5097" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/categories-of-business-analytics.png" alt="categories of business analytics" width="600" height="325" /></a></p>
+<p>&nbsp;</p>
+<p style="text-align: justify;">Please note that this is not a standard categorization of Business Analytics and it might be difficult to identify some projects in exact buckets. However, it is good enough to communicate the point that you can deal with most of the business analytics problems with basic knowledge of statistics.</p>
+<h3><strong>What does an analyst need to know?</strong></h3>
+<p style="text-align: justify;">Now, that you understand the two classes of business analytics, here is some good news! You don&#8217;t need to be a statistician to practice applied business analytics.</p>
+<p style="text-align: justify;">So, what exactly do you need to know to become an applied business analytics practitioner? I thought why not run a series of articles explaining the basic concepts of statistics, an applied BA practitioner needs to know.</p>
+<p style="text-align: justify;">Please note that this series is not intended to be a thesis on statistics. Instead, it takes a very practical outlook to apply statistics to solve business problems.</p>
+<p>&nbsp;</p>
+<h3><strong>Concepts to understand population distributions:</strong></h3>
+<p style="text-align: justify;">One of the first things a business analyst needs to do is understand various distributions of parameters and population.</p>
+<p style="text-align: justify;">One of the most frequently used method to understand distributions is to plot them using <strong>histograms</strong>. A histogram represents frequencies of various values through a plot in uniform buckets (popularly known as bins). In case of continuous variables, a histogram represents the probability distribution function (we will cover this later). If you want an example of how histogram is plotted, you can look at <a href="https://www.khanacademy.org/math/pre-algebra/applying-math-reasoning-topic/reading_data/v/histograms" target="_blank">this video</a> from Khanacademy. Here is how a typical histogram might look like:</p>
+<div id="attachment_5088" style="width: 410px" class="wp-caption aligncenter"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/histogram_example.png"><img class="wp-image-5088" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/histogram_example.png" alt="Example of histogram. Source: Wikipedia" width="400" height="338" /></a><p class="wp-caption-text">Example of histogram. Source: Wikipedia</p></div>
+<p>There are 3 variety of measures, required to understand a distribution:</p>
+<ul>
+<li>Measure of Central tendency</li>
+<li>Measure of dispersion</li>
+<li>Measure to describe shape of curve</li>
+</ul>
+<h4><strong>Measures of Central tendency:</strong></h4>
+<p>Measures of central tendencies are measures, which help you describe a population, through a single metric. For example, if you were to compare Saving habits of people across various nations, you will compare average Savings rate in each of these nations.</p>
+<p>Following are the measures of central tendency:</p>
+<ul>
+<li>Mean &#8211; or the average</li>
+<li>Median &#8211; the value, which divides the population in two half</li>
+<li>Mode &#8211; the most frequent value in a population</li>
+</ul>
+<p>The following image illustrates how mean, median and mode would be placed in a couple of scenarios:</p>
+<p><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/central_tendency.gif"><img class="aligncenter size-full wp-image-5090" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/central_tendency.gif" alt="central_tendency" width="294" height="220" /></a></p>
+<p>Among the three measures, mean is typically affected the most by Outliers (unusually high or low values), followed by the median and mode.</p>
+<h4><strong>Measures of Dispersion:</strong></h4>
+<p style="text-align: justify;">Measures of dispersion reveal how is the population distributed around the measures of central tendency.</p>
+<ul>
+<li style="text-align: justify;"><strong>Range</strong> &#8211; Difference in the maximum and minimum value in the population</li>
+<li style="text-align: justify;"><strong>Quartiles</strong> &#8211; Values, which divide the populaiton in 4 equal subsets (typically referred to as first quartile, second quartile and third quartile)</li>
+<li style="text-align: justify;"><strong>Inter-quartile range </strong>- The difference in third quartile (Q3) and first quartile (Q1). By definition of quartiles, 50% of the population lies in the inter-quartile range.</li>
+<li style="text-align: justify;"><strong>Variance: </strong><span style="color: #000000;">The average of the </span>squared<span style="color: #000000;"> differences from the Mean.</span></li>
+<li><strong>Standard Deviation:</strong> is square root of Variance</li>
+</ul>
+<div id="attachment_5092" style="width: 410px" class="wp-caption aligncenter"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/standard_deviation.png"><img class="wp-image-5092 size-full" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/standard_deviation.png" alt="standard_deviation" width="400" height="296" /></a><p class="wp-caption-text">Difference in distribution of 2 populations with same mean, median and mode. Source: Wikipedia</p></div>
+<p>&nbsp;</p>
+<h4><strong>Measures to describe shape of distribution:</strong></h4>
+<ul>
+<li><strong>Skewness</strong> - Skewness is a measure of the asymmetry. Negatively skewed curve has a long left tail and vice versa.</li>
+<li><strong>Kurtosis</strong> - <span style="color: #000000;">Kurtosis is a measure of the &#8220;peaked ness&#8221;. Distributions with higher peaks have positive kurtosis and vice-versa</span></li>
+</ul>
+<p><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/skewness-and-kurtosis.gif"><img class="aligncenter size-full wp-image-5100" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/skewness-and-kurtosis.gif" alt="skewness and kurtosis" width="489" height="325" /></a></p>
+<p>&nbsp;</p>
+<p><strong>A few practical tips to understand distributions better:</strong></p>
+<ul>
+<li><strong>Use of box plots:</strong> Box plots are one of the easiest and most intuitive way to understand distributions. They show mean, median, quartiles and Outliers on single plot.</li>
+</ul>
+<p><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/box-plot.gif"><img class="aligncenter size-full wp-image-5103" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/box-plot.gif" alt="box plot" width="343" height="342" /></a></p>
+<ul>
+<li style="text-align: justify;">You can use box plots next to each other for various categories / segments of population to understand overlap / differences in the population. Following is an example of one such comparison (with illustrative data):</li>
+</ul>
+<p style="text-align: justify;"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/box_plot_comparison.png"><img class="aligncenter wp-image-5104" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/box_plot_comparison.png" alt="box_plot_comparison" width="400" height="401" /></a>In this post, we looked use of statistics to plot and understand distributions of populations &#8211; first steps for any business analyst to do in a project. In the articles to follow in this series, we will look at use of confidence intervals, hypothesis testing, probabilities and measures to judge various predictive models. If you would want me to cover more topics, please let me know through comments below.</p>
+<p style="text-align: justify;">In the article next week (from baby steps in Python series), we will see how to look at these measures and distributions using Python on a Kaggle dataset.</p>
+<h3><strong>If you like what you just read &amp; want to continue your analytics learning, <a href="http://feedburner.google.com/fb/a/mailverify?uri=analyticsvidhya">subscribe to our emails</a>, <a href="http://twitter.com/analyticsvidhya">follow us on twitter</a> or like our <a href="http://facebook.com/analyticsvidhya">facebook page</a>.</strong></h3>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-linkedin"><div class="linkedin_button"><script type="in/share" data-url="http://www.analyticsvidhya.com/blog/2014/07/statistics/" data-counter="right"></script></div></li><li class="share-facebook"><div class="like_button"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Fstatistics%2F&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;height=21&amp;locale=en_US&amp;width=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:96px; height:21px;" allowTransparency="true"></iframe></div></li><li class="share-google-plus-1"><div class="googleplus1_button"><div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.analyticsvidhya.com/blog/2014/07/statistics/"></div></div></li><li class="share-twitter"><div class="twitter_button"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Fstatistics%2F&#038;counturl=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Fstatistics%2F&#038;count=horizontal&#038;text=Using%20statistics%3A%20How%20to%20understand%20population%20distributions%3F%3A" style="width:101px; height:20px;"></iframe></div></li><li class="share-pocket"><div class="pocket_button"><a href="https://getpocket.com/save" class="pocket-btn" data-lang="en" data-save-url="http://www.analyticsvidhya.com/blog/2014/07/statistics/" data-pocket-count="horizontal" >Pocket</a></div></li><li class="share-reddit"><div class="reddit_button"><iframe src="http://www.reddit.com/static/button/button1.html?width=120&amp;url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Fstatistics%2F&amp;title=Using%20statistics%3A%20How%20to%20understand%20population%20distributions%3F" height="22" width="120" scrolling="no" frameborder="0"></iframe></div></li><li class="share-stumbleupon"><div class="stumbleupon_button"><iframe src="http://www.stumbleupon.com/badge/embed/1/?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Fstatistics%2F&amp;title=Using%20statistics%3A%20How%20to%20understand%20population%20distributions%3F" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:74px; height: 18px;" allowTransparency="true"></iframe></div></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-social sd-gplus"><h3 class="sd-title">Google+</h3><div class="sd-content"><a href="https://plus.google.com/104124395851770316607"><img src="https://lh4.googleusercontent.com/-AnvVu1XLr6Q/AAAAAAAAAAI/AAAAAAAABy0/QycPN7inY2k/photo.jpg?sz=40" alt="Kunal Jain" width="20" height="20" align="absmiddle" /> </a><a rel="author" href="https://plus.google.com/104124395851770316607" class="gplus-profile">Kunal Jain</a><span class="g-follow-wrapper"><span class="g-follow" data-href="https://plus.google.com/104124395851770316607" data-rel="author" data-height="15"></span></span></div></div>			
+						
+						
+		</div>
+		
+				<div class="entry-footer clearfix">
+										<p class="post-tags">Tags: <a href="http://www.analyticsvidhya.com/blog/tag/histogram/" rel="tag">histogram</a>, <a href="http://www.analyticsvidhya.com/blog/tag/mean/" rel="tag">mean</a>, <a href="http://www.analyticsvidhya.com/blog/tag/median/" rel="tag">median</a>, <a href="http://www.analyticsvidhya.com/blog/tag/mode/" rel="tag">mode</a>, <a href="http://www.analyticsvidhya.com/blog/tag/standard-deciation/" rel="tag">standard deciation</a>, <a href="http://www.analyticsvidhya.com/blog/tag/statistics/" rel="tag">statistics</a></p>
+						
+			<div class="add-this-right"></div>			
+					</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="comments" class="clearfix no-ping">
+        	<h4 class="comments current">14 comments</h4>
+	        
+        	<p class="comment-form-jump"><a href="#respond">Skip to comment form</a> &darr;</p>
+	
+	
+	    <div class="comments-list-wrapper">
+        <ol class="clearfix" id="comments_list">
+            		<li id="comment-14730" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4a06a5b67fd901e4fb082fc161761ab9?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Shreenag Haranhalli</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 22, 2014 at 5:50 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14730">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14730#respond' onclick='return addComment.moveForm("comment-14730", "14730", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thank you for a lovely insight . I have just started my career as a data analyst so i would like to ask you are there any books or courses that i can do to enhance my statistics skills ?</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-14739" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c7490c892d3ca79d305838c6ccffc169?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Chirag Pradhan</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 22, 2014 at 8:49 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14739">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14739#respond' onclick='return addComment.moveForm("comment-14739", "14739", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Precise and to the point.  Your blog is such a treasure trove. Looking forward to read more on this topic.  Thanks Kunal</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-14746" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/ebbc2e3887f201e87058fb9f4090ebaa?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Parul</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 22, 2014 at 10:37 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14746">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14746#respond' onclick='return addComment.moveForm("comment-14746", "14746", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thanks Kunal, </p>
+<p>helpful article, Can you explain same things using SAS ?<br />
+If possible, please explain a bit more about kurtosis and what is the physical significance of it along with skewness ?</p>
+<p>Also, by looking at default output of means procedure in SAS, what story can we tell to the client ? Can you please answer this to make me understand how to interpret the results. I know we get N, min, max, std and mean as default but how to tell a story using these to the third person is what I want to understand .</p>
+<p>Any enlightment would be of great help.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-14881" class="comment byuser comment-author-kunalj bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com' rel='external'>Kunal Jain</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 24, 2014 at 7:34 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14881">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14881#respond' onclick='return addComment.moveForm("comment-14881", "14881", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Parul,</p>
+<p>Getting the output from SAS is very easy, you can use proc means and proc univariate.</p>
+<p>With regards to the story, stay tuned for the next article.</p>
+<p>Regards,<br />
+Kunal</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-14796" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/fc1832a6b5cb916cb4e81759bc13ad42?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Mahendra</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 23, 2014 at 1:49 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14796">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14796#respond' onclick='return addComment.moveForm("comment-14796", "14796", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Skewness and Kurtosis,if Both values close to 0 expect normal distribution.<br />
+practically impossible to get 0.Distribution plays pivotal role for example if my dependant variable is having 97% zero that makes possions and 3% $amount making it continous it means distribution is composed of Poisson&#8217;s (1) and gamma (2)<br />
+somewhere between 1~2 .</p>
+<p>hence if i m predicting any value ,no algorithm can give me a clear output of Zero<br />
+hence treatment require specific algorithm</p>
+<p>hope it gives some light</p>
+<p>thanks</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-14879" class="comment byuser comment-author-kunalj bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com' rel='external'>Kunal Jain</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 24, 2014 at 7:30 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14879">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14879#respond' onclick='return addComment.moveForm("comment-14879", "14879", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thanks Mahendra!</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-14829" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/6e3824453f4a7bd3e6a73c93b08a2978?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Harsh Beria</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 24, 2014 at 4:24 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14829">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14829#respond' onclick='return addComment.moveForm("comment-14829", "14829", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>I liked the article but there are some technical short comings in it. What you have shown is not a box plot but a modified box plot or a whisker plot. It would have been better if you specified lower and upper whisker length.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-14874" class="comment byuser comment-author-kunalj bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com' rel='external'>Kunal Jain</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 24, 2014 at 7:18 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14874">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14874#respond' onclick='return addComment.moveForm("comment-14874", "14874", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thanks Harsh for pointing it out. It is indeed a box and a whisker plot, with a length equal to 1.5 x IQR above and below the box.</p>
+<p>The idea of the article is to provide people enough tools to get them started on the subject. By no means, these articles contain all the technical details.</p>
+<p>Regards,<br />
+Kunal</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-14863" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/9c130be674b6a385d54995bdfc6712e6?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>sujatha</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 24, 2014 at 3:00 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14863">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14863#respond' onclick='return addComment.moveForm("comment-14863", "14863", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi, </p>
+<p>I am MCA Graguate. I would like to learn analytics. can i become a business Analytics / Data Analytics. Because totally differ from my curriculum and  career. Do I get the job opportunity?  how will be the exposure in this field. Can you please assist further on this. </p>
+<p>Thanks</p>
+<p>Sujatha.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-14871" class="comment byuser comment-author-kunalj bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com' rel='external'>Kunal Jain</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 24, 2014 at 7:08 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14871">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14871#respond' onclick='return addComment.moveForm("comment-14871", "14871", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Sujatha,</p>
+<p>There is nothing which stops you from becoming a business analytics. You can become one, if you devote the right time and make the right efforts. Don&#8217;t expect to get short term results &#8211; give yourself time of about 1 &#8211; 2 years and undergo various courses and certifications. Practice problems, network with relevant people &#8211; over time you can become an analyst. Don&#8217;t expect a short term gain or journey here.</p>
+<p>Regards,<br />
+Kunal</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-14967" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/9c130be674b6a385d54995bdfc6712e6?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Sujatha</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 25, 2014 at 3:29 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-14967">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=14967#respond' onclick='return addComment.moveForm("comment-14967", "14967", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thanks Kunal</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-15313" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/ca55375c7af7632efc0e5cffb12b7096?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Alessandra</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 29, 2014 at 11:36 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-15313">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=15313#respond' onclick='return addComment.moveForm("comment-15313", "15313", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Udacity has some good statstics courses, free of charge.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-15377" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/7334bcd43ffd3caae8c43ec239daed3e?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Nitin Kumar</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 30, 2014 at 11:15 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-15377">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=15377#respond' onclick='return addComment.moveForm("comment-15377", "15377", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>The article above is very meaningful and very precise for any Statistic learners.<br />
+Looking forward for some more articles on other part of this subject with some examples.<br />
+Nitin</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-16900" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c4299a9fed5e6bae590feaa23f5bf13f?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Fazal</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														August 16, 2014 at 5:17 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/statistics/#comment-16900">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/statistics/?replytocom=16900#respond' onclick='return addComment.moveForm("comment-16900", "16900", "respond", "5081")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi,<br />
+Kunal.  I&#8217;ve just seen your   post.Its really interesting.Do you have experience  of  applying predictive analytic for analysis. please give some insight into its current applications and related careers in business.<br />
+I am waiting.<br />
+Good luck,<br />
+Fazal</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+        </ol>
+       	
+            </div>
+        
+        
+    </div>
+
+
+
+
+
+	<div id="comment-form-wrap" class="clearfix">
+										<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blog/2014/07/statistics/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://www.analyticsvidhya.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author clearfix">
+						<label for="author" class="graphene_form_label">Name: <span class="required">*</span></label>
+						<input id="author" name="author" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-email clearfix">
+						<label for="email" class="graphene_form_label">Email: <span class="required">*</span></label>
+						<input id="email" name="email" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-url clearfix">
+						<label for="url" class="graphene_form_label">Website: </label>
+						<input id="url" name="url" type="text" class="graphene-form-field" value="" />
+					</p>
+												<p class="comment-form-message comment-form-comment clearfix">
+										<label class="graphene_form_label" for="comment">Message: <span class="required">*</span></label>
+										<textarea name="comment" id="comment" cols="40" rows="20" class="graphene-form-field" aria-required="true"></textarea>
+									 </p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Submit Comment" />
+							<input type='hidden' name='comment_post_ID' value='5081' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="6529f9225a" /></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="232"/></p><div class="clear"></div>					</form>
+							</div><!-- #respond -->
+				</div>
+    
+
+            
+  
+    </div><!-- #content-main -->
+    
+    	
+    
+<div id="sidebar1" class="sidebar grid_5">
+
+	
+    <div id="useful-banner-manager-banners-rotation-3" class="sidebar-wrap clearfix useful_banner_manager_rotation_widget">            <div id="useful-banner-manager-banners-rotation-3" data-interval="5000" class="useful_banner_manager_banners_rotation" style="overflow: hidden; width: 256px; height: 258px;">
+                            <div id="10_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner">
+                                            <a href="http://www.analyticsvidhya.com/blog/2014/06/unveiling-analytics-vidhya-apprentice-programme/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/10-apprentice_4.png" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                                <div id="9_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner" style="display: none">
+                                            <a href="http://www.analyticsvidhya.com/blog/category/jobs/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/9-jobsopening1.jpg" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                            </div>
+            </div>
+
+    <div id="feedburnerformwidget-2" class="sidebar-wrap clearfix widget_feedburnerformwidget">
+    <!-- Plugin Feedburner Form-->
+    <div class="fb-container">
+        <h3>Subscribe</h3>        <div class="fbf-text">
+                Join Analytics Vidhya to continue your learning on Analytics        </div>
+        <form  class="fbf-widget" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=AnalyticsVidhya', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+        <input class="subscription_email" type="text" name="email" placeholder="" /><input type="hidden" value="AnalyticsVidhya" name="uri"/>
+        <input type="hidden" name="loc" value="en_US"/>
+        <input class="subscription_btn" type="submit" value ="OK"/>
+        </form>
+
+    
+    
+    </div>
+    <!-- Plugin Feedburner Form-->
+		</div>
+    <div id="search-2" class="sidebar-wrap clearfix widget_search"><h3>Search Analytics Vidhya</h3><form id="searchform" class="searchform" method="get" action="http://www.analyticsvidhya.com/blog">
+    <p class="clearfix default_searchform">
+        <input type="text" name="s" 
+        	onblur="if (this.value == '') {this.value = 'Search';}" 
+            onfocus="if (this.value == 'Search') {this.value = '';}" 
+            value="Search" />
+        <button type="submit"><span>Search</span></button>
+    </p>
+    </form></div><div id="social-widget-2" class="sidebar-wrap clearfix Social_Widget"><h3>Follow Us!</h3><div class="socialmedia-buttons smw_left"><a href="http://www.facebook.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/facebook.png" 
+				alt="Follow Us on Facebook" 
+				title="Follow Us on Facebook" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.linkedin.com/groups/Analytics-Vidhya-Learn-everything-about-5057165" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/linkedin.png" 
+				alt="Follow Us on LinkedIn" 
+				title="Follow Us on LinkedIn" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://feeds.feedburner.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/rss.png" 
+				alt="Follow Us on RSS" 
+				title="Follow Us on RSS" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://plus.google.com/+analyticsvidhya" rel="publisher" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/googleplus.png" 
+				alt="Follow Us on Google+" 
+				title="Follow Us on Google+" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://twitter.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/twitter.png" 
+				alt="Follow Us on Twitter" 
+				title="Follow Us on Twitter" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.youtube.com/channel/UCH6gDteHtH4hg3o2343iObA" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/youtube.png" 
+				alt="Follow Us on YouTube" 
+				title="Follow Us on YouTube" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a></div></div><div id="wmp_widget-2" class="sidebar-wrap clearfix widget_wmp_widget"><h3>Popular posts</h3><ul>			<li><a href="http://www.analyticsvidhya.com/blog/2013/07/advanced-analytics-certifications/" title="Advanced analytics certifications in India">Advanced analytics certifications in India</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/" title="4 tricky SAS questions commonly asked in interview">4 tricky SAS questions commonly asked in interview</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/start-career-business-analytics/" title="How to start a career in Business Analytics?">How to start a career in Business Analytics?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/03/sas-vs-vs-python-tool-learn/" title="SAS vs. R (vs. Python) &#8211; which tool should I learn?">SAS vs. R (vs. Python) &#8211; which tool should I learn?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/set-analysis-qlikview/" title="Set Analysis in QlikView &#8211; simplified!">Set Analysis in QlikView &#8211; simplified!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/read-books-analysts-or-interested-analytics/" title="Must read books for Analysts (or people interested in Analytics)">Must read books for Analysts (or people interested in Analytics)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/02/aggr/" title="How to Use AGGR () function in Qlikview?">How to Use AGGR () function in Qlikview?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/06/books-data-scientists-or-aspiring-ones/" title="Must have books for data scientists (or aspiring ones)">Must have books for data scientists (or aspiring ones)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/05/planning-late-career-shift-analytics-big-data-prepared/" title="Planning a late career shift to Analytics / Big data? Better be prepared!">Planning a late career shift to Analytics / Big data? Better be prepared!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/tips-crack-guess-estimate-case-study/" title="Tips to crack a guess estimate (Analytics case study)">Tips to crack a guess estimate (Analytics case study)</a></li>
+			</ul></div><div id="text-2" class="sidebar-wrap clearfix widget_text"><h3>Contact Us</h3>			<div class="textwidget"> <form method="post" id="cntctfrm_contact_form" action="http://www.analyticsvidhya.com/blog/2014/07/statistics/#cntctfrm_contact_form" enctype="multipart/form-data"><div style="text-align: left; padding-top: 5px;">
+						<label for="cntctfrm_contact_name">Name: <span class="required">*</span></label>
+					</div><div style="text-align: left;">
+						<input class="text" type="text" size="40" value="" name="cntctfrm_contact_name" id="cntctfrm_contact_name" style="text-align: left; margin: 0;" />
+					</div><div style="text-align: left;">
+					<label for="cntctfrm_contact_email">Email Address: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_email" id="cntctfrm_contact_email" style="text-align: left; margin: 0;" />
+				</div>
+			<div style="text-align: left;">
+					<label for="cntctfrm_contact_subject">Subject: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_subject" id="cntctfrm_contact_subject" style="text-align: left; margin: 0;" />
+				</div>
+
+				<div style="text-align: left;">
+					<label for="cntctfrm_contact_message">Message: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<textarea rows="5" cols="30" name="cntctfrm_contact_message" id="cntctfrm_contact_message"></textarea>
+				</div><div style="text-align: left;">
+						<input type="checkbox" value="1" name="cntctfrm_contact_send_copy" id="cntctfrm_contact_send_copy" style="text-align: left; margin: 0;"  />
+						<label for="cntctfrm_contact_send_copy">Send me a copy</label>
+					</div><p class="cptch_block" style="text-align:left;"><br /><input type="hidden" name="cptch_result" value="vic=" />
+		<input type="hidden" name="cptch_time" value="1408730645" />
+		<input type="hidden" value="Version: 2.4" />3 &#43; <input type="text" autocomplete="off" name="cptch_number" value="" maxlength="1" size="1" style="margin-bottom:0;display:inline;font-size: 12px;width: 40px;" /> =  &#102;o&#117;r</p><div style="text-align: left; padding-top: 8px;"><input type="hidden" value="send" name="cntctfrm_contact_action"><input type="hidden" value="Version: 3.30" />
+					<input type="hidden" value="en" name="cntctfrm_language">
+					<input type="submit" value="Submit" style="cursor: pointer; margin: 0pt; text-align: center;margin-bottom:10px;" /> 
+				</div>
+				</form></div>
+		</div>		<div id="recent-posts-2" class="sidebar-wrap clearfix widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/step-step-guide-extract-inforation-free-text-unstructured-data/">Step by step guide to extract insights from free text (unstructured data)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/market-mix-modeling/">Market mix modeling &#8211; Simplified!</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/author-identification-challenge/">Bring it on! Analytics Vidhya Author identification challenge</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-analytics-government-agencies-run-better/">How Big data &#038; Analytics can help Government agencies run better?</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/baby-steps-python-performing-exploratory-analysis-python/">Baby steps in Python &#8211; Exploratory analysis in Python (using Pandas)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-big-difference/">Training review &#8211; A Big Data Course with a ‘Big’ Difference from Jigsaw Academy</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/visualizing-market-basket-analysis/">Visualizing product relationships in a market Basket analysis</a>
+						</li>
+				</ul>
+		</div><div id="archives-2" class="sidebar-wrap clearfix widget_archive"><h3>Monthly Archives</h3>		<ul>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/08/'>August 2014</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/07/'>July 2014</a>&nbsp;(70)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/06/'>June 2014</a>&nbsp;(131)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/05/'>May 2014</a>&nbsp;(100)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/04/'>April 2014</a>&nbsp;(16)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/03/'>March 2014</a>&nbsp;(11)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/02/'>February 2014</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/01/'>January 2014</a>&nbsp;(9)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/12/'>December 2013</a>&nbsp;(6)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/11/'>November 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/10/'>October 2013</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/09/'>September 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/08/'>August 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/07/'>July 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/06/'>June 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/05/'>May 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/04/'>April 2013</a>&nbsp;(2)</li>
+		</ul>
+</div><div id="categories-2" class="sidebar-wrap clearfix widget_categories"><h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="http://www.analyticsvidhya.com/blog/category/analytics-vidhya/" title="View all posts filed under Analytics Vidhya">Analytics Vidhya</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="http://www.analyticsvidhya.com/blog/category/big-data/" title="View all posts filed under Big data">Big data</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts filed under Business Analytics">Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/" title="View all posts filed under Business Intelligence">Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-170"><a href="http://www.analyticsvidhya.com/blog/category/jobs/" title="View all posts filed under Jobs">Jobs</a>
+</li>
+	<li class="cat-item cat-item-214"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/" title="Jobs in Business Analytics">Jobs &#8211; Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-215"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/" title="Jobs in Business Intelligence">Jobs &#8211; Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-240"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-web-analytics/" title="View all posts filed under Jobs &#8211; Web Analytics">Jobs &#8211; Web Analytics</a>
+</li>
+	<li class="cat-item cat-item-227"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/" title="View all posts filed under Jobs- Big Data">Jobs- Big Data</a>
+</li>
+	<li class="cat-item cat-item-63"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/" title="View all posts filed under Jobs- MIS">Jobs- MIS</a>
+</li>
+	<li class="cat-item cat-item-396"><a href="http://www.analyticsvidhya.com/blog/category/python-2/" title="View all posts filed under Python">Python</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/" title="View all posts filed under Qlikview">Qlikview</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://www.analyticsvidhya.com/blog/category/sas/" title="View all posts filed under SAS">SAS</a>
+</li>
+	<li class="cat-item cat-item-25"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/" title="View all posts filed under Web Analytics">Web Analytics</a>
+</li>
+		</ul>
+</div><div id="text-3" class="sidebar-wrap clearfix widget_text">			<div class="textwidget"><?php wp_list_categories('feed_image=http://www.analyticsvidhya.com/blog/jobs&feed=XML Feed&optioncount=1&children=0'); ?></div>
+		</div>    
+        
+    
+</div><!-- #sidebar1 -->    
+    
+</div><!-- #content -->
+
+
+
+<div id="footer" class="clearfix">
+    
+        <div id="copyright">
+    	<h3>Copyright</h3>
+		            <p>
+            &copy; 2014 Analytics Vidhya.            </p>
+                
+        
+    	    </div>
+
+		<div class="footer-menu-wrap">
+    	<ul id="footer-menu" class="clearfix">
+			<li id="menu-item-1471" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1471"><a href="http://www.analyticsvidhya.com/blog/about-me/">About us</a></li>
+<li id="menu-item-1472" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1472"><a href="http://www.analyticsvidhya.com/blog/privacy-policy-2/">Privacy Policy</a></li>
+                    	<li class="menu-item return-top"><a href="#">Return to top</a></li>
+                    </ul>
+    </div>
+    	
+        <div id="developer" class="grid_7">
+      <!--  <p>
+        Powered by <a href="http://wordpress.org/">WordPress</a> and the <a href="http://www.graphene-theme.com/">Graphene Theme</a>.        </p>-->
+
+	    </div>
+        
+    </div><!-- #footer -->
+
+
+</div><!-- #container -->
+
+    </div><!-- .bg-gradient -->
+
+	<div style="display:none">
+	<div class="grofile-hash-map-4881b6eff4a916300c9a785c9f103f24">
+	</div>
+	<div class="grofile-hash-map-4a06a5b67fd901e4fb082fc161761ab9">
+	</div>
+	<div class="grofile-hash-map-96cf3c70d9fe92bb65c9664b77a5bd03">
+	</div>
+	<div class="grofile-hash-map-ebbc2e3887f201e87058fb9f4090ebaa">
+	</div>
+	<div class="grofile-hash-map-4881b6eff4a916300c9a785c9f103f24">
+	</div>
+	<div class="grofile-hash-map-fc1832a6b5cb916cb4e81759bc13ad42">
+	</div>
+	<div class="grofile-hash-map-6e3824453f4a7bd3e6a73c93b08a2978">
+	</div>
+	<div class="grofile-hash-map-9c130be674b6a385d54995bdfc6712e6">
+	</div>
+	<div class="grofile-hash-map-2eb58673d5a176dd6cf343db1ea79dd0">
+	</div>
+	<div class="grofile-hash-map-7334bcd43ffd3caae8c43ec239daed3e">
+	</div>
+	<div class="grofile-hash-map-c4299a9fed5e6bae590feaa23f5bf13f">
+	</div>
+	</div>
+	<!--[if IE 8]>
+    <script type="text/javascript">
+        (function($) {
+            var imgs, i, w;
+            var imgs = document.getElementsByTagName( 'img' );
+            maxwidth = 0.98 * $( '.entry-content' ).width();
+            for( i = 0; i < imgs.length; i++ ) {
+                w = imgs[i].getAttribute( 'width' );
+                if ( w > maxwidth ) {
+                    imgs[i].removeAttribute( 'width' );
+                    imgs[i].removeAttribute( 'height' );
+                }
+            }
+        })(jQuery);
+    </script>
+    <![endif]-->
+<div id="su-footer-links" style="text-align: center;"></div>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/www.analyticsvidhya.com\/blog\/2014\/07\/statistics\/":5081}	</script>
+<script type="text/javascript">
+			jQuery( document ).ready( function() {
+			    jQuery.getScript( '//platform.linkedin.com/in.js?async=true', function success() {
+			        IN.init();
+			    });
+			});
+			jQuery( document.body ).on( 'post-load', function() {
+				if ( typeof IN != 'undefined' )
+					IN.parse();
+			});
+			</script>		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+					<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+					<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script>
+		// Don't use Pocket's default JS as it we need to force init new Pocket share buttons loaded via JS.
+		function jetpack_sharing_pocket_init() {
+			jQuery.getScript( 'https://widgets.getpocket.com/v1/j/btn.js?v=1' );
+		}
+		jQuery( document ).on( 'ready', jetpack_sharing_pocket_init );
+		jQuery( document.body ).on( 'post-load', jetpack_sharing_pocket_init );
+		</script>
+		<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/akismet/_inc/form.js?ver=3.0.1'></script>
+<link rel='stylesheet' id='gplus-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/gplus-authorship/style.css?ver=3.9.2' type='text/css' media='all' />
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201434'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2014Augaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/wpgroho.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/comment-reply.min.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect.min.js?ver=1.10.4'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect-blind.min.js?ver=1.10.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var stbUserOptions = {"mode":"css","cssOptions":{"roundedCorners":true,"mbottom":10,"imgHide":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/minus.png","imgShow":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/plus.png","strHide":"Hide","strShow":"Show"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/js/wstb.js?ver=5.0.86'></script>
+<script type='text/javascript' src='//apis.google.com/js/plusone.js?ver=3.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=20121205'></script>
+
+	<script src="http://stats.wp.com/e-201434.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.1.1',blog:'58948004',post:'5081',tz:'0'});
+	var load_cmc = function(){linktracker_init(58948004,5081,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script></body>
+</html>

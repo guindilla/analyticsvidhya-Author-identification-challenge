@@ -1,0 +1,841 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head profile="http://gmpg.org/xfn/11">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Introduction to MapReduce</title>
+    <link rel="pingback" href="http://www.analyticsvidhya.com/blog/xmlrpc.php" /> 
+    
+<!-- SEO Ultimate (http://www.seodesignsolutions.com/wordpress-seo/) -->
+	<meta name="description" content="This article will help you understand the step by step functionality of Map-Reduce model." />
+	<meta name="keywords" content="Big data,Business Analytics,Analytics,applications of map reduce,bigdata,Hadoop,mapper,Mapreduce,reducer,data,key" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Introduction to MapReduce" />
+	<meta property="og:description" content="This article will help you understand the step by step functionality of Map-Reduce model." />
+	<meta property="og:url" content="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/" />
+	<meta property="article:published_time" content="2014-05-28" />
+	<meta property="article:modified_time" content="2014-05-28" />
+	<meta property="article:author" content="http://www.analyticsvidhya.com/blog/author/tavish/" />
+	<meta property="article:tag" content="Big data" />
+	<meta property="article:tag" content="Business Analytics" />
+	<meta property="article:tag" content="Analytics" />
+	<meta property="article:tag" content="applications of map reduce" />
+	<meta property="article:tag" content="bigdata" />
+	<meta property="article:tag" content="Hadoop" />
+	<meta property="article:tag" content="mapper" />
+	<meta property="article:tag" content="Mapreduce" />
+	<meta property="article:tag" content="reducer" />
+	<meta property="og:site_name" content="Analytics Vidhya" />
+	<meta name="twitter:card" content="summary" />
+<!-- /SEO Ultimate -->
+
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Feed" href="http://www.analyticsvidhya.com/blog/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Comments Feed" href="http://www.analyticsvidhya.com/blog/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Introduction to MapReduce Comments Feed" href="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/feed/" />
+	<script type="text/javascript">
+	WebFontConfig = {
+		google: { families: ['Pontano+Sans::latin'] }
+	};
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})(); 
+    </script>
+    <link rel='stylesheet' id='jetpack-subscriptions-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/subscriptions/subscriptions.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='fb_data_style-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/feedburner-form/control/fbstyle.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='cntctfrm_stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/contact-form-plugin/css/style.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='social-widget-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/social_widget.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widgets-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20121003' type='text/css' media='all' />
+<link rel='stylesheet' id='graphene-stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/style.css?ver=3.9.2' type='text/css' media='screen' />
+<link rel='stylesheet' id='stbCoreCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/stb-core.css?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='stbCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/wp-special-textboxes.css.php?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='sharedaddy-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.css?ver=3.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css?ver=3.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/useful-banner-manager/scripts.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/jquery.tools.min.js?ver=3.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var grapheneJS = {"templateUrl":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/themes\/graphene","isSingular":"1","shouldShowComments":"1","commentsOrder":"newest","sliderDisable":"","sliderAnimation":"fade","sliderTransSpeed":"400","sliderInterval":"7000","sliderDisplay":"bgimage-excerpt","infScroll":"","infScrollClick":"","infScrollComments":"","totalPosts":"1","postsPerPage":"15","isPageNavi":"","infScrollMsgText":"Fetching window.grapheneInfScrollItemsPerPage more item from window.grapheneInfScrollItemsLeft left ...","infScrollMsgTextPlural":"Fetching window.grapheneInfScrollItemsPerPage more items from window.grapheneInfScrollItemsLeft left ...","infScrollFinishedText":"No more items to fetch","commentsPerPage":"50","totalComments":"3","infScrollCommentsMsg":"Fetching window.grapheneInfScrollCommentsPerPage more top level comment from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsMsgPlural":"Fetching window.grapheneInfScrollCommentsPerPage more top level comments from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsFinishedMsg":"No more comments to fetch"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/graphene.js?ver=3.9.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.analyticsvidhya.com/blog/xmlrpc.php?rsd" />
+<link rel='prev' title='Business Analyst– VARITE, Gurgaon (5+ years of experience)' href='http://www.analyticsvidhya.com/blog/2014/05/business-analyst-varite-gurgaon-5-years-experience/' />
+<link rel='next' title='Analyst– Deloitte, Mumbai (2+ years of experience)' href='http://www.analyticsvidhya.com/blog/2014/05/analyst-deloitte-mumbai-2-years-experience/' />
+<link rel='canonical' href='http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/' />
+<link rel='shortlink' href='http://wp.me/p3Zl4g-Ve' />
+<!-- WordPress Most Popular --><script type="text/javascript">/* <![CDATA[ */ jQuery.post("http://www.analyticsvidhya.com/blog/wp-admin/admin-ajax.php", { action: "wmp_update", id: 3548, token: "a4d0601573" }); /* ]]> */</script><!-- /WordPress Most Popular --><style type="text/css">
+#header-menu-wrap{ background: #0F2D4D; background: -moz-linear-gradient(#2880C3, #0F2D4D); background: -webkit-linear-gradient(#2880C3, #0F2D4D); background: -o-linear-gradient(#2880C3, #0F2D4D); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#0F2D4D')"; background: linear-gradient(#2880C3, #0F2D4D); }#header-menu ul li:hover,#header-menu ul li.current-menu-item,#header-menu ul li.current-menu-ancestor,.primary-menu-preview.dropdown ul li.current-menu-item,.primary-menu-preview.dropdown ul li.current-menu-ancestor{ background: #212121; background: -moz-linear-gradient(#2880C3, #212121); background: -webkit-linear-gradient(#2880C3, #212121); background: -o-linear-gradient(#2880C3, #212121); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#212121')"; background: linear-gradient(#2880C3, #212121); }#sidebar_bottom .sidebar-wrap{width:440px}#nav li ul{width:200px} #nav li ul ul{margin-left:200px}#header-menu ul li a, #secondary-menu ul li a{width:180px}.post-title a, .post-title a:visited{display:block;margin-right:45px;padding-bottom:0}#header{height:90px}
+</style>
+	<!--[if lte IE 7]>
+      <style type="text/css" media="screen">
+      	#footer, div.sidebar-wrap, .block-button, .featured_slider, #slider_root, #nav li ul, .pie{behavior: url(http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/PIE.php);}
+        .featured_slider{margin-top:0 !important;}
+        #header-menu-wrap {z-index:5}
+      </style>
+    <![endif]-->
+        <!-- BEGIN Google Analytics script -->
+    	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40101183-1', 'analyticsvidhya.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40101183-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>    <!-- END Google Analytics script -->
+    </head>
+<body class="single single-post postid-3548 single-format-standard two_col_left two-columns">
+
+<div class="bg-gradient">
+
+
+<div id="container" class="container_16">
+    
+    
+        <div id="header">
+    	
+        <img src="http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/images/headers/fluid.jpg" alt="" width="960" height="90" class="header-img" />        	       
+        		
+        			<h2 class="header_title push_1 grid_15">				<a href="http://www.analyticsvidhya.com/blog" title="Go back to the front page">					Analytics Vidhya				</a>			</h2>			
+            <h3 class="header_desc push_1 grid_15">				Learn everything about Analytics			</h3>                
+		    </div>
+    <div id="nav">
+                <div id="header-menu-wrap" class="clearfix">
+			<ul id="header-menu" class="menu clearfix"><li id="menu-item-1463" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a href="http://www.analyticsvidhya.com/blog/"><strong>Home</strong></a></li>
+<li id="menu-item-1464" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/about-me/"><strong>About us</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-1561" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/team/">Our team</a></li>
+	<li id="menu-item-3817" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/write/">Write for us</a></li>
+	<li id="menu-item-4067" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/analytics-vidhya-apprentice-programme/">AV Apprentice</a></li>
+</ul>
+</li>
+<li id="menu-item-2474" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent"><a href="http://www.analyticsvidhya.com/blog/category/big-data/"><strong>Big data</strong></a></li>
+<li id="menu-item-2475" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/"><strong>Business Analytics</strong></a></li>
+<li id="menu-item-2476" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/"><strong>Business Intelligence</strong></a></li>
+<li id="menu-item-2477" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/"><strong>Qlikview</strong></a></li>
+<li id="menu-item-2478" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/sas/"><strong>SAS</strong></a></li>
+<li id="menu-item-2479" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/"><strong>Web Analytics</strong></a></li>
+<li id="menu-item-2616" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/category/jobs/"><strong>Jobs</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-2760" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/">Jobs &#8211; Business Analytics</a></li>
+	<li id="menu-item-2761" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/">Jobs &#8211; Business Intelligence</a></li>
+	<li id="menu-item-2762" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/">Jobs- Big Data</a></li>
+	<li id="menu-item-2763" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/">Jobs- MIS</a></li>
+</ul>
+</li>
+</ul>            
+            <div class="clear"></div>
+            
+			            
+                    
+        </div>
+		
+                
+        <div class="menu-bottom-shadow">&nbsp;</div>
+
+
+        
+    </div>
+
+    
+    <div id="content" class="clearfix hfeed">
+                
+                
+        <div id="content-main" class="clearfix grid_11">
+        
+	
+	<div class="post-nav clearfix">
+		<p class="previous">&laquo; <a href="http://www.analyticsvidhya.com/blog/2014/05/business-analyst-varite-gurgaon-5-years-experience/" rel="prev">Business Analyst– VARITE, Gurgaon (5+ years of experience)</a></p>
+		<p class="next-post"><a href="http://www.analyticsvidhya.com/blog/2014/05/analyst-deloitte-mumbai-2-years-experience/" rel="next">Analyst– Deloitte, Mumbai (2+ years of experience)</a> &raquo;</p>
+			</div>
+	        
+<div id="post-3548" class="post-3548 post type-post status-publish format-standard hentry category-big-data category-business-analytics tag-analytics tag-applications-of-map-reduce tag-bigdata tag-hadoop tag-mapper tag-mapreduce tag-reducer clearfix post">
+	
+		
+	<div class="entry clearfix">
+    	
+                    	<div class="date updated alpha with-year">
+        	<span class="value-title" title="2014-05-28T07:41" />
+            <p class="default_date">
+            	<span class="month">May</span>
+                <span class="day">28</span>
+                	                <span class="year">2014</span>
+                            </p>
+                    </div>
+    		
+        <div class="post-avatar-wrap gutter-left"><img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=45&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D45&amp;r=G' class='avatar avatar-45 photo' height='45' width='45' /></div>        
+                
+                
+		        <h1 class="post-title entry-title">
+			Introduction to MapReduce			        </h1>
+		
+				<div class="post-meta clearfix">
+			
+									<span class="printonly">Categories: </span>
+			<p class="meta_categories"><a href="http://www.analyticsvidhya.com/blog/category/big-data/" title="View all posts in Big data" rel="category tag">Big data</a>, <a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts in Business Analytics" rel="category tag">Business Analytics</a></p>
+						
+									
+									
+									<p class="post-author author vcard">
+				by <span class="fn nickname"><a href="http://www.analyticsvidhya.com/blog/author/tavish/" class="url">Tavish Srivastava</a></span>			</p>
+											
+						
+					</div>
+		
+				<div class="entry-content clearfix">
+							
+										
+						<p style="text-align: justify;"><b style="color: #252525;">MapReduce</b><span style="color: #252525;"> is a programming model </span><span style="color: #252525;">for processing large data sets with a parallel , distributed </span><span style="color: #252525;">algorithm on a cluster (source: Wikipedia). Map Reduce when coupled with HDFS can be used to handle big data. The fundamentals of this HDFS-MapReduce system, which is commonly referred to as Hadoop was discussed in our <a title="What is Hadoop? – Simplified!" href="http://www.analyticsvidhya.com/blog/2014/05/hadoop-simplified/" target="_blank">previous article</a>. </span></p>
+<p style="text-align: justify;">The basic unit of information, used in MapReduce is a (Key,value) pair. All types of structured and unstructured data need to be translated to this basic unit, before feeding the data to MapReduce model.  As the name suggests, MapReduce model consist of two separate routines, namely Map-function and Reduce-function. This article will help you understand the step by step functionality of Map-Reduce model.The computation on an input (i.e. on a set of pairs) in MapReduce model occurs in three stages:</p>
+<p style="text-align: justify;"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/05/mapreduce.jpg"><img class=" wp-image-3624 aligncenter" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/05/mapreduce.jpg" alt="mapreduce" width="361" height="262" /></a></p>
+<p style="text-align: justify;">Step 1 :  The map stage</p>
+<p style="text-align: justify;">Step 2 : The shuffle stage</p>
+<p style="text-align: justify;">Step 3 :  The reduce stage.</p>
+<p style="text-align: justify;">Semantically, the map and shuffle phases distribute the data, and the reduce phase performs the computation. In this article we will discuss about each of these stages in detail.</p>
+<p style="text-align: justify;"><strong><div id='stb-container-9797' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-9797' class='stb-section_box stb-box' ><span style="color: #ffffff;"> The Map stage</span></strong><strong> </div></div></strong></p>
+<p style="text-align: justify;">MapReduce logic, unlike other data frameworks, is not restricted to just structured datasets. It has an extensive capability to handle unstructured data as well. Map stage is the critical step which makes this possible. Mapper brings a structure to unstructured data. For instance, if I want to count the number of photographs on my laptop by the location (city), where the photo was taken, I need to analyze unstructured data. The mapper makes (key, value) pairs from this data set. In this case, key will be the location and value will be the photograph. After mapper is done with its task, we have a structure to the entire data-set.</p>
+<p style="text-align: justify;"><span style="color: #333333;">In the map stage, the mapper takes a single (key, value) pair as input and produces any number of (key, value) pairs as output . It is important to think of the map operation as stateless, that is, its logic operates on a single pair at a time (even if in practice several input pairs are delivered to the same mapper).  To summarize, for the map phase, the user simply designs a map function that maps an input (key, value) pair to any number (even none) of output pairs. Most of the time, the map phase is simply used to specify the desired location of the input value by changing its key.</span></p>
+<p style="text-align: justify;"><strong><div id='stb-container-8179' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-8179' class='stb-section_box stb-box' > <span style="color: #ffffff;">The shuffle stage</span></strong><strong> </div></div></strong></p>
+<p style="text-align: justify;"><span style="color: #333333;">The shuffle stage is automatically handled by the MapReduce framework, i.e. the engineer has nothing to do for this stage. The underlying system implementing MapReduce routes all of the values that are associated with an individual key to the same reducer.</span></p>
+<p style="text-align: justify;"><strong><div id='stb-container-6224' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-6224' class='stb-section_box stb-box' > <span style="color: #ffffff;">The Reduce stage</span></strong><strong> </div></div></strong></p>
+<p style="text-align: justify;"><span style="color: #333333;">In the reduce stage, the reducer takes all of the values associated with a single key k and outputs any number of (key, value) pairs. This highlights one of the sequential aspects of MapReduce computation: all of the maps need to finish before the reduce stage can begin. Since the reducer has access to all the values with the same key, it can perform sequential computations on these values. In the reduce step, the parallelism is exploited by observing that reducers operating on different keys can be executed simultaneously. To summarize, for the reduce phase, the user designs a function that takes in input a list of values associated with a single key and outputs any number of pairs. Often the output keys of a reducer equal the input key (in fact, in the original MapReduce paper the output key </span><i style="color: #333333;">must</i><span style="color: #333333;"> equal to the input key, but Hadoop relaxed this constraint). </span></p>
+<p style="text-align: justify;"><span style="color: #333333;">Overall, a program in the MapReduce paradigm can consist of many rounds (usually called </span><i style="color: #333333;">jobs</i><span style="color: #333333;">) of different map and reduce functions, performed sequentially one after another. </span></p>
+<p style="text-align: justify;"><strong><div id='stb-container-2747' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-2747' class='stb-section_box stb-box' > <span style="color: #ffffff;">An example</span></strong><strong> </div></div></strong></p>
+<p style="text-align: justify;">Let&#8217;s consider an example to understand Map-Reduce in depth. We have the following 3 sentences :</p>
+<p style="text-align: justify;">1. The quick brown fox</p>
+<p style="text-align: justify;">2. The fox ate the mouse</p>
+<p style="text-align: justify;">3. How now brown cow</p>
+<p style="text-align: justify;">Our objective is to count the frequency of each word in all the sentences. Imagine that each of these sentences acquire huge memory and hence are allotted to different data nodes.  Mapper takes over this unstructured data and creates key value pairs. In this case key is the word and value is the count of this word in the text available at this data node.  For instance, the 1st Map node generates 4 key-value pairs  : (the,1), (brown,1),(fox,1), (quick,1). The first 3 key-value pairs go to the first Reducer and the last key-value go to the second Reducer.</p>
+<p style="text-align: justify;"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/05/mapreduce_eg.png"><img class="alignnone size-full wp-image-3625" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/05/mapreduce_eg.png" alt="mapreduce_eg" width="800" height="423" /></a></p>
+<p style="text-align: justify;">Similarly, the 2nd and 3rd map functions do the mapping for the other two sentences. Through shuffling, all the similar words come to the same end. Once, the key value pairs are sorted, the reducer function operates on this structured data to come up with a summary.</p>
+<p style="text-align: justify;"><strong><div id='stb-container-3105' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-3105' class='stb-section_box stb-box' >  <span style="color: #ffffff;">End Notes :</span></strong><strong><span style="color: #ffffff;"> </span> </div></div></strong></p>
+<p style="text-align: justify;">Let&#8217;s take some example of Map-Reduce function usage in the industry :</p>
+<p style="text-align: justify;"><strong>• At Google:</strong></p>
+<p style="text-align: justify;">– Index building for Google Search<br />
+– Article clustering for Google News<br />
+– Statistical machine translation</p>
+<p style="text-align: justify;"><strong>•  At Yahoo!:</strong></p>
+<p style="text-align: justify;">– Index building for Yahoo! Search<br />
+– Spam detection for Yahoo! Mail</p>
+<p style="text-align: justify;"><strong>•  At Facebook:</strong></p>
+<p style="text-align: justify;">– Data mining<br />
+– Ad optimization<br />
+– Spam detection Example</p>
+<p style="text-align: justify;"><strong>•  At Amazon:</strong></p>
+<p style="text-align: justify;">– Product clustering<br />
+– Statistical machine translation</p>
+<p style="text-align: justify;">The constraint of using Map-reduce function is that user has to follow a  logic format. This logic is to generate key-value pairs using Map function and then summarize using Reduce function. But luckily most of the data manipulation operations can be tricked into this format. In the next article we will take some example like how to do data-set merging, matrix multiplication, matrix transpose, etc. using Map-Reduce.</p>
+<p style="text-align: justify;">Did you find the article useful? Share with us any other practical examples of Map-Reduce function. Do let us know your thoughts about this article in the box below.</p>
+<h2><strong>If you like what you just read &amp; want to continue your analytics learning, <a href="http://feedburner.google.com/fb/a/mailverify?uri=analyticsvidhya" target="_blank">subscribe to our emails</a>, <a href="http://twitter.com/analyticsvidhya" target="_blank">follow us on twitter</a> or like our <a href="http://facebook.com/analyticsvidhya" target="_blank">facebook page</a>.</strong></h2>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-linkedin"><div class="linkedin_button"><script type="in/share" data-url="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/" data-counter="right"></script></div></li><li class="share-facebook"><div class="like_button"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F05%2Fintroduction-mapreduce%2F&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;height=21&amp;locale=en_US&amp;width=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:96px; height:21px;" allowTransparency="true"></iframe></div></li><li class="share-google-plus-1"><div class="googleplus1_button"><div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/"></div></div></li><li class="share-twitter"><div class="twitter_button"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F05%2Fintroduction-mapreduce%2F&#038;counturl=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F05%2Fintroduction-mapreduce%2F&#038;count=horizontal&#038;text=Introduction%20to%20MapReduce%3A" style="width:101px; height:20px;"></iframe></div></li><li class="share-pocket"><div class="pocket_button"><a href="https://getpocket.com/save" class="pocket-btn" data-lang="en" data-save-url="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/" data-pocket-count="horizontal" >Pocket</a></div></li><li class="share-reddit"><div class="reddit_button"><iframe src="http://www.reddit.com/static/button/button1.html?width=120&amp;url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F05%2Fintroduction-mapreduce%2F&amp;title=Introduction%20to%20MapReduce" height="22" width="120" scrolling="no" frameborder="0"></iframe></div></li><li class="share-stumbleupon"><div class="stumbleupon_button"><iframe src="http://www.stumbleupon.com/badge/embed/1/?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F05%2Fintroduction-mapreduce%2F&amp;title=Introduction%20to%20MapReduce" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:74px; height: 18px;" allowTransparency="true"></iframe></div></li><li class="share-end"></li></ul></div></div></div>			
+						
+						
+		</div>
+		
+				<div class="entry-footer clearfix">
+										<p class="post-tags">Tags: <a href="http://www.analyticsvidhya.com/blog/tag/analytics/" rel="tag">Analytics</a>, <a href="http://www.analyticsvidhya.com/blog/tag/applications-of-map-reduce/" rel="tag">applications of map reduce</a>, <a href="http://www.analyticsvidhya.com/blog/tag/bigdata/" rel="tag">bigdata</a>, <a href="http://www.analyticsvidhya.com/blog/tag/hadoop/" rel="tag">Hadoop</a>, <a href="http://www.analyticsvidhya.com/blog/tag/mapper/" rel="tag">mapper</a>, <a href="http://www.analyticsvidhya.com/blog/tag/mapreduce/" rel="tag">Mapreduce</a>, <a href="http://www.analyticsvidhya.com/blog/tag/reducer/" rel="tag">reducer</a></p>
+						
+			<div class="add-this-right"></div>			
+					</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="comments" class="clearfix no-ping">
+        	<h4 class="comments current">6 comments</h4>
+	        
+        	<p class="comment-form-jump"><a href="#respond">Skip to comment form</a> &darr;</p>
+	
+	
+	    <div class="comments-list-wrapper">
+        <ol class="clearfix" id="comments_list">
+            		<li id="comment-9646" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/bbeab1d639cefdc0fc9a4d116b454ef0?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://in.linkedin.com/in/vikramc/' rel='external nofollow' class='url'>Vikram Chinmulgund</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 2, 2014 at 5:11 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/#comment-9646">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/05/introduction-mapreduce/?replytocom=9646#respond' onclick='return addComment.moveForm("comment-9646", "9646", "respond", "3548")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hello Tavish,</p>
+<p>My question is re &#8220;the Quick brown fox&#8221; example near the end of the article. Why isn&#8217;t the word &#8220;Quick&#8221; included in the Suffle &amp; Sort stage ?</p>
+<p>Thanks,</p>
+<p>Vikram Chinmulgund</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-9648" class="comment byuser comment-author-tavish bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='' rel='external'>Tavish Srivastava</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 2, 2014 at 5:48 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/#comment-9648">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/05/introduction-mapreduce/?replytocom=9648#respond' onclick='return addComment.moveForm("comment-9648", "9648", "respond", "3548")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Vikram,</p>
+<p>&#8220;Quick&#8221; word is included in Shuffle &amp; Sort stage. It is just that it goes to Reducer 2 in this case. Hope this clarifies your doubt.</p>
+<p>Tavish</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-9651" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/bbeab1d639cefdc0fc9a4d116b454ef0?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://in.linkedin.com/in/vikramc/' rel='external nofollow' class='url'>Vikram Chinmulgund</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 2, 2014 at 6:57 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/#comment-9651">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/05/introduction-mapreduce/?replytocom=9651#respond' onclick='return addComment.moveForm("comment-9651", "9651", "respond", "3548")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thanks, Tavish.</p>
+<p>Are you saying that a)since there is only one instance of &#8220;Quick&#8221; it doesn&#8217;t need to be shuffled and b)hence &#8220;quick&#8221; can go to any available reducer depending on load distribution.</p>
+<p>regards</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-9652" class="comment byuser comment-author-tavish bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='' rel='external'>Tavish Srivastava</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 2, 2014 at 7:08 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/#comment-9652">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/05/introduction-mapreduce/?replytocom=9652#respond' onclick='return addComment.moveForm("comment-9652", "9652", "respond", "3548")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Vikram,</p>
+<p>The main objective of shuffling is to make sure all the occurrence of same map id are available on the same reducer. As &#8220;Quick:&#8221; has only one occurrence, it can go to either of the two reducers. But to your point, shuffler still needs to work &#8220;Quick&#8221;. Notice that shuffler cannot directly swap &#8220;the&#8221; and &#8220;quick&#8221; from the first mapper. If that happens, all &#8220;the&#8221; from other mappers also need to be shifted to Reducer 2. </p>
+<p>Hope this clarifies your doubt.<br />
+Tavish</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-14732" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/5c54fe5d1bbc72fa12a133d353cbe462?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Sankhe</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 22, 2014 at 6:19 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/#comment-14732">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/05/introduction-mapreduce/?replytocom=14732#respond' onclick='return addComment.moveForm("comment-14732", "14732", "respond", "3548")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,</p>
+<p>I have a question on number of reducers. As I have understood from browsing on internet about map and reduce, is that after mapper has finish its job, output of mapper(combiner optional) will go to reducer such that each key will go to different reducer.<br />
+so, reducer will have just one key and its related result,<br />
+for eg. Mapper 1 output : (abc,1 )  (def,1)<br />
+Mapper 2 output : (abc,1 )   So input to reducer will be<br />
+Reducer 1:  (abc,1) (abc,1)   &amp; Reducer 2 <img src="http://www.analyticsvidhya.com/blog/wp-includes/images/smilies/icon_sad.gif" alt=":(" class="wp-smiley" />  def,  1) so final ouput : (abc,2) (def,1)</p>
+<p>Is this correct ? or Am I missing something ?<br />
+Reference :<br />
+<a href="https://www.google.com/search?q=key+value+word+count+reducer&#038;tbm=isch&#038;ei=5__NU67eC6TziQLLtoDQAQ#facrc=_&#038;imgdii=_&#038;imgrc=RDl_OVp1pIjE_M%253A%3BKAo2vtr32xkeWM%3Bhttp%253A%252F%252Fwww.cs.uml.edu%252F~jlu1%252Fdoc%252Fsource%252Freport%252Fimg%252FMapReduceExample.png%3Bhttp%253A%252F%252Fwww.cs.uml.edu%252F~jlu1%252Fdoc%252Fsource%252Freport%252FMapReduce.html%3B1344%3B624" rel="nofollow">https://www.google.com/search?q=key+value+word+count+reducer&#038;tbm=isch&#038;ei=5__NU67eC6TziQLLtoDQAQ#facrc=_&#038;imgdii=_&#038;imgrc=RDl_OVp1pIjE_M%253A%3BKAo2vtr32xkeWM%3Bhttp%253A%252F%252Fwww.cs.uml.edu%252F~jlu1%252Fdoc%252Fsource%252Freport%252Fimg%252FMapReduceExample.png%3Bhttp%253A%252F%252Fwww.cs.uml.edu%252F~jlu1%252Fdoc%252Fsource%252Freport%252FMapReduce.html%3B1344%3B624</a></p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-15207" class="comment byuser comment-author-tavish bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='' rel='external'>Tavish Srivastava</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 28, 2014 at 8:41 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/#comment-15207">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/05/introduction-mapreduce/?replytocom=15207#respond' onclick='return addComment.moveForm("comment-15207", "15207", "respond", "3548")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Sankhe,</p>
+<p>The number of mappers and reducers can be independently chosen. And you are right, the work of reducer starts after all mappers have done the job.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        </ol>
+       	
+            </div>
+        
+        
+    </div>
+
+
+
+
+
+	<div id="comment-form-wrap" class="clearfix">
+										<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blog/2014/05/introduction-mapreduce/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://www.analyticsvidhya.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author clearfix">
+						<label for="author" class="graphene_form_label">Name: <span class="required">*</span></label>
+						<input id="author" name="author" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-email clearfix">
+						<label for="email" class="graphene_form_label">Email: <span class="required">*</span></label>
+						<input id="email" name="email" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-url clearfix">
+						<label for="url" class="graphene_form_label">Website: </label>
+						<input id="url" name="url" type="text" class="graphene-form-field" value="" />
+					</p>
+												<p class="comment-form-message comment-form-comment clearfix">
+										<label class="graphene_form_label" for="comment">Message: <span class="required">*</span></label>
+										<textarea name="comment" id="comment" cols="40" rows="20" class="graphene-form-field" aria-required="true"></textarea>
+									 </p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Submit Comment" />
+							<input type='hidden' name='comment_post_ID' value='3548' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="fe74f7364f" /></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="172"/></p><div class="clear"></div>					</form>
+							</div><!-- #respond -->
+				</div>
+    
+
+            
+  
+    </div><!-- #content-main -->
+    
+    	
+    
+<div id="sidebar1" class="sidebar grid_5">
+
+	
+    <div id="useful-banner-manager-banners-rotation-3" class="sidebar-wrap clearfix useful_banner_manager_rotation_widget">            <div id="useful-banner-manager-banners-rotation-3" data-interval="5000" class="useful_banner_manager_banners_rotation" style="overflow: hidden; width: 256px; height: 258px;">
+                            <div id="10_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner">
+                                            <a href="http://www.analyticsvidhya.com/blog/2014/06/unveiling-analytics-vidhya-apprentice-programme/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/10-apprentice_4.png" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                                <div id="9_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner" style="display: none">
+                                            <a href="http://www.analyticsvidhya.com/blog/category/jobs/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/9-jobsopening1.jpg" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                            </div>
+            </div>
+
+    <div id="feedburnerformwidget-2" class="sidebar-wrap clearfix widget_feedburnerformwidget">
+    <!-- Plugin Feedburner Form-->
+    <div class="fb-container">
+        <h3>Subscribe</h3>        <div class="fbf-text">
+                Join Analytics Vidhya to continue your learning on Analytics        </div>
+        <form  class="fbf-widget" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=AnalyticsVidhya', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+        <input class="subscription_email" type="text" name="email" placeholder="" /><input type="hidden" value="AnalyticsVidhya" name="uri"/>
+        <input type="hidden" name="loc" value="en_US"/>
+        <input class="subscription_btn" type="submit" value ="OK"/>
+        </form>
+
+    
+    
+    </div>
+    <!-- Plugin Feedburner Form-->
+		</div>
+    <div id="search-2" class="sidebar-wrap clearfix widget_search"><h3>Search Analytics Vidhya</h3><form id="searchform" class="searchform" method="get" action="http://www.analyticsvidhya.com/blog">
+    <p class="clearfix default_searchform">
+        <input type="text" name="s" 
+        	onblur="if (this.value == '') {this.value = 'Search';}" 
+            onfocus="if (this.value == 'Search') {this.value = '';}" 
+            value="Search" />
+        <button type="submit"><span>Search</span></button>
+    </p>
+    </form></div><div id="social-widget-2" class="sidebar-wrap clearfix Social_Widget"><h3>Follow Us!</h3><div class="socialmedia-buttons smw_left"><a href="http://www.facebook.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/facebook.png" 
+				alt="Follow Us on Facebook" 
+				title="Follow Us on Facebook" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.linkedin.com/groups/Analytics-Vidhya-Learn-everything-about-5057165" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/linkedin.png" 
+				alt="Follow Us on LinkedIn" 
+				title="Follow Us on LinkedIn" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://feeds.feedburner.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/rss.png" 
+				alt="Follow Us on RSS" 
+				title="Follow Us on RSS" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://plus.google.com/+analyticsvidhya" rel="publisher" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/googleplus.png" 
+				alt="Follow Us on Google+" 
+				title="Follow Us on Google+" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://twitter.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/twitter.png" 
+				alt="Follow Us on Twitter" 
+				title="Follow Us on Twitter" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.youtube.com/channel/UCH6gDteHtH4hg3o2343iObA" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/youtube.png" 
+				alt="Follow Us on YouTube" 
+				title="Follow Us on YouTube" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a></div></div><div id="wmp_widget-2" class="sidebar-wrap clearfix widget_wmp_widget"><h3>Popular posts</h3><ul>			<li><a href="http://www.analyticsvidhya.com/blog/2013/07/advanced-analytics-certifications/" title="Advanced analytics certifications in India">Advanced analytics certifications in India</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/" title="4 tricky SAS questions commonly asked in interview">4 tricky SAS questions commonly asked in interview</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/start-career-business-analytics/" title="How to start a career in Business Analytics?">How to start a career in Business Analytics?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/03/sas-vs-vs-python-tool-learn/" title="SAS vs. R (vs. Python) &#8211; which tool should I learn?">SAS vs. R (vs. Python) &#8211; which tool should I learn?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/set-analysis-qlikview/" title="Set Analysis in QlikView &#8211; simplified!">Set Analysis in QlikView &#8211; simplified!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/read-books-analysts-or-interested-analytics/" title="Must read books for Analysts (or people interested in Analytics)">Must read books for Analysts (or people interested in Analytics)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/02/aggr/" title="How to Use AGGR () function in Qlikview?">How to Use AGGR () function in Qlikview?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/06/books-data-scientists-or-aspiring-ones/" title="Must have books for data scientists (or aspiring ones)">Must have books for data scientists (or aspiring ones)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/05/planning-late-career-shift-analytics-big-data-prepared/" title="Planning a late career shift to Analytics / Big data? Better be prepared!">Planning a late career shift to Analytics / Big data? Better be prepared!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/tips-crack-guess-estimate-case-study/" title="Tips to crack a guess estimate (Analytics case study)">Tips to crack a guess estimate (Analytics case study)</a></li>
+			</ul></div><div id="text-2" class="sidebar-wrap clearfix widget_text"><h3>Contact Us</h3>			<div class="textwidget"> <form method="post" id="cntctfrm_contact_form" action="http://www.analyticsvidhya.com/blog/2014/05/introduction-mapreduce/#cntctfrm_contact_form" enctype="multipart/form-data"><div style="text-align: left; padding-top: 5px;">
+						<label for="cntctfrm_contact_name">Name: <span class="required">*</span></label>
+					</div><div style="text-align: left;">
+						<input class="text" type="text" size="40" value="" name="cntctfrm_contact_name" id="cntctfrm_contact_name" style="text-align: left; margin: 0;" />
+					</div><div style="text-align: left;">
+					<label for="cntctfrm_contact_email">Email Address: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_email" id="cntctfrm_contact_email" style="text-align: left; margin: 0;" />
+				</div>
+			<div style="text-align: left;">
+					<label for="cntctfrm_contact_subject">Subject: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_subject" id="cntctfrm_contact_subject" style="text-align: left; margin: 0;" />
+				</div>
+
+				<div style="text-align: left;">
+					<label for="cntctfrm_contact_message">Message: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<textarea rows="5" cols="30" name="cntctfrm_contact_message" id="cntctfrm_contact_message"></textarea>
+				</div><div style="text-align: left;">
+						<input type="checkbox" value="1" name="cntctfrm_contact_send_copy" id="cntctfrm_contact_send_copy" style="text-align: left; margin: 0;"  />
+						<label for="cntctfrm_contact_send_copy">Send me a copy</label>
+					</div><p class="cptch_block" style="text-align:left;"><br /><input type="hidden" name="cptch_result" value="QuU=" />
+		<input type="hidden" name="cptch_time" value="1408730610" />
+		<input type="hidden" value="Version: 2.4" />3 &minus; t&#119;&#111; =  <input type="text" autocomplete="off" name="cptch_number" value="" maxlength="2" size="1" style="margin-bottom:0;display:inline;font-size: 12px;width: 40px;" /></p><div style="text-align: left; padding-top: 8px;"><input type="hidden" value="send" name="cntctfrm_contact_action"><input type="hidden" value="Version: 3.30" />
+					<input type="hidden" value="en" name="cntctfrm_language">
+					<input type="submit" value="Submit" style="cursor: pointer; margin: 0pt; text-align: center;margin-bottom:10px;" /> 
+				</div>
+				</form></div>
+		</div>		<div id="recent-posts-2" class="sidebar-wrap clearfix widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/step-step-guide-extract-inforation-free-text-unstructured-data/">Step by step guide to extract insights from free text (unstructured data)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/market-mix-modeling/">Market mix modeling &#8211; Simplified!</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/author-identification-challenge/">Bring it on! Analytics Vidhya Author identification challenge</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-analytics-government-agencies-run-better/">How Big data &#038; Analytics can help Government agencies run better?</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/baby-steps-python-performing-exploratory-analysis-python/">Baby steps in Python &#8211; Exploratory analysis in Python (using Pandas)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-big-difference/">Training review &#8211; A Big Data Course with a ‘Big’ Difference from Jigsaw Academy</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/visualizing-market-basket-analysis/">Visualizing product relationships in a market Basket analysis</a>
+						</li>
+				</ul>
+		</div><div id="archives-2" class="sidebar-wrap clearfix widget_archive"><h3>Monthly Archives</h3>		<ul>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/08/'>August 2014</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/07/'>July 2014</a>&nbsp;(70)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/06/'>June 2014</a>&nbsp;(131)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/05/'>May 2014</a>&nbsp;(100)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/04/'>April 2014</a>&nbsp;(16)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/03/'>March 2014</a>&nbsp;(11)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/02/'>February 2014</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/01/'>January 2014</a>&nbsp;(9)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/12/'>December 2013</a>&nbsp;(6)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/11/'>November 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/10/'>October 2013</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/09/'>September 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/08/'>August 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/07/'>July 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/06/'>June 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/05/'>May 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/04/'>April 2013</a>&nbsp;(2)</li>
+		</ul>
+</div><div id="categories-2" class="sidebar-wrap clearfix widget_categories"><h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="http://www.analyticsvidhya.com/blog/category/analytics-vidhya/" title="View all posts filed under Analytics Vidhya">Analytics Vidhya</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="http://www.analyticsvidhya.com/blog/category/big-data/" title="View all posts filed under Big data">Big data</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts filed under Business Analytics">Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/" title="View all posts filed under Business Intelligence">Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-170"><a href="http://www.analyticsvidhya.com/blog/category/jobs/" title="View all posts filed under Jobs">Jobs</a>
+</li>
+	<li class="cat-item cat-item-214"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/" title="Jobs in Business Analytics">Jobs &#8211; Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-215"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/" title="Jobs in Business Intelligence">Jobs &#8211; Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-240"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-web-analytics/" title="View all posts filed under Jobs &#8211; Web Analytics">Jobs &#8211; Web Analytics</a>
+</li>
+	<li class="cat-item cat-item-227"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/" title="View all posts filed under Jobs- Big Data">Jobs- Big Data</a>
+</li>
+	<li class="cat-item cat-item-63"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/" title="View all posts filed under Jobs- MIS">Jobs- MIS</a>
+</li>
+	<li class="cat-item cat-item-396"><a href="http://www.analyticsvidhya.com/blog/category/python-2/" title="View all posts filed under Python">Python</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/" title="View all posts filed under Qlikview">Qlikview</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://www.analyticsvidhya.com/blog/category/sas/" title="View all posts filed under SAS">SAS</a>
+</li>
+	<li class="cat-item cat-item-25"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/" title="View all posts filed under Web Analytics">Web Analytics</a>
+</li>
+		</ul>
+</div><div id="text-3" class="sidebar-wrap clearfix widget_text">			<div class="textwidget"><?php wp_list_categories('feed_image=http://www.analyticsvidhya.com/blog/jobs&feed=XML Feed&optioncount=1&children=0'); ?></div>
+		</div>    
+        
+    
+</div><!-- #sidebar1 -->    
+    
+</div><!-- #content -->
+
+
+
+<div id="footer" class="clearfix">
+    
+        <div id="copyright">
+    	<h3>Copyright</h3>
+		            <p>
+            &copy; 2014 Analytics Vidhya.            </p>
+                
+        
+    	    </div>
+
+		<div class="footer-menu-wrap">
+    	<ul id="footer-menu" class="clearfix">
+			<li id="menu-item-1471" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1471"><a href="http://www.analyticsvidhya.com/blog/about-me/">About us</a></li>
+<li id="menu-item-1472" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1472"><a href="http://www.analyticsvidhya.com/blog/privacy-policy-2/">Privacy Policy</a></li>
+                    	<li class="menu-item return-top"><a href="#">Return to top</a></li>
+                    </ul>
+    </div>
+    	
+        <div id="developer" class="grid_7">
+      <!--  <p>
+        Powered by <a href="http://wordpress.org/">WordPress</a> and the <a href="http://www.graphene-theme.com/">Graphene Theme</a>.        </p>-->
+
+	    </div>
+        
+    </div><!-- #footer -->
+
+
+</div><!-- #container -->
+
+    </div><!-- .bg-gradient -->
+
+	<div style="display:none">
+	<div class="grofile-hash-map-51bf7a2a1f2a0dd3a1012fa4cf5a9e80">
+	</div>
+	<div class="grofile-hash-map-bbeab1d639cefdc0fc9a4d116b454ef0">
+	</div>
+	<div class="grofile-hash-map-51bf7a2a1f2a0dd3a1012fa4cf5a9e80">
+	</div>
+	<div class="grofile-hash-map-5c54fe5d1bbc72fa12a133d353cbe462">
+	</div>
+	</div>
+	<!--[if IE 8]>
+    <script type="text/javascript">
+        (function($) {
+            var imgs, i, w;
+            var imgs = document.getElementsByTagName( 'img' );
+            maxwidth = 0.98 * $( '.entry-content' ).width();
+            for( i = 0; i < imgs.length; i++ ) {
+                w = imgs[i].getAttribute( 'width' );
+                if ( w > maxwidth ) {
+                    imgs[i].removeAttribute( 'width' );
+                    imgs[i].removeAttribute( 'height' );
+                }
+            }
+        })(jQuery);
+    </script>
+    <![endif]-->
+<div id="su-footer-links" style="text-align: center;"></div>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/www.analyticsvidhya.com\/blog\/2014\/05\/introduction-mapreduce\/":3548}	</script>
+<script type="text/javascript">
+			jQuery( document ).ready( function() {
+			    jQuery.getScript( '//platform.linkedin.com/in.js?async=true', function success() {
+			        IN.init();
+			    });
+			});
+			jQuery( document.body ).on( 'post-load', function() {
+				if ( typeof IN != 'undefined' )
+					IN.parse();
+			});
+			</script>		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+					<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+					<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script>
+		// Don't use Pocket's default JS as it we need to force init new Pocket share buttons loaded via JS.
+		function jetpack_sharing_pocket_init() {
+			jQuery.getScript( 'https://widgets.getpocket.com/v1/j/btn.js?v=1' );
+		}
+		jQuery( document ).on( 'ready', jetpack_sharing_pocket_init );
+		jQuery( document.body ).on( 'post-load', jetpack_sharing_pocket_init );
+		</script>
+		<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/akismet/_inc/form.js?ver=3.0.1'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201434'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2014Augaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/wpgroho.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/comment-reply.min.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect.min.js?ver=1.10.4'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect-blind.min.js?ver=1.10.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var stbUserOptions = {"mode":"css","cssOptions":{"roundedCorners":true,"mbottom":10,"imgHide":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/minus.png","imgShow":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/plus.png","strHide":"Hide","strShow":"Show"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/js/wstb.js?ver=5.0.86'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=20121205'></script>
+
+	<script src="http://stats.wp.com/e-201434.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.1.1',blog:'58948004',post:'3548',tz:'0'});
+	var load_cmc = function(){linktracker_init(58948004,3548,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script></body>
+</html>

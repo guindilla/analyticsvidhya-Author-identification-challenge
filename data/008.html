@@ -1,0 +1,941 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head profile="http://gmpg.org/xfn/11">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>The art of structured thinking and analyzing | Analytics Vidhya</title>
+    <link rel="pingback" href="http://www.analyticsvidhya.com/blog/xmlrpc.php" /> 
+    
+<!-- SEO Ultimate (http://www.seodesignsolutions.com/wordpress-seo/) -->
+	<link rel="author" href="kunalj101" />
+	<meta name="description" content="Structured thinking is a process of putting a framework to an unstructured problem. Having a structure not only helps an analyst understand the problem at a macro level, it also helps by identifying areas which require deeper understanding." />
+	<meta name="keywords" content="Business Analytics,Business Analyst,structured thinking,structured,structure,thinking" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="The art of structured thinking and analyzing" />
+	<meta property="og:description" content="Structured thinking is a process of putting a framework to an unstructured problem. Having a structure not only helps an analyst understand the problem at a macro level, it also helps by identifying areas which require deeper understanding." />
+	<meta property="og:url" content="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/" />
+	<meta property="article:published_time" content="2013-06-24" />
+	<meta property="article:modified_time" content="2013-07-23" />
+	<meta property="article:author" content="http://www.analyticsvidhya.com/blog/author/kunalj/" />
+	<meta property="article:section" content="Business Analytics" />
+	<meta property="article:tag" content="Business Analyst" />
+	<meta property="article:tag" content="Business Analytics" />
+	<meta property="article:tag" content="structured thinking" />
+	<meta property="og:site_name" content="Analytics Vidhya" />
+	<meta name="twitter:card" content="summary" />
+<!-- /SEO Ultimate -->
+
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Feed" href="http://www.analyticsvidhya.com/blog/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Comments Feed" href="http://www.analyticsvidhya.com/blog/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; The art of structured thinking and analyzing Comments Feed" href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/feed/" />
+	<script type="text/javascript">
+	WebFontConfig = {
+		google: { families: ['Pontano+Sans::latin'] }
+	};
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})(); 
+    </script>
+    <link rel='stylesheet' id='jetpack-subscriptions-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/subscriptions/subscriptions.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='fb_data_style-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/feedburner-form/control/fbstyle.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='cntctfrm_stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/contact-form-plugin/css/style.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='social-widget-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/social_widget.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widgets-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20121003' type='text/css' media='all' />
+<link rel='stylesheet' id='graphene-stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/style.css?ver=3.9.2' type='text/css' media='screen' />
+<link rel='stylesheet' id='stbCoreCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/stb-core.css?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='stbCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/wp-special-textboxes.css.php?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='sharedaddy-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.css?ver=3.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css?ver=3.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/useful-banner-manager/scripts.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/jquery.tools.min.js?ver=3.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var grapheneJS = {"templateUrl":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/themes\/graphene","isSingular":"1","shouldShowComments":"1","commentsOrder":"newest","sliderDisable":"","sliderAnimation":"fade","sliderTransSpeed":"400","sliderInterval":"7000","sliderDisplay":"bgimage-excerpt","infScroll":"","infScrollClick":"","infScrollComments":"","totalPosts":"1","postsPerPage":"15","isPageNavi":"","infScrollMsgText":"Fetching window.grapheneInfScrollItemsPerPage more item from window.grapheneInfScrollItemsLeft left ...","infScrollMsgTextPlural":"Fetching window.grapheneInfScrollItemsPerPage more items from window.grapheneInfScrollItemsLeft left ...","infScrollFinishedText":"No more items to fetch","commentsPerPage":"50","totalComments":"3","infScrollCommentsMsg":"Fetching window.grapheneInfScrollCommentsPerPage more top level comment from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsMsgPlural":"Fetching window.grapheneInfScrollCommentsPerPage more top level comments from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsFinishedMsg":"No more comments to fetch"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/graphene.js?ver=3.9.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.analyticsvidhya.com/blog/xmlrpc.php?rsd" />
+<link rel='prev' title='How to implement an analytics solution for a business problem?' href='http://www.analyticsvidhya.com/blog/2013/06/implement-analytics-solution-business-problem/' />
+<link rel='next' title='Common mistakes analysts make during analysis and how to avoid them?' href='http://www.analyticsvidhya.com/blog/2013/06/common-mistakes-analysis-avoid-them/' />
+<link rel='canonical' href='http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/' />
+<link rel='shortlink' href='http://wp.me/p3Zl4g-7P' />
+<!-- WordPress Most Popular --><script type="text/javascript">/* <![CDATA[ */ jQuery.post("http://www.analyticsvidhya.com/blog/wp-admin/admin-ajax.php", { action: "wmp_update", id: 485, token: "a4d0601573" }); /* ]]> */</script><!-- /WordPress Most Popular --><style type="text/css">
+#header-menu-wrap{ background: #0F2D4D; background: -moz-linear-gradient(#2880C3, #0F2D4D); background: -webkit-linear-gradient(#2880C3, #0F2D4D); background: -o-linear-gradient(#2880C3, #0F2D4D); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#0F2D4D')"; background: linear-gradient(#2880C3, #0F2D4D); }#header-menu ul li:hover,#header-menu ul li.current-menu-item,#header-menu ul li.current-menu-ancestor,.primary-menu-preview.dropdown ul li.current-menu-item,.primary-menu-preview.dropdown ul li.current-menu-ancestor{ background: #212121; background: -moz-linear-gradient(#2880C3, #212121); background: -webkit-linear-gradient(#2880C3, #212121); background: -o-linear-gradient(#2880C3, #212121); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#212121')"; background: linear-gradient(#2880C3, #212121); }#sidebar_bottom .sidebar-wrap{width:440px}#nav li ul{width:200px} #nav li ul ul{margin-left:200px}#header-menu ul li a, #secondary-menu ul li a{width:180px}.post-title a, .post-title a:visited{display:block;margin-right:45px;padding-bottom:0}#header{height:90px}
+</style>
+	<!--[if lte IE 7]>
+      <style type="text/css" media="screen">
+      	#footer, div.sidebar-wrap, .block-button, .featured_slider, #slider_root, #nav li ul, .pie{behavior: url(http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/PIE.php);}
+        .featured_slider{margin-top:0 !important;}
+        #header-menu-wrap {z-index:5}
+      </style>
+    <![endif]-->
+    <link rel="author" href="https://plus.google.com/104124395851770316607" title="Kunal Jain on Google+" /> 
+    <!-- BEGIN Google Analytics script -->
+    	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40101183-1', 'analyticsvidhya.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40101183-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>    <!-- END Google Analytics script -->
+    </head>
+<body class="single single-post postid-485 single-format-standard two_col_left two-columns">
+
+<div class="bg-gradient">
+
+
+<div id="container" class="container_16">
+    
+    
+        <div id="header">
+    	
+        <img src="http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/images/headers/fluid.jpg" alt="" width="960" height="90" class="header-img" />        	       
+        		
+        			<h2 class="header_title push_1 grid_15">				<a href="http://www.analyticsvidhya.com/blog" title="Go back to the front page">					Analytics Vidhya				</a>			</h2>			
+            <h3 class="header_desc push_1 grid_15">				Learn everything about Analytics			</h3>                
+		    </div>
+    <div id="nav">
+                <div id="header-menu-wrap" class="clearfix">
+			<ul id="header-menu" class="menu clearfix"><li id="menu-item-1463" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a href="http://www.analyticsvidhya.com/blog/"><strong>Home</strong></a></li>
+<li id="menu-item-1464" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/about-me/"><strong>About us</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-1561" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/team/">Our team</a></li>
+	<li id="menu-item-3817" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/write/">Write for us</a></li>
+	<li id="menu-item-4067" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/analytics-vidhya-apprentice-programme/">AV Apprentice</a></li>
+</ul>
+</li>
+<li id="menu-item-2474" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/big-data/"><strong>Big data</strong></a></li>
+<li id="menu-item-2475" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/"><strong>Business Analytics</strong></a></li>
+<li id="menu-item-2476" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/"><strong>Business Intelligence</strong></a></li>
+<li id="menu-item-2477" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/"><strong>Qlikview</strong></a></li>
+<li id="menu-item-2478" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/sas/"><strong>SAS</strong></a></li>
+<li id="menu-item-2479" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/"><strong>Web Analytics</strong></a></li>
+<li id="menu-item-2616" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/category/jobs/"><strong>Jobs</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-2760" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/">Jobs &#8211; Business Analytics</a></li>
+	<li id="menu-item-2761" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/">Jobs &#8211; Business Intelligence</a></li>
+	<li id="menu-item-2762" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/">Jobs- Big Data</a></li>
+	<li id="menu-item-2763" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/">Jobs- MIS</a></li>
+</ul>
+</li>
+</ul>            
+            <div class="clear"></div>
+            
+			            
+                    
+        </div>
+		
+                
+        <div class="menu-bottom-shadow">&nbsp;</div>
+
+
+        
+    </div>
+
+    
+    <div id="content" class="clearfix hfeed">
+                
+                
+        <div id="content-main" class="clearfix grid_11">
+        
+	
+	<div class="post-nav clearfix">
+		<p class="previous">&laquo; <a href="http://www.analyticsvidhya.com/blog/2013/06/implement-analytics-solution-business-problem/" rel="prev">How to implement an analytics solution for a business problem?</a></p>
+		<p class="next-post"><a href="http://www.analyticsvidhya.com/blog/2013/06/common-mistakes-analysis-avoid-them/" rel="next">Common mistakes analysts make during analysis and how to avoid them?</a> &raquo;</p>
+			</div>
+	        
+<div id="post-485" class="post-485 post type-post status-publish format-standard hentry category-business-analytics tag-business-analyst tag-business-analytics tag-structured-thinking clearfix post">
+	
+		
+	<div class="entry clearfix">
+    	
+                    	<div class="date updated alpha with-year">
+        	<span class="value-title" title="2013-06-24T19:31" />
+            <p class="default_date">
+            	<span class="month">Jun</span>
+                <span class="day">24</span>
+                	                <span class="year">2013</span>
+                            </p>
+                    </div>
+    		
+        <div class="post-avatar-wrap gutter-left"><img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=45&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D45&amp;r=G' class='avatar avatar-45 photo' height='45' width='45' /></div>        
+                
+                
+		        <h1 class="post-title entry-title">
+			The art of structured thinking and analyzing			        </h1>
+		
+				<div class="post-meta clearfix">
+			
+									<span class="printonly">Categories: </span>
+			<p class="meta_categories"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts in Business Analytics" rel="category tag">Business Analytics</a></p>
+						
+									
+									
+									<p class="post-author author vcard">
+				by <span class="fn nickname"><a href="http://www.analyticsvidhya.com/blog/author/kunalj/" class="url">Kunal Jain</a></span>			</p>
+											
+						
+					</div>
+		
+				<div class="entry-content clearfix">
+							
+										
+						<p style="text-align: justify;">It took me 3 months to complete my first analytics project. If I would have worked on a similar project 6 months into the job, I would have completed it with in a month. Today, I can complete the same project in less than a week.</p>
+<h2 style="text-align: center;"><strong>So what has changed during this time?</strong></h2>
+<ul style="text-align: justify;">
+<li><span style="line-height: 12px;">I have started thinking in structured manner</span></li>
+<li>I have gained experience in best data management practices</li>
+<li>My business thinking has evolved over time</li>
+</ul>
+<p style="text-align: justify;">While the last two points improve only with time, structured thinking can improve quickly through simple training and disciplined approach towards analysis.</p>
+<p style="text-align: justify;">But before we go forward, let me bring out the benefits from structured thinking through following graph:</p>
+<p style="text-align: justify;"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/06/time-required-project-completion.jpg"><img class="aligncenter size-full wp-image-488" alt="time required project completion" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/06/time-required-project-completion.jpg" width="768" height="474" /></a></p>
+<p style="text-align: justify;">Here is how to read this graph:</p>
+<ul style="text-align: justify;">
+<li><span style="line-height: 12px;">Red line in the graph shows how time to complete a project (in weeks) has come down with experience</span></li>
+<li>With in each of three blocks (&lt; 1 year; 1 &#8211; 3 year; 3+ years), the area of color shows the factor responsible for drop in time.</li>
+<li>For example, during the first block, time required to complete the project comes down from 12+ weeks to 3 weeks and 75% of this drop is because of structured thinking.</li>
+</ul>
+<p style="text-align: justify;">As you can see, structured thinking is a a big differentiator between a good analyst and bad analyst. Not only this, you can not become a good analytics manager until you can put structure to complex and ambiguous problems. Hence, this post is aimed to help you progress on path of structured thinking.</p>
+<p style="text-align: justify;"><strong><strong><strong><div id='stb-container-9659' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-9659' class='stb-section_box stb-box' ><span style="color: #ffffff;">W<strong>hat is structured thinking?</strong></span></div></div></strong></strong></strong></p>
+<p style="text-align: justify;">Structured thinking is a process of putting a framework to an unstructured problem. Having a structure not only helps an analyst understand the problem at a macro level, it also helps by identifying areas which require deeper understanding.</p>
+<p style="text-align: justify;"><strong><strong><div id='stb-container-2608' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-2608' class='stb-section_box stb-box' ><span style="color: #ffffff;"><strong>Why is it important and how can it help?</strong></span></div></div></strong></strong></p>
+<p style="text-align: justify;">Without structure, an analyst is like a tourist with out a map. He might understand where he wants to go (or what he wants to solve), but he doesn&#8217;t know how to get there. He would not be able to judge which tools and vehicles he would need to reach the desired place.</p>
+<p style="text-align: justify;">How many times have you come across a situation when the entire work had to be re-done because a particular segment was not excluded from data? Or a segment was not included? Or just when you were about to finish the analysis, you come across a factor you did not think off before? All these are results of poor structured thinking.</p>
+<p style="text-align: justify;">Following are some results of poor structured thinking:</p>
+<ul style="text-align: justify;">
+<li><span style="line-height: 12px;">Multiple iterations of work </span></li>
+<li>Change of scope and work half way through</li>
+<li>Longer turn around time</li>
+<li>Difference in expectation between analyst and stakeholders</li>
+</ul>
+<p style="text-align: justify;"><strong><div id='stb-container-9826' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-9826' class='stb-section_box stb-box' ><span style="color: #ffffff;">So h<strong>ow to enhance structured thinking?</strong></span></div></div></strong></p>
+<p style="text-align: justify;">Following are some of the best practices which I have learned over time. These practices have helped me and a lot of other people immensely to structure our thoughts and making sure we stay on track during our projects:</p>
+<ul style="text-align: justify;">
+<li><span style="line-height: 12px;"><strong>Create a Scope of Work document</strong>: This document helps by bringing all stakeholders on same page at the start of any project. A typical document can be any where between half a page to maximum of 2 pages. Following are typical sections which I keep in this document:</span>
+<ul>
+<li>Background</li>
+<li>Problem statement</li>
+<li>Customers, Sponsor and stakeholders</li>
+<li>In scope and out of scope areas (please note that both are equally important).</li>
+<li>Reference to any work which has happened in past</li>
+</ul>
+</li>
+</ul>
+<p style="padding-left: 30px; text-align: justify;"><span style="text-align: justify;">Once you create this document, make sure you circulate it to all stakeholders and take their thought at this stage only. If their is any confusion or contradiction to the scope, sort it out now! There is hardly any point in going further, until you define the scope clearly.</span></p>
+<ul style="text-align: justify;">
+<li><strong>Create presentation and lay out the analysis without touching the data: </strong>You will be surprised to see the power of this technique. It might sound counter-intuitive to people outside analytics industry, but this technique helps you remove any biases and makes sure you think of all the aspects before you zero in on any specific area. For example, if I want to understand why charge offs have increased suddenly in credit card portfolio over last month, I would lay it down in a structure similar to this:</li>
+</ul>
+<p style="text-align: justify; padding-left: 30px;"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/06/structure.jpg"><img class="aligncenter size-full wp-image-513" alt="structure" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2013/06/structure.jpg" width="555" height="484" /></a>Once this structure is exhaustive and complete, you can simply plug in the data for each set of variables and see what is the reason.</p>
+<p style="text-align: justify; padding-left: 30px;">The beauty of this practice is that you can layout any problem by spending an hour on it. If you do this right, solving the problem would then be a simple walk through. If you don&#8217;t, there is a big risk that you might focus on only internal factors (that too only from a specific area).</p>
+<ul style="text-align: justify;">
+<li><strong>Perform back of the envelope calculations:</strong> Once you have the entire structure laid out, perform quick and dirty back of the envelope calculations to see if some things should be analyzed first or can be removed. As long as they are 80% right, go ahead. For example, if charge offs have doubled with in a month, it is unlikely to be driven by unemployment (unless you are aware of huge scale layoffs in the economy). Similarly, if Credit limit increase only impacts 2% of your portfolio, the charge offs from this programme need to increase by 50x, if portfolio risk has doubled, which is unlikely unless you have given free Credit without looking at population.</li>
+<li><strong>Layout the data requirements and hypothesis before looking at what data is available: </strong> If you layout these after looking at what is available, there is a high chance that you restrict your thinking to those variables and data points which may not bring out the best outcome.</li>
+<li><strong>Finally&#8230; practice, practice and practice:</strong> There is no point reading all this stuff, if you don&#8217;t apply it (too bad that I am saying it so late)! The more you apply it, the better you will become at it. Take any problem / business scenario, break it down on a piece of paper, see how things add up. How much profit or loss can you expect from a strategy change? What is the most critical factor? What assumptions need to hold out in order to make profits? Just apply structure to any problem you come across and see the fun. In matter of hours, you might know more than the  owner of the problem.</li>
+</ul>
+<p style="text-align: justify;">So, next time when you come across a problem to solve, don&#8217;t dive into the data. Put a structure around it, make sure you cover all the aspects, understand what is the most important factor, layout possible hypothesis and data requirements and then solve the problem. You will be surprised to see the reduction in time, if you follow these steps religiously.</p>
+<p style="text-align: justify;">As usual, if you know of any other practice, which has helped you think more structurally, do let me know.</p>
+<h2 style="text-align: justify;"><strong>If you like what you just read &amp; want to continue your analytics learning, you can <a href="http://feedburner.google.com/fb/a/mailverify?uri=analyticsvidhya" target="_blank">subscribe to our emails</a> or like our <a href="http://facebook.com/analyticsvidhya" target="_blank">facebook page</a></strong></h2>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-linkedin"><div class="linkedin_button"><script type="in/share" data-url="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/" data-counter="right"></script></div></li><li class="share-facebook"><div class="like_button"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F06%2Fart-structured-thinking-analyzing%2F&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;height=21&amp;locale=en_US&amp;width=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:96px; height:21px;" allowTransparency="true"></iframe></div></li><li class="share-google-plus-1"><div class="googleplus1_button"><div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/"></div></div></li><li class="share-twitter"><div class="twitter_button"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F06%2Fart-structured-thinking-analyzing%2F&#038;counturl=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F06%2Fart-structured-thinking-analyzing%2F&#038;count=horizontal&#038;text=The%20art%20of%20structured%20thinking%20and%20analyzing%3A" style="width:101px; height:20px;"></iframe></div></li><li class="share-pocket"><div class="pocket_button"><a href="https://getpocket.com/save" class="pocket-btn" data-lang="en" data-save-url="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/" data-pocket-count="horizontal" >Pocket</a></div></li><li class="share-reddit"><div class="reddit_button"><iframe src="http://www.reddit.com/static/button/button1.html?width=120&amp;url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F06%2Fart-structured-thinking-analyzing%2F&amp;title=The%20art%20of%20structured%20thinking%20and%20analyzing" height="22" width="120" scrolling="no" frameborder="0"></iframe></div></li><li class="share-stumbleupon"><div class="stumbleupon_button"><iframe src="http://www.stumbleupon.com/badge/embed/1/?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2013%2F06%2Fart-structured-thinking-analyzing%2F&amp;title=The%20art%20of%20structured%20thinking%20and%20analyzing" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:74px; height: 18px;" allowTransparency="true"></iframe></div></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-social sd-gplus"><h3 class="sd-title">Google+</h3><div class="sd-content"><a href="https://plus.google.com/104124395851770316607"><img src="https://lh4.googleusercontent.com/-AnvVu1XLr6Q/AAAAAAAAAAI/AAAAAAAABy0/QycPN7inY2k/photo.jpg?sz=40" alt="Kunal Jain" width="20" height="20" align="absmiddle" /> </a><a rel="author" href="https://plus.google.com/104124395851770316607" class="gplus-profile">Kunal Jain</a><span class="g-follow-wrapper"><span class="g-follow" data-href="https://plus.google.com/104124395851770316607" data-rel="author" data-height="15"></span></span></div></div>			
+						
+						
+		</div>
+		
+				<div class="entry-footer clearfix">
+										<p class="post-tags">Tags: <a href="http://www.analyticsvidhya.com/blog/tag/business-analyst/" rel="tag">Business Analyst</a>, <a href="http://www.analyticsvidhya.com/blog/tag/business-analytics/" rel="tag">Business Analytics</a>, <a href="http://www.analyticsvidhya.com/blog/tag/structured-thinking/" rel="tag">structured thinking</a></p>
+						
+			<div class="add-this-right"></div>			
+					</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="comments" class="clearfix">
+        	<h4 class="comments current"><a href="#">7 comments</a></h4>
+	    	    <h4 class="pings"><a href="#">2 pings</a></h4>
+        
+        	<p class="comment-form-jump"><a href="#respond">Skip to comment form</a> &darr;</p>
+	
+	
+	    <div class="comments-list-wrapper">
+        <ol class="clearfix" id="comments_list">
+            		<li id="comment-16" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/88ef1b2f60eefc47c1e52f9eba982dc8?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://ayushb.blogspot.com' rel='external nofollow' class='url'>Ayush Biyani</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 25, 2013 at 5:57 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#comment-16">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/06/art-structured-thinking-analyzing/?replytocom=16#respond' onclick='return addComment.moveForm("comment-16", "16", "respond", "485")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Kunal,</p>
+<p>One thing I have realized is that even within the realm of structured thinking, there are different structures possible.( say S1 and S2). There has to be obviously some analysis which should result in a person deciding that S1 is better/worse than S2. For example lets see somebody says what are the no of pizzas shop..should first question be &#8220;is it a city &#8221; or &#8221; does it have more youngsters &#8220;..obviously both of them are important but comes as the first filter is more often than not a victim of personal discretion. </p>
+<p>what do you think ?</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-18" class="comment byuser comment-author-kunalj bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://analyticsvidhya.com' rel='external'>Kunal Jain</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 25, 2013 at 5:11 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#comment-18">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/06/art-structured-thinking-analyzing/?replytocom=18#respond' onclick='return addComment.moveForm("comment-18", "18", "respond", "485")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Ayush,</p>
+<p>Very valid question. The way I would look at it is that both of these structures ultimately fall under a single structure. The overall question being what factors influence location of pizza shop. There would be one set of hypothesis / variable related to geography (city, state, tier of cities), another set with economic variables of the city (average income, spend, credit, number of jobs, number of students or target market etc.), another set of variables with type of markets available (e.g. malls, residential markets) so on and so forth.</p>
+<p>Ultimately all these variables would go into a model, which would highlight which ones have higher influence and which would not. I don&#8217;t see any need to judge whether S1 is better or S2. In fact a good analyst should never start create a solution starting from a biased position. Hope this answers what you had asked.</p>
+<p>Kunal</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-20" class="comment even depth-3 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/88ef1b2f60eefc47c1e52f9eba982dc8?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://ayushb.blogspot.com' rel='external nofollow' class='url'>Ayush Biyani</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 26, 2013 at 5:35 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#comment-20">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/06/art-structured-thinking-analyzing/?replytocom=20#respond' onclick='return addComment.moveForm("comment-20", "20", "respond", "485")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Yes, Indeed we have to take both of them as  variable. There is no doubt on that. What I was talking about is while deciding the framework ( typically useful for guesstimates questions), Criteria 1 as the first one may mean altogether different from some other Criteria 2 as the first one.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-21" class="comment byuser comment-author-kunalj bypostauthor odd alt depth-4 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://analyticsvidhya.com' rel='external'>Kunal Jain</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 26, 2013 at 4:19 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#comment-21">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/06/art-structured-thinking-analyzing/?replytocom=21#respond' onclick='return addComment.moveForm("comment-21", "21", "respond", "485")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>I had answered assuming a business planning scenario. If it is a guesstimate, ultimately the answer should be same irrespective of whether you go down either route. As long as you consider all the critical factors, answer should be consistent.</p>
+<p>Typically, I follow a guideline that the parameter with higher splitting power should be used first.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-17" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/72cd483f1f1c95c73e6ce1c74c9a959b?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Aatash</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														June 25, 2013 at 1:28 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#comment-17">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/06/art-structured-thinking-analyzing/?replytocom=17#respond' onclick='return addComment.moveForm("comment-17", "17", "respond", "485")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Great points, Kunal. Very well explained and written.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-455" class="comment odd alt thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/3992a108bd69eeb9905bfc806c55ce8b?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Ram Kapoor</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														October 15, 2013 at 11:22 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#comment-455">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/06/art-structured-thinking-analyzing/?replytocom=455#respond' onclick='return addComment.moveForm("comment-455", "455", "respond", "485")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Kunal,</p>
+<p>I am an HR Analyst, working for a financial services organization. I want to understand, how to create a data repository for a startup organization for your business function, and perform process monitoring and performance analytics.</p>
+<p>Regards,<br />
+Ram</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-460" class="comment byuser comment-author-kunalj bypostauthor even depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/4881b6eff4a916300c9a785c9f103f24?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://analyticsvidhya.com' rel='external'>Kunal Jain</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														October 16, 2013 at 3:58 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#comment-460">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/06/art-structured-thinking-analyzing/?replytocom=460#respond' onclick='return addComment.moveForm("comment-460", "460", "respond", "485")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Ram,</p>
+<p>Unfortunately, the process is relatively long, complex and one where decisions should be taken with all stakeholders. There are various parameters which impact the outcome (for example size of data, granularity of data, how long do you want to retain data).</p>
+<p>Depending on these answers, the outcome would vary. If your data is relatively small and you want to perform simple analysis and reporting, tools like Qlikview and Tableau can be good value for money.</p>
+<p>Thanks,<br />
+Kunal</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        </ol>
+       	
+            </div>
+        
+            <ol class="clearfix" id="pings_list">
+            		<li id="comment-39" class="pingback even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com/blog/2013/07/analytics-rockstar/' rel='external nofollow' class='url'>How to become an analytics rockstar? | Analytics Vidhya</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 16, 2013 at 8:25 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#comment-39">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/06/art-structured-thinking-analyzing/?replytocom=39#respond' onclick='return addComment.moveForm("comment-39", "39", "respond", "485")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>[...] The article written before has some best practices mentioned in order to improve structured thinking. Find them here. [...]</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-4308" class="pingback odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+										
+					<h5 class="comment-author">
+						<cite><a href='http://www.analyticsvidhya.com/blog/2014/01/tips-creating-winning-dashboard/' rel='external nofollow' class='url'>Tips for creating a winning dashboard</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														January 27, 2014 at 11:10 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#comment-4308">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2013/06/art-structured-thinking-analyzing/?replytocom=4308#respond' onclick='return addComment.moveForm("comment-4308", "4308", "respond", "485")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>[&#8230;] 1. Importance of structuring and creating layout / structure before you dive in your data. I had mentioned similar practice in one of my previous articles here. [&#8230;]</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+        </ol>
+        
+    </div>
+
+
+
+
+
+	<div id="comment-form-wrap" class="clearfix">
+										<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blog/2013/06/art-structured-thinking-analyzing/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://www.analyticsvidhya.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author clearfix">
+						<label for="author" class="graphene_form_label">Name: <span class="required">*</span></label>
+						<input id="author" name="author" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-email clearfix">
+						<label for="email" class="graphene_form_label">Email: <span class="required">*</span></label>
+						<input id="email" name="email" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-url clearfix">
+						<label for="url" class="graphene_form_label">Website: </label>
+						<input id="url" name="url" type="text" class="graphene-form-field" value="" />
+					</p>
+												<p class="comment-form-message comment-form-comment clearfix">
+										<label class="graphene_form_label" for="comment">Message: <span class="required">*</span></label>
+										<textarea name="comment" id="comment" cols="40" rows="20" class="graphene-form-field" aria-required="true"></textarea>
+									 </p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Submit Comment" />
+							<input type='hidden' name='comment_post_ID' value='485' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="0f30c14e94" /></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="21"/></p><div class="clear"></div>					</form>
+							</div><!-- #respond -->
+				</div>
+    
+
+            
+  
+    </div><!-- #content-main -->
+    
+    	
+    
+<div id="sidebar1" class="sidebar grid_5">
+
+	
+    <div id="useful-banner-manager-banners-rotation-3" class="sidebar-wrap clearfix useful_banner_manager_rotation_widget">            <div id="useful-banner-manager-banners-rotation-3" data-interval="5000" class="useful_banner_manager_banners_rotation" style="overflow: hidden; width: 256px; height: 258px;">
+                            <div id="10_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner">
+                                            <a href="http://www.analyticsvidhya.com/blog/2014/06/unveiling-analytics-vidhya-apprentice-programme/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/10-apprentice_4.png" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                                <div id="9_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner" style="display: none">
+                                            <a href="http://www.analyticsvidhya.com/blog/category/jobs/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/9-jobsopening1.jpg" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                            </div>
+            </div>
+
+    <div id="feedburnerformwidget-2" class="sidebar-wrap clearfix widget_feedburnerformwidget">
+    <!-- Plugin Feedburner Form-->
+    <div class="fb-container">
+        <h3>Subscribe</h3>        <div class="fbf-text">
+                Join Analytics Vidhya to continue your learning on Analytics        </div>
+        <form  class="fbf-widget" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=AnalyticsVidhya', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+        <input class="subscription_email" type="text" name="email" placeholder="" /><input type="hidden" value="AnalyticsVidhya" name="uri"/>
+        <input type="hidden" name="loc" value="en_US"/>
+        <input class="subscription_btn" type="submit" value ="OK"/>
+        </form>
+
+    
+    
+    </div>
+    <!-- Plugin Feedburner Form-->
+		</div>
+    <div id="search-2" class="sidebar-wrap clearfix widget_search"><h3>Search Analytics Vidhya</h3><form id="searchform" class="searchform" method="get" action="http://www.analyticsvidhya.com/blog">
+    <p class="clearfix default_searchform">
+        <input type="text" name="s" 
+        	onblur="if (this.value == '') {this.value = 'Search';}" 
+            onfocus="if (this.value == 'Search') {this.value = '';}" 
+            value="Search" />
+        <button type="submit"><span>Search</span></button>
+    </p>
+    </form></div><div id="social-widget-2" class="sidebar-wrap clearfix Social_Widget"><h3>Follow Us!</h3><div class="socialmedia-buttons smw_left"><a href="http://www.facebook.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/facebook.png" 
+				alt="Follow Us on Facebook" 
+				title="Follow Us on Facebook" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.linkedin.com/groups/Analytics-Vidhya-Learn-everything-about-5057165" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/linkedin.png" 
+				alt="Follow Us on LinkedIn" 
+				title="Follow Us on LinkedIn" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://feeds.feedburner.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/rss.png" 
+				alt="Follow Us on RSS" 
+				title="Follow Us on RSS" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://plus.google.com/+analyticsvidhya" rel="publisher" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/googleplus.png" 
+				alt="Follow Us on Google+" 
+				title="Follow Us on Google+" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://twitter.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/twitter.png" 
+				alt="Follow Us on Twitter" 
+				title="Follow Us on Twitter" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.youtube.com/channel/UCH6gDteHtH4hg3o2343iObA" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/youtube.png" 
+				alt="Follow Us on YouTube" 
+				title="Follow Us on YouTube" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a></div></div><div id="wmp_widget-2" class="sidebar-wrap clearfix widget_wmp_widget"><h3>Popular posts</h3><ul>			<li><a href="http://www.analyticsvidhya.com/blog/2013/07/advanced-analytics-certifications/" title="Advanced analytics certifications in India">Advanced analytics certifications in India</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/" title="4 tricky SAS questions commonly asked in interview">4 tricky SAS questions commonly asked in interview</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/start-career-business-analytics/" title="How to start a career in Business Analytics?">How to start a career in Business Analytics?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/03/sas-vs-vs-python-tool-learn/" title="SAS vs. R (vs. Python) &#8211; which tool should I learn?">SAS vs. R (vs. Python) &#8211; which tool should I learn?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/set-analysis-qlikview/" title="Set Analysis in QlikView &#8211; simplified!">Set Analysis in QlikView &#8211; simplified!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/read-books-analysts-or-interested-analytics/" title="Must read books for Analysts (or people interested in Analytics)">Must read books for Analysts (or people interested in Analytics)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/02/aggr/" title="How to Use AGGR () function in Qlikview?">How to Use AGGR () function in Qlikview?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/06/books-data-scientists-or-aspiring-ones/" title="Must have books for data scientists (or aspiring ones)">Must have books for data scientists (or aspiring ones)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/05/planning-late-career-shift-analytics-big-data-prepared/" title="Planning a late career shift to Analytics / Big data? Better be prepared!">Planning a late career shift to Analytics / Big data? Better be prepared!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/tips-crack-guess-estimate-case-study/" title="Tips to crack a guess estimate (Analytics case study)">Tips to crack a guess estimate (Analytics case study)</a></li>
+			</ul></div><div id="text-2" class="sidebar-wrap clearfix widget_text"><h3>Contact Us</h3>			<div class="textwidget"> <form method="post" id="cntctfrm_contact_form" action="http://www.analyticsvidhya.com/blog/2013/06/art-structured-thinking-analyzing/#cntctfrm_contact_form" enctype="multipart/form-data"><div style="text-align: left; padding-top: 5px;">
+						<label for="cntctfrm_contact_name">Name: <span class="required">*</span></label>
+					</div><div style="text-align: left;">
+						<input class="text" type="text" size="40" value="" name="cntctfrm_contact_name" id="cntctfrm_contact_name" style="text-align: left; margin: 0;" />
+					</div><div style="text-align: left;">
+					<label for="cntctfrm_contact_email">Email Address: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_email" id="cntctfrm_contact_email" style="text-align: left; margin: 0;" />
+				</div>
+			<div style="text-align: left;">
+					<label for="cntctfrm_contact_subject">Subject: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_subject" id="cntctfrm_contact_subject" style="text-align: left; margin: 0;" />
+				</div>
+
+				<div style="text-align: left;">
+					<label for="cntctfrm_contact_message">Message: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<textarea rows="5" cols="30" name="cntctfrm_contact_message" id="cntctfrm_contact_message"></textarea>
+				</div><div style="text-align: left;">
+						<input type="checkbox" value="1" name="cntctfrm_contact_send_copy" id="cntctfrm_contact_send_copy" style="text-align: left; margin: 0;"  />
+						<label for="cntctfrm_contact_send_copy">Send me a copy</label>
+					</div><p class="cptch_block" style="text-align:left;"><br /><input type="hidden" name="cptch_result" value="8Ug=" />
+		<input type="hidden" name="cptch_time" value="1408730468" />
+		<input type="hidden" value="Version: 2.4" /><input type="text" autocomplete="off" name="cptch_number" value="" maxlength="1" size="1" style="margin-bottom:0;display:inline;font-size: 12px;width: 40px;" /> &#43; &#110;&#105;ne = 11</p><div style="text-align: left; padding-top: 8px;"><input type="hidden" value="send" name="cntctfrm_contact_action"><input type="hidden" value="Version: 3.30" />
+					<input type="hidden" value="en" name="cntctfrm_language">
+					<input type="submit" value="Submit" style="cursor: pointer; margin: 0pt; text-align: center;margin-bottom:10px;" /> 
+				</div>
+				</form></div>
+		</div>		<div id="recent-posts-2" class="sidebar-wrap clearfix widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/step-step-guide-extract-inforation-free-text-unstructured-data/">Step by step guide to extract insights from free text (unstructured data)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/market-mix-modeling/">Market mix modeling &#8211; Simplified!</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/author-identification-challenge/">Bring it on! Analytics Vidhya Author identification challenge</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-analytics-government-agencies-run-better/">How Big data &#038; Analytics can help Government agencies run better?</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/baby-steps-python-performing-exploratory-analysis-python/">Baby steps in Python &#8211; Exploratory analysis in Python (using Pandas)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-big-difference/">Training review &#8211; A Big Data Course with a ‘Big’ Difference from Jigsaw Academy</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/visualizing-market-basket-analysis/">Visualizing product relationships in a market Basket analysis</a>
+						</li>
+				</ul>
+		</div><div id="archives-2" class="sidebar-wrap clearfix widget_archive"><h3>Monthly Archives</h3>		<ul>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/08/'>August 2014</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/07/'>July 2014</a>&nbsp;(70)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/06/'>June 2014</a>&nbsp;(131)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/05/'>May 2014</a>&nbsp;(100)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/04/'>April 2014</a>&nbsp;(16)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/03/'>March 2014</a>&nbsp;(11)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/02/'>February 2014</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/01/'>January 2014</a>&nbsp;(9)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/12/'>December 2013</a>&nbsp;(6)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/11/'>November 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/10/'>October 2013</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/09/'>September 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/08/'>August 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/07/'>July 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/06/'>June 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/05/'>May 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/04/'>April 2013</a>&nbsp;(2)</li>
+		</ul>
+</div><div id="categories-2" class="sidebar-wrap clearfix widget_categories"><h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="http://www.analyticsvidhya.com/blog/category/analytics-vidhya/" title="View all posts filed under Analytics Vidhya">Analytics Vidhya</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="http://www.analyticsvidhya.com/blog/category/big-data/" title="View all posts filed under Big data">Big data</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts filed under Business Analytics">Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/" title="View all posts filed under Business Intelligence">Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-170"><a href="http://www.analyticsvidhya.com/blog/category/jobs/" title="View all posts filed under Jobs">Jobs</a>
+</li>
+	<li class="cat-item cat-item-214"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/" title="Jobs in Business Analytics">Jobs &#8211; Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-215"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/" title="Jobs in Business Intelligence">Jobs &#8211; Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-240"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-web-analytics/" title="View all posts filed under Jobs &#8211; Web Analytics">Jobs &#8211; Web Analytics</a>
+</li>
+	<li class="cat-item cat-item-227"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/" title="View all posts filed under Jobs- Big Data">Jobs- Big Data</a>
+</li>
+	<li class="cat-item cat-item-63"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/" title="View all posts filed under Jobs- MIS">Jobs- MIS</a>
+</li>
+	<li class="cat-item cat-item-396"><a href="http://www.analyticsvidhya.com/blog/category/python-2/" title="View all posts filed under Python">Python</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/" title="View all posts filed under Qlikview">Qlikview</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://www.analyticsvidhya.com/blog/category/sas/" title="View all posts filed under SAS">SAS</a>
+</li>
+	<li class="cat-item cat-item-25"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/" title="View all posts filed under Web Analytics">Web Analytics</a>
+</li>
+		</ul>
+</div><div id="text-3" class="sidebar-wrap clearfix widget_text">			<div class="textwidget"><?php wp_list_categories('feed_image=http://www.analyticsvidhya.com/blog/jobs&feed=XML Feed&optioncount=1&children=0'); ?></div>
+		</div>    
+        
+    
+</div><!-- #sidebar1 -->    
+    
+</div><!-- #content -->
+
+
+
+<div id="footer" class="clearfix">
+    
+        <div id="copyright">
+    	<h3>Copyright</h3>
+		            <p>
+            &copy; 2014 Analytics Vidhya.            </p>
+                
+        
+    	    </div>
+
+		<div class="footer-menu-wrap">
+    	<ul id="footer-menu" class="clearfix">
+			<li id="menu-item-1471" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1471"><a href="http://www.analyticsvidhya.com/blog/about-me/">About us</a></li>
+<li id="menu-item-1472" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1472"><a href="http://www.analyticsvidhya.com/blog/privacy-policy-2/">Privacy Policy</a></li>
+                    	<li class="menu-item return-top"><a href="#">Return to top</a></li>
+                    </ul>
+    </div>
+    	
+        <div id="developer" class="grid_7">
+      <!--  <p>
+        Powered by <a href="http://wordpress.org/">WordPress</a> and the <a href="http://www.graphene-theme.com/">Graphene Theme</a>.        </p>-->
+
+	    </div>
+        
+    </div><!-- #footer -->
+
+
+</div><!-- #container -->
+
+    </div><!-- .bg-gradient -->
+
+	<div style="display:none">
+	<div class="grofile-hash-map-4881b6eff4a916300c9a785c9f103f24">
+	</div>
+	<div class="grofile-hash-map-88ef1b2f60eefc47c1e52f9eba982dc8">
+	</div>
+	<div class="grofile-hash-map-4881b6eff4a916300c9a785c9f103f24">
+	</div>
+	<div class="grofile-hash-map-72cd483f1f1c95c73e6ce1c74c9a959b">
+	</div>
+	<div class="grofile-hash-map-3992a108bd69eeb9905bfc806c55ce8b">
+	</div>
+	</div>
+	<!--[if IE 8]>
+    <script type="text/javascript">
+        (function($) {
+            var imgs, i, w;
+            var imgs = document.getElementsByTagName( 'img' );
+            maxwidth = 0.98 * $( '.entry-content' ).width();
+            for( i = 0; i < imgs.length; i++ ) {
+                w = imgs[i].getAttribute( 'width' );
+                if ( w > maxwidth ) {
+                    imgs[i].removeAttribute( 'width' );
+                    imgs[i].removeAttribute( 'height' );
+                }
+            }
+        })(jQuery);
+    </script>
+    <![endif]-->
+<div id="su-footer-links" style="text-align: center;"></div>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/www.analyticsvidhya.com\/blog\/2013\/06\/art-structured-thinking-analyzing\/":485}	</script>
+<script type="text/javascript">
+			jQuery( document ).ready( function() {
+			    jQuery.getScript( '//platform.linkedin.com/in.js?async=true', function success() {
+			        IN.init();
+			    });
+			});
+			jQuery( document.body ).on( 'post-load', function() {
+				if ( typeof IN != 'undefined' )
+					IN.parse();
+			});
+			</script>		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+					<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+					<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script>
+		// Don't use Pocket's default JS as it we need to force init new Pocket share buttons loaded via JS.
+		function jetpack_sharing_pocket_init() {
+			jQuery.getScript( 'https://widgets.getpocket.com/v1/j/btn.js?v=1' );
+		}
+		jQuery( document ).on( 'ready', jetpack_sharing_pocket_init );
+		jQuery( document.body ).on( 'post-load', jetpack_sharing_pocket_init );
+		</script>
+		<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/akismet/_inc/form.js?ver=3.0.1'></script>
+<link rel='stylesheet' id='gplus-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/gplus-authorship/style.css?ver=3.9.2' type='text/css' media='all' />
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201434'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2014Augaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/wpgroho.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/comment-reply.min.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect.min.js?ver=1.10.4'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect-blind.min.js?ver=1.10.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var stbUserOptions = {"mode":"css","cssOptions":{"roundedCorners":true,"mbottom":10,"imgHide":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/minus.png","imgShow":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/plus.png","strHide":"Hide","strShow":"Show"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/js/wstb.js?ver=5.0.86'></script>
+<script type='text/javascript' src='//apis.google.com/js/plusone.js?ver=3.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=20121205'></script>
+
+	<script src="http://stats.wp.com/e-201434.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.1.1',blog:'58948004',post:'485',tz:'0'});
+	var load_cmc = function(){linktracker_init(58948004,485,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script></body>
+</html>

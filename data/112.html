@@ -1,0 +1,1788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head profile="http://gmpg.org/xfn/11">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Using Facebook as an analyst (Hint - using R)</title>
+    <link rel="pingback" href="http://www.analyticsvidhya.com/blog/xmlrpc.php" /> 
+    
+<!-- SEO Ultimate (http://www.seodesignsolutions.com/wordpress-seo/) -->
+	<meta name="description" content="This article will help you analyze your facebook network using R in less than 5 minutes" />
+	<meta name="keywords" content="Big data,Business Analytics,facebook,facebook mining,R,twitter,Twitter Mining,user network,:,&gt;,friends" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Using Facebook as an analyst (Hint &#8211; using R)" />
+	<meta property="og:description" content="This article will help you analyze your facebook network using R in less than 5 minutes" />
+	<meta property="og:url" content="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/" />
+	<meta property="og:image" content="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/graph_social_networking.jpg" />
+	<meta property="article:published_time" content="2014-07-03" />
+	<meta property="article:modified_time" content="2014-07-03" />
+	<meta property="article:author" content="http://www.analyticsvidhya.com/blog/author/tavish/" />
+	<meta property="article:tag" content="Big data" />
+	<meta property="article:tag" content="Business Analytics" />
+	<meta property="article:tag" content="facebook" />
+	<meta property="article:tag" content="facebook mining" />
+	<meta property="article:tag" content="R" />
+	<meta property="article:tag" content="twitter" />
+	<meta property="article:tag" content="Twitter Mining" />
+	<meta property="article:tag" content="user network" />
+	<meta property="og:site_name" content="Analytics Vidhya" />
+	<meta name="twitter:card" content="summary" />
+<!-- /SEO Ultimate -->
+
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Feed" href="http://www.analyticsvidhya.com/blog/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Comments Feed" href="http://www.analyticsvidhya.com/blog/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Analytics Vidhya &raquo; Using Facebook as an analyst (Hint &#8211; using R) Comments Feed" href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/feed/" />
+	<script type="text/javascript">
+	WebFontConfig = {
+		google: { families: ['Pontano+Sans::latin'] }
+	};
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})(); 
+    </script>
+    <link rel='stylesheet' id='jetpack-subscriptions-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/subscriptions/subscriptions.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='fb_data_style-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/feedburner-form/control/fbstyle.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='cntctfrm_stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/contact-form-plugin/css/style.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='social-widget-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/social_widget.css?ver=3.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widgets-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20121003' type='text/css' media='all' />
+<link rel='stylesheet' id='graphene-stylesheet-css'  href='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/style.css?ver=3.9.2' type='text/css' media='screen' />
+<link rel='stylesheet' id='stbCoreCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/stb-core.css?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='stbCSS-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/css/wp-special-textboxes.css.php?ver=5.0.86' type='text/css' media='all' />
+<link rel='stylesheet' id='sharedaddy-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.css?ver=3.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css?ver=3.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/useful-banner-manager/scripts.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/jquery.tools.min.js?ver=3.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var grapheneJS = {"templateUrl":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/themes\/graphene","isSingular":"1","shouldShowComments":"1","commentsOrder":"newest","sliderDisable":"","sliderAnimation":"fade","sliderTransSpeed":"400","sliderInterval":"7000","sliderDisplay":"bgimage-excerpt","infScroll":"","infScrollClick":"","infScrollComments":"","totalPosts":"1","postsPerPage":"15","isPageNavi":"","infScrollMsgText":"Fetching window.grapheneInfScrollItemsPerPage more item from window.grapheneInfScrollItemsLeft left ...","infScrollMsgTextPlural":"Fetching window.grapheneInfScrollItemsPerPage more items from window.grapheneInfScrollItemsLeft left ...","infScrollFinishedText":"No more items to fetch","commentsPerPage":"50","totalComments":"22","infScrollCommentsMsg":"Fetching window.grapheneInfScrollCommentsPerPage more top level comment from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsMsgPlural":"Fetching window.grapheneInfScrollCommentsPerPage more top level comments from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsFinishedMsg":"No more comments to fetch"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/graphene.js?ver=3.9.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.analyticsvidhya.com/blog/xmlrpc.php?rsd" />
+<link rel='prev' title='Data Analyst – Navitas, New Delhi (3+ Years of Experience)' href='http://www.analyticsvidhya.com/blog/2014/07/data-analyst-navitas-delhi-3-years-experience/' />
+<link rel='next' title='Quality Analyst– Cross-Tab, Mumbai (6+ months of experience)' href='http://www.analyticsvidhya.com/blog/2014/07/quality-analyst-cross-tab-mumbai-6-months-experience/' />
+<link rel='canonical' href='http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/' />
+<link rel='shortlink' href='http://wp.me/p3Zl4g-1cB' />
+<!-- WordPress Most Popular --><script type="text/javascript">/* <![CDATA[ */ jQuery.post("http://www.analyticsvidhya.com/blog/wp-admin/admin-ajax.php", { action: "wmp_update", id: 4625, token: "a4d0601573" }); /* ]]> */</script><!-- /WordPress Most Popular --><style type="text/css">
+#header-menu-wrap{ background: #0F2D4D; background: -moz-linear-gradient(#2880C3, #0F2D4D); background: -webkit-linear-gradient(#2880C3, #0F2D4D); background: -o-linear-gradient(#2880C3, #0F2D4D); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#0F2D4D')"; background: linear-gradient(#2880C3, #0F2D4D); }#header-menu ul li:hover,#header-menu ul li.current-menu-item,#header-menu ul li.current-menu-ancestor,.primary-menu-preview.dropdown ul li.current-menu-item,.primary-menu-preview.dropdown ul li.current-menu-ancestor{ background: #212121; background: -moz-linear-gradient(#2880C3, #212121); background: -webkit-linear-gradient(#2880C3, #212121); background: -o-linear-gradient(#2880C3, #212121); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2880C3', EndColorStr='#212121')"; background: linear-gradient(#2880C3, #212121); }#sidebar_bottom .sidebar-wrap{width:440px}#nav li ul{width:200px} #nav li ul ul{margin-left:200px}#header-menu ul li a, #secondary-menu ul li a{width:180px}.post-title a, .post-title a:visited{display:block;margin-right:45px;padding-bottom:0}#header{height:90px}
+</style>
+	<!--[if lte IE 7]>
+      <style type="text/css" media="screen">
+      	#footer, div.sidebar-wrap, .block-button, .featured_slider, #slider_root, #nav li ul, .pie{behavior: url(http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/js/PIE.php);}
+        .featured_slider{margin-top:0 !important;}
+        #header-menu-wrap {z-index:5}
+      </style>
+    <![endif]-->
+        <!-- BEGIN Google Analytics script -->
+    	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40101183-1', 'analyticsvidhya.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40101183-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>    <!-- END Google Analytics script -->
+    </head>
+<body class="single single-post postid-4625 single-format-standard two_col_left two-columns">
+
+<div class="bg-gradient">
+
+
+<div id="container" class="container_16">
+    
+    
+        <div id="header">
+    	
+        <img src="http://www.analyticsvidhya.com/blog/wp-content/themes/graphene/images/headers/fluid.jpg" alt="" width="960" height="90" class="header-img" />        	       
+        		
+        			<h2 class="header_title push_1 grid_15">				<a href="http://www.analyticsvidhya.com/blog" title="Go back to the front page">					Analytics Vidhya				</a>			</h2>			
+            <h3 class="header_desc push_1 grid_15">				Learn everything about Analytics			</h3>                
+		    </div>
+    <div id="nav">
+                <div id="header-menu-wrap" class="clearfix">
+			<ul id="header-menu" class="menu clearfix"><li id="menu-item-1463" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a href="http://www.analyticsvidhya.com/blog/"><strong>Home</strong></a></li>
+<li id="menu-item-1464" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/about-me/"><strong>About us</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-1561" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/team/">Our team</a></li>
+	<li id="menu-item-3817" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/write/">Write for us</a></li>
+	<li id="menu-item-4067" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.analyticsvidhya.com/blog/about-me/analytics-vidhya-apprentice-programme/">AV Apprentice</a></li>
+</ul>
+</li>
+<li id="menu-item-2474" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent"><a href="http://www.analyticsvidhya.com/blog/category/big-data/"><strong>Big data</strong></a></li>
+<li id="menu-item-2475" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/"><strong>Business Analytics</strong></a></li>
+<li id="menu-item-2476" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/"><strong>Business Intelligence</strong></a></li>
+<li id="menu-item-2477" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/"><strong>Qlikview</strong></a></li>
+<li id="menu-item-2478" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/sas/"><strong>SAS</strong></a></li>
+<li id="menu-item-2479" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/"><strong>Web Analytics</strong></a></li>
+<li id="menu-item-2616" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-ancestor"><a href="http://www.analyticsvidhya.com/blog/category/jobs/"><strong>Jobs</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-2760" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/">Jobs &#8211; Business Analytics</a></li>
+	<li id="menu-item-2761" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/">Jobs &#8211; Business Intelligence</a></li>
+	<li id="menu-item-2762" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/">Jobs- Big Data</a></li>
+	<li id="menu-item-2763" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/">Jobs- MIS</a></li>
+</ul>
+</li>
+</ul>            
+            <div class="clear"></div>
+            
+			            
+                    
+        </div>
+		
+                
+        <div class="menu-bottom-shadow">&nbsp;</div>
+
+
+        
+    </div>
+
+    
+    <div id="content" class="clearfix hfeed">
+                
+                
+        <div id="content-main" class="clearfix grid_11">
+        
+	
+	<div class="post-nav clearfix">
+		<p class="previous">&laquo; <a href="http://www.analyticsvidhya.com/blog/2014/07/data-analyst-navitas-delhi-3-years-experience/" rel="prev">Data Analyst – Navitas, New Delhi (3+ Years of Experience)</a></p>
+		<p class="next-post"><a href="http://www.analyticsvidhya.com/blog/2014/07/quality-analyst-cross-tab-mumbai-6-months-experience/" rel="next">Quality Analyst– Cross-Tab, Mumbai (6+ months of experience)</a> &raquo;</p>
+			</div>
+	        
+<div id="post-4625" class="post-4625 post type-post status-publish format-standard has-post-thumbnail hentry category-big-data category-business-analytics tag-facebook tag-facebook-mining tag-r tag-twitter tag-twitter-mining tag-user-network clearfix post">
+	
+		
+	<div class="entry clearfix">
+    	
+                    	<div class="date updated alpha with-year">
+        	<span class="value-title" title="2014-07-03T03:26" />
+            <p class="default_date">
+            	<span class="month">Jul</span>
+                <span class="day">03</span>
+                	                <span class="year">2014</span>
+                            </p>
+                    </div>
+    		
+        <div class="post-avatar-wrap gutter-left"><img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=45&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D45&amp;r=G' class='avatar avatar-45 photo' height='45' width='45' /></div>        
+                
+                
+		        <h1 class="post-title entry-title">
+			Using Facebook as an analyst (Hint &#8211; using R)			        </h1>
+		
+				<div class="post-meta clearfix">
+			
+									<span class="printonly">Categories: </span>
+			<p class="meta_categories"><a href="http://www.analyticsvidhya.com/blog/category/big-data/" title="View all posts in Big data" rel="category tag">Big data</a>, <a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts in Business Analytics" rel="category tag">Business Analytics</a></p>
+						
+									
+									
+									<p class="post-author author vcard">
+				by <span class="fn nickname"><a href="http://www.analyticsvidhya.com/blog/author/tavish/" class="url">Tavish Srivastava</a></span>			</p>
+											
+						
+					</div>
+		
+				<div class="entry-content clearfix">
+							
+										
+						<p style="text-align: center;"><strong>Facebook has huge data bank and it allows us to make use of it to some extent.</strong></p>
+<p style="text-align: justify;">October is a month of celebration in India. We have festivals like Diwali and Dushehra in October, which makes the entire month a time to celebrate and reunion. Every time we meet our friends and relatives at different places, to make it easier for everyone to reunite.  Every time before going to the city, I update my FB/Twitter status to &#8220;Going to city xyz&#8221; and get a bunch of replies from people who are traveling to the same place. But almost every time I miss some of my friends just because of lack of information. This time I went a step ahead and connected my FB account to R and looked for people who have their current city as my target location. Surprisingly, I got 10 more friends who were in the city, whom I might have missed if this exercise was never done. In this process, I had a lot of fun with other user profile variables FB permits us to look at. In this article, I will help readers to understand this process of connecting FB to R and demonstrate the simplicity of the process. This type of analysis is not restricted only to the case in hand but a much broader set of daily life problems.</p>
+<p style="text-align: justify;">We will use library Rfacebook for this analysis.</p>
+<p><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/graph_social_networking.jpg"><img class="size-full wp-image-4635 aligncenter" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/graph_social_networking.jpg" alt="graph_social_networking" width="665" height="486" /></a></p>
+<p style="text-align: left;"><strong><div id='stb-container-4170' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-4170' class='stb-section_box stb-box' >  <span style="color: #ffffff;">How to connect R to Facebook</span> </strong><strong> </div></div></strong></p>
+<p style="text-align: justify;">Facebook provides you two simple ways to import data from the website. I will demonstrate the simpler one in this article.</p>
+<p style="text-align: justify;">Step 1 : Goto the link &#8221; https://developers.facebook.com/tools/explorer/&#8221; . This will open thee FB developer page.</p>
+<p style="text-align: left;"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/fb.png"><img class="size-full wp-image-4626 aligncenter" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/fb.png" alt="fb" width="922" height="375" /></a></p>
+<p style="text-align: left;">Step 2: Change the API Version(Red box in the picture) to &#8220;unversioned&#8221;</p>
+<p style="text-align: left;">Step 3: Click the &#8220;Get Access Token&#8221; (Green box in the picture).</p>
+<p style="text-align: left;"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/permissions.png"><img class="size-full wp-image-4627 aligncenter" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/permissions.png" alt="permissions" width="559" height="327" /></a></p>
+<p style="text-align: justify;">Step 4: Check all the boxes in all three tabs. These are the permissions you are asking from yourself to access. Assuming you do not wish to hide anything from yourself, you can safely check all boxes.</p>
+<p style="text-align: justify;">Step 5 : Click on the button &#8220;Get Access Token&#8221;. This token is valid for 2 hours.</p>
+<p style="text-align: justify;">Step 6 : Store your token as variable in R studio. You can use the following code for the same :</p>
+<p style="text-align: left;"><div id='stb-container-9264' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-9264' class='stb-grey_box stb-box' ></p>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; token &lt;- "XXXXX12333YYY"</span></pre>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; me &lt;- getUsers("me", token=token)</span></pre>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; me$name</span></pre>
+<p style="text-align: left;">[1] &#8220;Tavish Srivastava&#8221;</p>
+<p style="text-align: left;"></div></div></p>
+<p style="text-align: left;">Now, you have facebook connected to your R session for the next 2 hours.</p>
+<p style="text-align: left;"><strong><div id='stb-container-6150' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-6150' class='stb-section_box stb-box' > <span style="color: #ffffff;"> Search people in a particular city among your friend list</span></strong><strong>  </div></div></strong></p>
+<p style="text-align: justify;">I and all my relatives decided to meet in Pune (Maharashtra) this year and hence &#8220;Pune&#8221; is the location I am looking for in the current location field of all my friends profile. Imagine doing the same thing manually on facebook. Let&#8217;s take a smarter route and check out the frequency distribution of current location among the user IDs in my friend list. To accomplish this task you can execute a simple code on R.</p>
+<p style="text-align: justify;">Step1 : Pull out the list of all friends and their ID.</p>
+<p style="text-align: justify;">Step 2 : Pull all the user details corresponding to this table of IDs.</p>
+<p style="text-align: left;">Step 3 : Check the frequency distribution of all current location. This is done to make sure the same name &#8220;Pune&#8221; is not appearing in different formats.</p>
+<p style="text-align: left;">This frequency distribution is a reason why this method adds power over traditional search on Facebook. For example, if we were meeting in Delhi, I would want to search Delhi, Gurgaon, Noida and possibly Faridabad for my friends. However, through this method, I can write one single query to get it.</p>
+<p style="text-align: left;">You can use following code to do the same :</p>
+<p style="text-align: left;"><div id='stb-container-8236' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-8236' class='stb-grey_box stb-box' ></p>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; my_friends &lt;- getFriends(token, simplify=TRUE)</span></pre>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; my_friends_info &lt;- getUsers(my_friends$id, token=token, private_info=TRUE)</span></pre>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; table(my_friends_info$location)</span></pre>
+<p style="text-align: left;"></div></div></p>
+<p style="text-align: left;"><a href="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/pune1.png"><img class="alignnone size-full wp-image-4629" src="http://www.analyticsvidhya.com/blog/wp-content/uploads/2014/07/pune1.png" alt="pune" width="544" height="162" /></a></p>
+<p style="text-align: left;">We see that, I have 16 friends with their current location as Pune. I also get the exact string I should search for to complete my task. Following is the code you can use to find these 16 friends.</p>
+<p style="text-align: left;"><div id='stb-container-9412' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-9412' class='stb-grey_box stb-box' ></p>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; Pune_resident &lt;- subset(my_friends_info$first_name,my_friends_info$location == "Pune, Maharashtra")</span>
+<span style="color: #339966;">&gt; Pune_resident</span></pre>
+<p style="text-align: left;"></div></div></p>
+<p style="text-align: justify;">Finally I get the list of names of my friends, who have their current location as Pune. While doing this exercise, I found some other interesting facts about my friend list. It is very easy to tabulate the relationship_status of all your friends. Because the possible values are very few, it becomes interesting to analyze the same. Following is a code I used to tabulate the relationship_status of my friends.</p>
+<p style="text-align: left;"><div id='stb-container-7303' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-7303' class='stb-grey_box stb-box' ></p>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; table(my_friends_info$relationship_status)</span></pre>
+<p style="text-align: left;"> Engaged : 3</p>
+<p style="text-align: left;"> In a relationship : 6</p>
+<p style="text-align: left;"> It&#8217;s complicated    : 5</p>
+<p style="text-align: left;"> Married  : 126</p>
+<p style="text-align: left;"> Single : 434</p>
+<p style="text-align: left;"></div></div></p>
+<p style="text-align: left;">As I have been lately busy in my work, I completely lost track of people getting engaged. Here is an easy method to find the same :</p>
+<p style="text-align: left;"><div id='stb-container-6916' class='stb-container-css stb-grey-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/images/gears-b.png'></aside><div id='stb-box-6916' class='stb-grey_box stb-box' ></p>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; engaged.friends &lt;- subset(my_friends_info$first_name,my_friends_info$relationship_status == "Engaged")</span></pre>
+<pre style="text-align: left;"><span style="color: #339966;">&gt; engaged.friends</span></pre>
+<p style="text-align: left;"></div></div></p>
+<p style="text-align: left;">I did a tabulation on each of the user information Facebook shared and discovered new things about my friends every single time.</p>
+<p style="text-align: left;"><strong><div id='stb-container-6258' class='stb-container-css stb-section-container stb-image-small stb-ltr stb-corners stb-side-none'><aside class='stb-icon'><img src=''></aside><div id='stb-box-6258' class='stb-section_box stb-box' >  <span style="color: #ffffff;">End Notes</span></strong><strong><span style="color: #ffffff;"> </span></div></div></strong></p>
+<p style="text-align: justify;">I found this small piece of analysis both interesting and insightful. It just helps you get a summary of everything. You can go through the user information of your entire friend list in less than 5 minutes. You can use this data to visualize your friends on a graph and see various clusters of population (Hint &#8211; you will need to use igraph library for this). You can do some cool things like define the distance between nodes basis interactions on Facebook and see which are the closest people to you as per Facebook.</p>
+<p style="text-align: justify;">How would you play around with your social media data? Have you done such small experiments on your Facebook or twitter profile? Did you go beyond the scope of this article in your analysis? Please share with us your thoughts on the topic.</p>
+<h3><strong>If you like what you just read &amp; want to continue your <span id="704db5be-d25a-4249-8c95-e8e1cf89683d" class="GINGER_SOFTWARE_mark">analytics learning</span>, <a href="http://feedburner.google.com/fb/a/mailverify?uri=analyticsvidhya">subscribe to our emails</a>, <a href="http://twitter.com/analyticsvidhya">follow us on twitter</a> or like our <a href="http://facebook.com/analyticsvidhya"><span id="5d0708ce-5fea-4155-9544-cef76432fe44" class="GINGER_SOFTWARE_mark">facebook</span> page</a>.</strong></h3>
+<p>&nbsp;</p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-linkedin"><div class="linkedin_button"><script type="in/share" data-url="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/" data-counter="right"></script></div></li><li class="share-facebook"><div class="like_button"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Ffacebook-analyst%2F&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;height=21&amp;locale=en_US&amp;width=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:96px; height:21px;" allowTransparency="true"></iframe></div></li><li class="share-google-plus-1"><div class="googleplus1_button"><div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/"></div></div></li><li class="share-twitter"><div class="twitter_button"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Ffacebook-analyst%2F&#038;counturl=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Ffacebook-analyst%2F&#038;count=horizontal&#038;text=Using%20Facebook%20as%20an%20analyst%20%28Hint%20-%20using%20R%29%3A" style="width:101px; height:20px;"></iframe></div></li><li class="share-pocket"><div class="pocket_button"><a href="https://getpocket.com/save" class="pocket-btn" data-lang="en" data-save-url="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/" data-pocket-count="horizontal" >Pocket</a></div></li><li class="share-reddit"><div class="reddit_button"><iframe src="http://www.reddit.com/static/button/button1.html?width=120&amp;url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Ffacebook-analyst%2F&amp;title=Using%20Facebook%20as%20an%20analyst%20%28Hint%20-%20using%20R%29" height="22" width="120" scrolling="no" frameborder="0"></iframe></div></li><li class="share-stumbleupon"><div class="stumbleupon_button"><iframe src="http://www.stumbleupon.com/badge/embed/1/?url=http%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2014%2F07%2Ffacebook-analyst%2F&amp;title=Using%20Facebook%20as%20an%20analyst%20%28Hint%20-%20using%20R%29" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:74px; height: 18px;" allowTransparency="true"></iframe></div></li><li class="share-end"></li></ul></div></div></div>			
+						
+						
+		</div>
+		
+				<div class="entry-footer clearfix">
+										<p class="post-tags">Tags: <a href="http://www.analyticsvidhya.com/blog/tag/facebook/" rel="tag">facebook</a>, <a href="http://www.analyticsvidhya.com/blog/tag/facebook-mining/" rel="tag">facebook mining</a>, <a href="http://www.analyticsvidhya.com/blog/tag/r/" rel="tag">R</a>, <a href="http://www.analyticsvidhya.com/blog/tag/twitter/" rel="tag">twitter</a>, <a href="http://www.analyticsvidhya.com/blog/tag/twitter-mining/" rel="tag">Twitter Mining</a>, <a href="http://www.analyticsvidhya.com/blog/tag/user-network/" rel="tag">user network</a></p>
+						
+			<div class="add-this-right"></div>			
+					</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="comments" class="clearfix no-ping">
+        	<h4 class="comments current">34 comments</h4>
+	        
+        	<p class="comment-form-jump"><a href="#respond">Skip to comment form</a> &darr;</p>
+	
+	
+	    <div class="comments-list-wrapper">
+        <ol class="clearfix" id="comments_list">
+            		<li id="comment-13090" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/d4157cdff000a9b7c7b2cab1f9fe7b78?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Gaurav</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 3, 2014 at 4:56 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13090">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13090#respond' onclick='return addComment.moveForm("comment-13090", "13090", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,</p>
+<p>Thanks for the nicely explained article.</p>
+<p>As you mentioned that token is valid for 2 hours.<br />
+ So what happens to the data post the expiry of 2 hours. </p>
+<p>Also, can one extract entire fb data or only corresponding to one&#8217;s friendlist.</p>
+<p>regards &amp; care,<br />
+Gaurav</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13094" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c4206ba6257bd50f40b9c289d67e1653?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Ravi Kamani</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 3, 2014 at 5:55 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13094">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13094#respond' onclick='return addComment.moveForm("comment-13094", "13094", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,</p>
+<p>Nice short sweet and most importantly concise and graphical article on FB . Similarly we can mine the tweets from twitter to get the sentiment on a particular person,product,party,celebrity etc.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13095" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/c454ce905f603ee6fa13cd4d0c911506?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Nidhish Bhatia</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 3, 2014 at 6:00 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13095">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13095#respond' onclick='return addComment.moveForm("comment-13095", "13095", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>very interesting</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13113" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 3, 2014 at 9:30 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13113">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13113#respond' onclick='return addComment.moveForm("comment-13113", "13113", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thanks Ravi. We will also cover twitter mining and sentiment analysis in our coming articles. Do share with us any insights or analysis you have done on FB &amp; twitter mining.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13119" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/077502d24c5b37cb012680f4c34fea0c?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Avinash</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 3, 2014 at 10:45 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13119">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13119#respond' onclick='return addComment.moveForm("comment-13119", "13119", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,</p>
+<p> Really impressed!! This sounds interesting for a nascent learner of R (Like me) Kudos mate. I am trying to execute the steps specified here and i am facing a problem while getting the location list of the users in  my profile, i was shown only 5 people across 3 locations, can you please help me out on this.</p>
+<p>Also i went through the Rfacebook package and was trying different codes like getLikes, getCheckins etc. I came across a function called &#8220;fbOAuth&#8221; which says , it creates a long-lived OAuth access token that enables R to make authenticated calls tothe Facebook API. Can you throw some light on this .</p>
+<p>Thank You</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13533" class="comment odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 3:26 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13533">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13533#respond' onclick='return addComment.moveForm("comment-13533", "13533", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Avinash,<br />
+The limited list you are getting is because of your facebook settings. Check what restrictions have you added for any application to access your profile.<br />
+fbOAuth is another way to access your network. Here you will create a dummy application on facebook which will redirect your entire facebook data to localhost. You can check out detailed instructions in CRAN website. Let me know in case you face any challenge.</p>
+<p>Tavish</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-13125" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/aa56b3bd8fd3ce6cb901324547870711?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Vani P</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 3, 2014 at 11:56 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13125">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13125#respond' onclick='return addComment.moveForm("comment-13125", "13125", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,</p>
+<p>Nice way of mining and analyzing the data from FB using R. Can we do the same kind of analysis using SAS?</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13534" class="comment odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 3:26 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13534">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13534#respond' onclick='return addComment.moveForm("comment-13534", "13534", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Yes Vani,<br />
+Using SAS it is possible. However, it is not this easy.</p>
+<p>Tavish</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-13135" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/35fc6f5831b5c7e1496fb8d981b8cc76?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>santhosh</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 3, 2014 at 1:01 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13135">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13135#respond' onclick='return addComment.moveForm("comment-13135", "13135", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Clear and Concise. Thanks for the article Tavish!<br />
+I have recently started reading AV blogs and i feel very lucky to land to such a magnificent website on Analytics.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13535" class="comment odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 3:27 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13535">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13535#respond' onclick='return addComment.moveForm("comment-13535", "13535", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Thanks Santosh.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-13152" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/e47cd012b0d9cf5c1a7f2ab489131402?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Ravi Sankar</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 3, 2014 at 5:55 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13152">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13152#respond' onclick='return addComment.moveForm("comment-13152", "13152", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,</p>
+<p>I tried above example but couldn&#8217;t able to get few variables like &#8220;location&#8221; , &#8220;relationship_status&#8221; and &#8220;hometown&#8221;etc. In all the places i am able to see only &#8220;NA&#8221; values, even though i am able to see those values in facebook correctly. Can you help me if i got wrong somewhere?</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13536" class="comment odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 3:29 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13536">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13536#respond' onclick='return addComment.moveForm("comment-13536", "13536", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Ravi,</p>
+<p>This looks like a permission issue. You can check this out using any of your friends FB token.<br />
+Tavish</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-13156" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/1aa891b1313540b682142f782a72090d?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Vikesh</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 3, 2014 at 7:03 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13156">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13156#respond' onclick='return addComment.moveForm("comment-13156", "13156", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi,</p>
+<p>I tried using this but strangely getUsers function fetches information of only one of my friend however I have 400+ friends in fb. could there be somthng wrong with my fb settings?</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13537" class="comment odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 3:30 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13537">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13537#respond' onclick='return addComment.moveForm("comment-13537", "13537", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Vikesh,</p>
+<p>Again this is a App setting issue. Try using someone else&#8217;s account token.</p>
+<p>Tavish</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13872" class="comment even depth-3 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/eb07f95b35b6fe69f168a9222720af25?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Venkat</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 10, 2014 at 2:39 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13872">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13872#respond' onclick='return addComment.moveForm("comment-13872", "13872", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,<br />
+Is there any way i can change the app settings? getfriends returns only details of 7 friends.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-13186" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/ffac0d1a683fc206e9c07a1980bd6833?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>njn Long 1</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 4, 2014 at 3:00 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13186">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13186#respond' onclick='return addComment.moveForm("comment-13186", "13186", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Great sharing. Maybe possible to use fan page to do similar analysis?</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13551" class="comment even depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 6:05 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13551">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13551#respond' onclick='return addComment.moveForm("comment-13551", "13551", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Can you elaborate on what exactly are you asking.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-13248" class="comment odd alt thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/8cead2a489c074b6ffd297a9a8c85e5b?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='http://decisionstats.com' rel='external nofollow' class='url'>Ajay</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 4, 2014 at 2:37 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13248">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13248#respond' onclick='return addComment.moveForm("comment-13248", "13248", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>This is a very well written and simple to follow tutorial so great work by the writer. I had written something differnt but using the same package at <a href="http://decisionstats.com/2014/05/10/analyzing-facebook-networks-using-rstats/" rel="nofollow">http://decisionstats.com/2014/05/10/analyzing-facebook-networks-using-rstats/</a> but your example is very nice and logical. Great job!</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13317" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/2f095c9e573e3ce092b7ba3eeead34b6?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Rahul</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 5, 2014 at 4:02 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13317">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13317#respond' onclick='return addComment.moveForm("comment-13317", "13317", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,<br />
+Very Nice tutorial. Only Missing thing is loading Rfacebook packages i.e. &#8220;&gt; library(&#8220;Rfacebook&#8221;)&#8221; and offcourse its dependent packages.<br />
+Good Job.<br />
+Hi Ajay, Nice link <a href="http://decisionstats.com/" rel="nofollow">http://decisionstats.com/</a></p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13470" class="comment odd alt thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/85f27d2619a0be6896b65e1e152369c9?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Saurabh Singh</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 6, 2014 at 6:56 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13470">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13470#respond' onclick='return addComment.moveForm("comment-13470", "13470", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Really Nice Article.Simple &amp; easy to understand.<br />
+Thanks for this and keep up the Good work and share your knowledge with us.</p>
+<p>Thanks</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13472" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/a0707b0c699e2185c5a5e0508c3103ba?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Dhanasekaran</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 6, 2014 at 9:00 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13472">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13472#respond' onclick='return addComment.moveForm("comment-13472", "13472", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,</p>
+<p>Thanks for this article. I have tried this for my FB profile and it was interesting.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13484" class="comment odd alt thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/34bf925284339bd040da91001a21fef7?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>mayank soni</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 1:55 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13484">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13484#respond' onclick='return addComment.moveForm("comment-13484", "13484", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>I am quite sure you must be aware but there is another way to know the friends in your city or to run any other query for that matter.</p>
+<p>You have to use the facebook&#8217;s graphic interface for this -</p>
+<p>Simply type in the search box &#8211; &#8220;People who live in Bangalore&#8221;</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-13496" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/1584c6b50fb521e261fb2e0c75e3cad6?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Om</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 5:11 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13496">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13496#respond' onclick='return addComment.moveForm("comment-13496", "13496", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>has anyone got this error while using Rfacebook package:</p>
+<p>Error in function (type, msg, asError = TRUE)  :<br />
+  Could not resolve host: graph.facebook.com; Host not found</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13552" class="comment odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 6:07 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13552">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13552#respond' onclick='return addComment.moveForm("comment-13552", "13552", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Om,<br />
+My sense is that that you did not install Rfacebook package before calling it as a library.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13945" class="comment even depth-3 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/1584c6b50fb521e261fb2e0c75e3cad6?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Om</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 11, 2014 at 12:32 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13945">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13945#respond' onclick='return addComment.moveForm("comment-13945", "13945", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Tavish, I have installed Rfacebook with other dependent packages but still getting this error.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-13497" class="comment odd alt thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/8041171a7ede75762ec8f9ec5c5bcb0d?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Rajendra</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 5:25 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13497">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13497#respond' onclick='return addComment.moveForm("comment-13497", "13497", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi Tavish,</p>
+<p>Good one to understand easily.</p>
+<p>I tried, but I did not get access code? Where does it display? Do I need to change my account to public view?</p>
+<p>However I went to debug mode and choose the ID column = Expires =1404716400 (in about an hour)  assuming that this is an access token.</p>
+<p>when I run R command using this token I am getting the below issue.</p>
+<p>&#8220;Error: could not find function &#8220;getUsers&#8221;&#8221;</p>
+<p>Please help me..</p>
+<p>Regards<br />
+Raj</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-13553" class="comment even depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Tavish</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 7, 2014 at 6:09 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13553">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13553#respond' onclick='return addComment.moveForm("comment-13553", "13553", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Raj,<br />
+The 2 hours token can be achieved using the link given in the article. You can also refer to CRAN website on Rfacebook to get a even better view on this procedure.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-13930" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/0401889d2efe81017f614c4cea3552bf?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Nobel</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 11, 2014 at 6:37 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-13930">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=13930#respond' onclick='return addComment.moveForm("comment-13930", "13930", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>why i am getting this error;</p>
+<p>could not find function &#8220;getUsers&#8221;</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-14449" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/5c18acdff9714f101cc467f7ec62cdf4?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Pravin</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 17, 2014 at 7:50 am							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-14449">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=14449#respond' onclick='return addComment.moveForm("comment-14449", "14449", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hello Tavish,</p>
+<p>I tried it, but getting below error</p>
+<p>Error: could not find function &#8220;getUsers&#8221;</p>
+<p>Please help me.</p>
+<p>Regards,<br />
+Pravin.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-14812" class="comment byuser comment-author-tavish bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='' rel='external'>Tavish Srivastava</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 23, 2014 at 7:42 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-14812">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=14812#respond' onclick='return addComment.moveForm("comment-14812", "14812", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Looks like your library is not loaded.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-14809" class="comment even thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/e4dd674cf1bd79ae2200c9eba867cf6c?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Siddharth Dubey</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 23, 2014 at 7:01 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-14809">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=14809#respond' onclick='return addComment.moveForm("comment-14809", "14809", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi…on running this code “table(my_friends_info$location)”, I am getting a statement saying “table of extent 0 &gt;”. Can you please tell me what I am doing wrong? I have checked all the boxes, I believe there is some problem when I am trying to run “my_friends_info &lt;- getUsers(my_friends$id, token=token, private_info=TRUE)&quot; coz in this case when I print the &quot;my_friends_info&quot; dataset, I get a table with only NA values. Please help.</p>
+												
+											</div>
+				</div>
+			
+				<ol class="children">
+		<li id="comment-14813" class="comment byuser comment-author-tavish bypostauthor odd alt depth-2 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/51bf7a2a1f2a0dd3a1012fa4cf5a9e80?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite><a href='' rel='external'>Tavish Srivastava</a></cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														July 23, 2014 at 7:44 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-14813">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=14813#respond' onclick='return addComment.moveForm("comment-14813", "14813", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Try the code with some other&#8217;s facebook token. If it works probably its an issue with your FB settings</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-15740" class="comment even thread-even depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://0.gravatar.com/avatar/031e64d12b28bd63af79bc5c6d0910f2?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>shalli</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														August 4, 2014 at 1:17 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-15740">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=15740#respond' onclick='return addComment.moveForm("comment-15740", "15740", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>very good one.</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+		<li id="comment-15752" class="comment odd alt thread-odd thread-alt depth-1 clearfix">
+						
+									
+				<div class="comment-wrap clearfix">
+					
+											<div class="comment-avatar-wrap">
+							<img alt='' src='http://1.gravatar.com/avatar/b6f6aa7638ca4ebca365b70add95f851?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />													</div>
+										
+					<h5 class="comment-author">
+						<cite>Aurindam dhar</cite>
+											</h5>
+					<div class="comment-meta">
+						<p class="commentmetadata">
+														August 4, 2014 at 4:17 pm							<span class="timezone">(UTC 0)</span>
+																					<span class="comment-permalink"><a href="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#comment-15752">Link to this comment</a></span>
+							    
+						</p>
+						<p class="comment-reply-link">
+							<a class='comment-reply-link' href='/blog/2014/07/facebook-analyst/?replytocom=15752#respond' onclick='return addComment.moveForm("comment-15752", "15752", "respond", "4625")'>Reply</a>						
+													</p>
+						
+											</div>
+					<div class="comment-entry">
+												
+													<p>Hi,<br />
+while loading Rfacebook (after downloading it), it&#8217;s saying that you need to install &#8216;httr&#8217; package..But I am not able to download the same. Is it available in the open R version or available for enterprise version only??</p>
+												
+											</div>
+				</div>
+			
+				</li><!-- #comment-## -->
+        </ol>
+       	
+            </div>
+        
+        
+    </div>
+
+
+
+
+
+	<div id="comment-form-wrap" class="clearfix">
+										<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blog/2014/07/facebook-analyst/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://www.analyticsvidhya.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author clearfix">
+						<label for="author" class="graphene_form_label">Name: <span class="required">*</span></label>
+						<input id="author" name="author" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-email clearfix">
+						<label for="email" class="graphene_form_label">Email: <span class="required">*</span></label>
+						<input id="email" name="email" type="text" class="graphene-form-field" aria-required="true" value="" />
+					</p>
+<p class="comment-form-url clearfix">
+						<label for="url" class="graphene_form_label">Website: </label>
+						<input id="url" name="url" type="text" class="graphene-form-field" value="" />
+					</p>
+												<p class="comment-form-message comment-form-comment clearfix">
+										<label class="graphene_form_label" for="comment">Message: <span class="required">*</span></label>
+										<textarea name="comment" id="comment" cols="40" rows="20" class="graphene-form-field" aria-required="true"></textarea>
+									 </p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Submit Comment" />
+							<input type='hidden' name='comment_post_ID' value='4625' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="5778e1398e" /></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="166"/></p><div class="clear"></div>					</form>
+							</div><!-- #respond -->
+				</div>
+    
+
+            
+  
+    </div><!-- #content-main -->
+    
+    	
+    
+<div id="sidebar1" class="sidebar grid_5">
+
+	
+    <div id="useful-banner-manager-banners-rotation-3" class="sidebar-wrap clearfix useful_banner_manager_rotation_widget">            <div id="useful-banner-manager-banners-rotation-3" data-interval="5000" class="useful_banner_manager_banners_rotation" style="overflow: hidden; width: 256px; height: 258px;">
+                            <div id="10_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner">
+                                            <a href="http://www.analyticsvidhya.com/blog/2014/06/unveiling-analytics-vidhya-apprentice-programme/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/10-apprentice_4.png" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                                <div id="9_useful_banner_manager_banner" class="useful_banner_manager_rotating_banner" style="display: none">
+                                            <a href="http://www.analyticsvidhya.com/blog/category/jobs/" target="_self" rel="dofollow">
+                                    	<img src="http://www.analyticsvidhya.com/blog/wp-content/uploads/useful_banner_manager_banners/9-jobsopening1.jpg" width="256" height="258" alt="" />
+                                            </a>
+                                    </div>
+                            </div>
+            </div>
+
+    <div id="feedburnerformwidget-2" class="sidebar-wrap clearfix widget_feedburnerformwidget">
+    <!-- Plugin Feedburner Form-->
+    <div class="fb-container">
+        <h3>Subscribe</h3>        <div class="fbf-text">
+                Join Analytics Vidhya to continue your learning on Analytics        </div>
+        <form  class="fbf-widget" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=AnalyticsVidhya', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+        <input class="subscription_email" type="text" name="email" placeholder="" /><input type="hidden" value="AnalyticsVidhya" name="uri"/>
+        <input type="hidden" name="loc" value="en_US"/>
+        <input class="subscription_btn" type="submit" value ="OK"/>
+        </form>
+
+    
+    
+    </div>
+    <!-- Plugin Feedburner Form-->
+		</div>
+    <div id="search-2" class="sidebar-wrap clearfix widget_search"><h3>Search Analytics Vidhya</h3><form id="searchform" class="searchform" method="get" action="http://www.analyticsvidhya.com/blog">
+    <p class="clearfix default_searchform">
+        <input type="text" name="s" 
+        	onblur="if (this.value == '') {this.value = 'Search';}" 
+            onfocus="if (this.value == 'Search') {this.value = '';}" 
+            value="Search" />
+        <button type="submit"><span>Search</span></button>
+    </p>
+    </form></div><div id="social-widget-2" class="sidebar-wrap clearfix Social_Widget"><h3>Follow Us!</h3><div class="socialmedia-buttons smw_left"><a href="http://www.facebook.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/facebook.png" 
+				alt="Follow Us on Facebook" 
+				title="Follow Us on Facebook" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.linkedin.com/groups/Analytics-Vidhya-Learn-everything-about-5057165" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/linkedin.png" 
+				alt="Follow Us on LinkedIn" 
+				title="Follow Us on LinkedIn" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://feeds.feedburner.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/rss.png" 
+				alt="Follow Us on RSS" 
+				title="Follow Us on RSS" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://plus.google.com/+analyticsvidhya" rel="publisher" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/googleplus.png" 
+				alt="Follow Us on Google+" 
+				title="Follow Us on Google+" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://twitter.com/analyticsvidhya" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/twitter.png" 
+				alt="Follow Us on Twitter" 
+				title="Follow Us on Twitter" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.youtube.com/channel/UCH6gDteHtH4hg3o2343iObA" rel="nofollow" target="_blank"><img width="32" height="32" src="http://www.analyticsvidhya.com/blog/wp-content/plugins/social-media-widget/images/default/32/youtube.png" 
+				alt="Follow Us on YouTube" 
+				title="Follow Us on YouTube" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a></div></div><div id="wmp_widget-2" class="sidebar-wrap clearfix widget_wmp_widget"><h3>Popular posts</h3><ul>			<li><a href="http://www.analyticsvidhya.com/blog/2013/07/advanced-analytics-certifications/" title="Advanced analytics certifications in India">Advanced analytics certifications in India</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/11/4-sas-tricky-analytics-interview/" title="4 tricky SAS questions commonly asked in interview">4 tricky SAS questions commonly asked in interview</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/start-career-business-analytics/" title="How to start a career in Business Analytics?">How to start a career in Business Analytics?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/03/sas-vs-vs-python-tool-learn/" title="SAS vs. R (vs. Python) &#8211; which tool should I learn?">SAS vs. R (vs. Python) &#8211; which tool should I learn?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/set-analysis-qlikview/" title="Set Analysis in QlikView &#8211; simplified!">Set Analysis in QlikView &#8211; simplified!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2013/07/read-books-analysts-or-interested-analytics/" title="Must read books for Analysts (or people interested in Analytics)">Must read books for Analysts (or people interested in Analytics)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/02/aggr/" title="How to Use AGGR () function in Qlikview?">How to Use AGGR () function in Qlikview?</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/06/books-data-scientists-or-aspiring-ones/" title="Must have books for data scientists (or aspiring ones)">Must have books for data scientists (or aspiring ones)</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/05/planning-late-career-shift-analytics-big-data-prepared/" title="Planning a late career shift to Analytics / Big data? Better be prepared!">Planning a late career shift to Analytics / Big data? Better be prepared!</a></li>
+						<li><a href="http://www.analyticsvidhya.com/blog/2014/01/tips-crack-guess-estimate-case-study/" title="Tips to crack a guess estimate (Analytics case study)">Tips to crack a guess estimate (Analytics case study)</a></li>
+			</ul></div><div id="text-2" class="sidebar-wrap clearfix widget_text"><h3>Contact Us</h3>			<div class="textwidget"> <form method="post" id="cntctfrm_contact_form" action="http://www.analyticsvidhya.com/blog/2014/07/facebook-analyst/#cntctfrm_contact_form" enctype="multipart/form-data"><div style="text-align: left; padding-top: 5px;">
+						<label for="cntctfrm_contact_name">Name: <span class="required">*</span></label>
+					</div><div style="text-align: left;">
+						<input class="text" type="text" size="40" value="" name="cntctfrm_contact_name" id="cntctfrm_contact_name" style="text-align: left; margin: 0;" />
+					</div><div style="text-align: left;">
+					<label for="cntctfrm_contact_email">Email Address: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_email" id="cntctfrm_contact_email" style="text-align: left; margin: 0;" />
+				</div>
+			<div style="text-align: left;">
+					<label for="cntctfrm_contact_subject">Subject: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<input class="text" type="text" size="40" value="" name="cntctfrm_contact_subject" id="cntctfrm_contact_subject" style="text-align: left; margin: 0;" />
+				</div>
+
+				<div style="text-align: left;">
+					<label for="cntctfrm_contact_message">Message: <span class="required">*</span></label>
+				</div><div style="text-align: left;">
+					<textarea rows="5" cols="30" name="cntctfrm_contact_message" id="cntctfrm_contact_message"></textarea>
+				</div><div style="text-align: left;">
+						<input type="checkbox" value="1" name="cntctfrm_contact_send_copy" id="cntctfrm_contact_send_copy" style="text-align: left; margin: 0;"  />
+						<label for="cntctfrm_contact_send_copy">Send me a copy</label>
+					</div><p class="cptch_block" style="text-align:left;"><br /><input type="hidden" name="cptch_result" value="AvA=" />
+		<input type="hidden" name="cptch_time" value="1408730637" />
+		<input type="hidden" value="Version: 2.4" />8 &minus; f&#105;ve =  <input type="text" autocomplete="off" name="cptch_number" value="" maxlength="2" size="1" style="margin-bottom:0;display:inline;font-size: 12px;width: 40px;" /></p><div style="text-align: left; padding-top: 8px;"><input type="hidden" value="send" name="cntctfrm_contact_action"><input type="hidden" value="Version: 3.30" />
+					<input type="hidden" value="en" name="cntctfrm_language">
+					<input type="submit" value="Submit" style="cursor: pointer; margin: 0pt; text-align: center;margin-bottom:10px;" /> 
+				</div>
+				</form></div>
+		</div>		<div id="recent-posts-2" class="sidebar-wrap clearfix widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/step-step-guide-extract-inforation-free-text-unstructured-data/">Step by step guide to extract insights from free text (unstructured data)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/market-mix-modeling/">Market mix modeling &#8211; Simplified!</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/author-identification-challenge/">Bring it on! Analytics Vidhya Author identification challenge</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-analytics-government-agencies-run-better/">How Big data &#038; Analytics can help Government agencies run better?</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/baby-steps-python-performing-exploratory-analysis-python/">Baby steps in Python &#8211; Exploratory analysis in Python (using Pandas)</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/big-data-big-difference/">Training review &#8211; A Big Data Course with a ‘Big’ Difference from Jigsaw Academy</a>
+						</li>
+					<li>
+				<a href="http://www.analyticsvidhya.com/blog/2014/08/visualizing-market-basket-analysis/">Visualizing product relationships in a market Basket analysis</a>
+						</li>
+				</ul>
+		</div><div id="archives-2" class="sidebar-wrap clearfix widget_archive"><h3>Monthly Archives</h3>		<ul>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/08/'>August 2014</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/07/'>July 2014</a>&nbsp;(70)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/06/'>June 2014</a>&nbsp;(131)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/05/'>May 2014</a>&nbsp;(100)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/04/'>April 2014</a>&nbsp;(16)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/03/'>March 2014</a>&nbsp;(11)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/02/'>February 2014</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2014/01/'>January 2014</a>&nbsp;(9)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/12/'>December 2013</a>&nbsp;(6)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/11/'>November 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/10/'>October 2013</a>&nbsp;(7)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/09/'>September 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/08/'>August 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/07/'>July 2013</a>&nbsp;(8)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/06/'>June 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/05/'>May 2013</a>&nbsp;(5)</li>
+	<li><a href='http://www.analyticsvidhya.com/blog/2013/04/'>April 2013</a>&nbsp;(2)</li>
+		</ul>
+</div><div id="categories-2" class="sidebar-wrap clearfix widget_categories"><h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="http://www.analyticsvidhya.com/blog/category/analytics-vidhya/" title="View all posts filed under Analytics Vidhya">Analytics Vidhya</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="http://www.analyticsvidhya.com/blog/category/big-data/" title="View all posts filed under Big data">Big data</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.analyticsvidhya.com/blog/category/business-analytics/" title="View all posts filed under Business Analytics">Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.analyticsvidhya.com/blog/category/business-intelligence/" title="View all posts filed under Business Intelligence">Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-170"><a href="http://www.analyticsvidhya.com/blog/category/jobs/" title="View all posts filed under Jobs">Jobs</a>
+</li>
+	<li class="cat-item cat-item-214"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-analytics/" title="Jobs in Business Analytics">Jobs &#8211; Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-215"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-business-intelligence/" title="Jobs in Business Intelligence">Jobs &#8211; Business Intelligence</a>
+</li>
+	<li class="cat-item cat-item-240"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-web-analytics/" title="View all posts filed under Jobs &#8211; Web Analytics">Jobs &#8211; Web Analytics</a>
+</li>
+	<li class="cat-item cat-item-227"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-big-data/" title="View all posts filed under Jobs- Big Data">Jobs- Big Data</a>
+</li>
+	<li class="cat-item cat-item-63"><a href="http://www.analyticsvidhya.com/blog/category/jobs/jobs-mis/" title="View all posts filed under Jobs- MIS">Jobs- MIS</a>
+</li>
+	<li class="cat-item cat-item-396"><a href="http://www.analyticsvidhya.com/blog/category/python-2/" title="View all posts filed under Python">Python</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://www.analyticsvidhya.com/blog/category/qlikview/" title="View all posts filed under Qlikview">Qlikview</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://www.analyticsvidhya.com/blog/category/sas/" title="View all posts filed under SAS">SAS</a>
+</li>
+	<li class="cat-item cat-item-25"><a href="http://www.analyticsvidhya.com/blog/category/web-analytics-2/" title="View all posts filed under Web Analytics">Web Analytics</a>
+</li>
+		</ul>
+</div><div id="text-3" class="sidebar-wrap clearfix widget_text">			<div class="textwidget"><?php wp_list_categories('feed_image=http://www.analyticsvidhya.com/blog/jobs&feed=XML Feed&optioncount=1&children=0'); ?></div>
+		</div>    
+        
+    
+</div><!-- #sidebar1 -->    
+    
+</div><!-- #content -->
+
+
+
+<div id="footer" class="clearfix">
+    
+        <div id="copyright">
+    	<h3>Copyright</h3>
+		            <p>
+            &copy; 2014 Analytics Vidhya.            </p>
+                
+        
+    	    </div>
+
+		<div class="footer-menu-wrap">
+    	<ul id="footer-menu" class="clearfix">
+			<li id="menu-item-1471" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1471"><a href="http://www.analyticsvidhya.com/blog/about-me/">About us</a></li>
+<li id="menu-item-1472" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1472"><a href="http://www.analyticsvidhya.com/blog/privacy-policy-2/">Privacy Policy</a></li>
+                    	<li class="menu-item return-top"><a href="#">Return to top</a></li>
+                    </ul>
+    </div>
+    	
+        <div id="developer" class="grid_7">
+      <!--  <p>
+        Powered by <a href="http://wordpress.org/">WordPress</a> and the <a href="http://www.graphene-theme.com/">Graphene Theme</a>.        </p>-->
+
+	    </div>
+        
+    </div><!-- #footer -->
+
+
+</div><!-- #container -->
+
+    </div><!-- .bg-gradient -->
+
+	<div style="display:none">
+	<div class="grofile-hash-map-51bf7a2a1f2a0dd3a1012fa4cf5a9e80">
+	</div>
+	<div class="grofile-hash-map-d4157cdff000a9b7c7b2cab1f9fe7b78">
+	</div>
+	<div class="grofile-hash-map-c4206ba6257bd50f40b9c289d67e1653">
+	</div>
+	<div class="grofile-hash-map-c454ce905f603ee6fa13cd4d0c911506">
+	</div>
+	<div class="grofile-hash-map-077502d24c5b37cb012680f4c34fea0c">
+	</div>
+	<div class="grofile-hash-map-aa56b3bd8fd3ce6cb901324547870711">
+	</div>
+	<div class="grofile-hash-map-35fc6f5831b5c7e1496fb8d981b8cc76">
+	</div>
+	<div class="grofile-hash-map-e47cd012b0d9cf5c1a7f2ab489131402">
+	</div>
+	<div class="grofile-hash-map-1aa891b1313540b682142f782a72090d">
+	</div>
+	<div class="grofile-hash-map-eb07f95b35b6fe69f168a9222720af25">
+	</div>
+	<div class="grofile-hash-map-ffac0d1a683fc206e9c07a1980bd6833">
+	</div>
+	<div class="grofile-hash-map-8cead2a489c074b6ffd297a9a8c85e5b">
+	</div>
+	<div class="grofile-hash-map-2f095c9e573e3ce092b7ba3eeead34b6">
+	</div>
+	<div class="grofile-hash-map-85f27d2619a0be6896b65e1e152369c9">
+	</div>
+	<div class="grofile-hash-map-a0707b0c699e2185c5a5e0508c3103ba">
+	</div>
+	<div class="grofile-hash-map-34bf925284339bd040da91001a21fef7">
+	</div>
+	<div class="grofile-hash-map-1584c6b50fb521e261fb2e0c75e3cad6">
+	</div>
+	<div class="grofile-hash-map-8041171a7ede75762ec8f9ec5c5bcb0d">
+	</div>
+	<div class="grofile-hash-map-0401889d2efe81017f614c4cea3552bf">
+	</div>
+	<div class="grofile-hash-map-5c18acdff9714f101cc467f7ec62cdf4">
+	</div>
+	<div class="grofile-hash-map-51bf7a2a1f2a0dd3a1012fa4cf5a9e80">
+	</div>
+	<div class="grofile-hash-map-e4dd674cf1bd79ae2200c9eba867cf6c">
+	</div>
+	<div class="grofile-hash-map-031e64d12b28bd63af79bc5c6d0910f2">
+	</div>
+	<div class="grofile-hash-map-b6f6aa7638ca4ebca365b70add95f851">
+	</div>
+	</div>
+	<!--[if IE 8]>
+    <script type="text/javascript">
+        (function($) {
+            var imgs, i, w;
+            var imgs = document.getElementsByTagName( 'img' );
+            maxwidth = 0.98 * $( '.entry-content' ).width();
+            for( i = 0; i < imgs.length; i++ ) {
+                w = imgs[i].getAttribute( 'width' );
+                if ( w > maxwidth ) {
+                    imgs[i].removeAttribute( 'width' );
+                    imgs[i].removeAttribute( 'height' );
+                }
+            }
+        })(jQuery);
+    </script>
+    <![endif]-->
+<div id="su-footer-links" style="text-align: center;"></div>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/www.analyticsvidhya.com\/blog\/2014\/07\/facebook-analyst\/":4625}	</script>
+<script type="text/javascript">
+			jQuery( document ).ready( function() {
+			    jQuery.getScript( '//platform.linkedin.com/in.js?async=true', function success() {
+			        IN.init();
+			    });
+			});
+			jQuery( document.body ).on( 'post-load', function() {
+				if ( typeof IN != 'undefined' )
+					IN.parse();
+			});
+			</script>		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+					<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+					<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script>
+		// Don't use Pocket's default JS as it we need to force init new Pocket share buttons loaded via JS.
+		function jetpack_sharing_pocket_init() {
+			jQuery.getScript( 'https://widgets.getpocket.com/v1/j/btn.js?v=1' );
+		}
+		jQuery( document ).on( 'ready', jetpack_sharing_pocket_init );
+		jQuery( document.body ).on( 'post-load', jetpack_sharing_pocket_init );
+		</script>
+		<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/akismet/_inc/form.js?ver=3.0.1'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201434'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2014Augaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/wpgroho.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/comment-reply.min.js?ver=3.9.2'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect.min.js?ver=1.10.4'></script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-includes/js/jquery/ui/jquery.ui.effect-blind.min.js?ver=1.10.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var stbUserOptions = {"mode":"css","cssOptions":{"roundedCorners":true,"mbottom":10,"imgHide":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/minus.png","imgShow":"http:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/plus.png","strHide":"Hide","strShow":"Show"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/wp-special-textboxes/js/wstb.js?ver=5.0.86'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.analyticsvidhya.com/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=20121205'></script>
+
+	<script src="http://stats.wp.com/e-201434.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.1.1',blog:'58948004',post:'4625',tz:'0'});
+	var load_cmc = function(){linktracker_init(58948004,4625,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script></body>
+</html>
