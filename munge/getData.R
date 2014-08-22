@@ -108,7 +108,7 @@ download.urls <- function(urls, directory){
     i <- 0
     for (u in urls) {
         i <- i + 1
-        download.file(u, paste0(directory, "/", i, ".html"), "auto")
+        download.file(u, paste0(directory, "/", sprintf("%.3d", i), ".html"), "auto")
     }
 }
 
