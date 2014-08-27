@@ -12,6 +12,7 @@ authors <- c("kunalj", "tavish")
 blog.url <- "http://www.analyticsvidhya.com/blog/author/"
 limit.date <- "2014-07-07"
 post.storage <- "../data"
+post.cache <- "../cache"
 
 ################################################################################
 # Helper functions
@@ -164,4 +165,6 @@ posts$content <- as.character(posts$content)
 
 tags$title <- as.character(tags$title)
 
-# write.csv("file", object)
+# Save data into csv files
+write.csv(posts, paste(post.cache, "posts.csv", sep="/"))
+write.csv(tags, paste(post.cache, "tags.csv", sep="/"))
