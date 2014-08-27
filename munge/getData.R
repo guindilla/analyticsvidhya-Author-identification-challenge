@@ -11,6 +11,7 @@ library(XML)
 authors <- c("kunalj", "tavish")
 blog.url <- "http://www.analyticsvidhya.com/blog/author/"
 limit.date <- "2014-07-07"
+post.storage <- "../data"
 
 ################################################################################
 # Helper functions
@@ -72,6 +73,8 @@ scrape.post <- function(file) {
     title <- xpathSApply(parsedHTML,
                          "//title",
                          xmlValue)
+    # Early titles had the " | Analytics Vidhya" string, let's remove it
+    title <- gsub("( \\| Analytics Vidhya)$", "", title)
     author <- xpathSApply(parsedHTML,
                           "//span[@class='fn nickname']",
                           xmlValue)
@@ -115,12 +118,50 @@ download.urls <- function(urls, directory){
 ################################################################################
 # Main program
 ################################################################################
+# Get URLs of posts for all authors
 urls <- vector()
 for(a in authors) {
     urls <- c(urls, scrape.urls(blog.url, a))
 }
 
-download.urls(urls, "../data/")
+# Download and store all posts
+download.urls(urls, post.storage)
 
-my.content <- paste(readLines("1.txt"), sep="\n")
-scrape.post(my.content)
+# Read and scrape all stored posts
+my.posts <- list.files(post.storage)
+post.scraped <- vector()
+for(mp in my.posts){
+    my.content <- paste(readLines(paste(post.storage, mp, sep="/")), sep="\n")
+    post.scraped <- c(post.scraped, list(scrape.post(my.content)))
+}
+
+# Save data into data.frames
+posts <- data.frame(title=character(),
+                    author=factor(),
+                    date=numeric(),
+                    week.day=numeric(),
+                    content=character())
+tags <- data.frame(title=character(),
+                   author=factor(),
+                   tags=character(),
+                   stringsAsFactors = FALSE)
+i <- 1
+for(ps in post.scraped) {
+    posts <- rbind(posts, data.frame(title=ps$title,
+                                     author=ps$author,
+                                     date=ps$date,
+                                     week.day=ps$week.day,
+                                     content=ps$content))
+    i <- i + 1
+    tags <- rbind(tags, data.frame(title=rep(ps$title, length(ps$tags)),
+                                   author=rep(ps$author, length(ps$tags)),
+                                   tags=ps$tags))
+}
+posts$title <- as.character(posts$title)
+posts$week.day <- as.integer(posts$week.day)
+posts$date <- as.POSIXct(as.integer(posts$date), origin = "1970-01-01")
+posts$content <- as.character(posts$content)
+
+tags$title <- as.character(tags$title)
+
+# write.csv("file", object)
