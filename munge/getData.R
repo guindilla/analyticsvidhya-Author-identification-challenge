@@ -98,45 +98,11 @@ scrape.post <- function(file) {
          tags = tags)
 }
 
-download.urls <- function(urls, directory){
-    # Downloads and stores a vector of urls on a specific location.
-    #
-    # Args:
-    #   urls: Vector of urls to download
-    #   directory: Folder where the downloaded url's will be stored
-    #
-    # Returns:
-    #   Nothing
-    
-    urls <- sort(urls)
-    i <- 0
-    for (u in urls) {
-        i <- i + 1
-        download.file(u, paste0(directory, "/", sprintf("%.3d", i), ".html"), "auto")
-    }
-}
-
 ################################################################################
 # Main program
 ################################################################################
-# Get URLs of posts for all authors
-urls <- vector()
-for(a in authors) {
-    urls <- c(urls, scrape.urls(blog.url, a))
-}
 
-# Download and store all posts
-download.urls(urls, post.storage)
-
-# Read and scrape all stored posts
-my.posts <- list.files(post.storage)
-post.scraped <- vector()
-for(mp in my.posts){
-    my.content <- paste(readLines(paste(post.storage, mp, sep="/")), sep="\n")
-    post.scraped <- c(post.scraped, list(scrape.post(my.content)))
-}
-
-# Save data into data.frames
+# Prepare data frames where information will be stored
 posts <- data.frame(title=character(),
                     author=factor(),
                     date=numeric(),
@@ -146,18 +112,49 @@ tags <- data.frame(title=character(),
                    author=factor(),
                    tags=character(),
                    stringsAsFactors = FALSE)
-i <- 1
-for(ps in post.scraped) {
-    posts <- rbind(posts, data.frame(title=ps$title,
-                                     author=ps$author,
-                                     date=ps$date,
-                                     week.day=ps$week.day,
-                                     content=ps$content))
-    i <- i + 1
-    tags <- rbind(tags, data.frame(title=rep(ps$title, length(ps$tags)),
-                                   author=rep(ps$author, length(ps$tags)),
-                                   tags=ps$tags))
+
+for (a in authors) {
+    # Get URLs of posts for the author
+    urls <- scrape.urls(blog.url, a)
+    
+    # Create author folders
+    a.path <- sprintf("%s/%s", post.storage, a)
+    if (!file.exists(a.path)) {
+        dir.create(a.path)
+    }
+    
+    for (u in urls) {
+        # Download each file
+        my.content <- content(GET(u), as="text")
+        
+        # Scrap the file and store it as an html file
+        post.scraped <- scrape.post(my.content)
+        print(post.scraped$title)
+        f.path <- sprintf("%s/%s-%s.html",
+                          a.path,
+                          format(post.scraped$date, format="%Y%m%d"),
+                          # Removing forbiden characters in windows path
+                          gsub(pattern = "(\\\\|/|:|*|\\?|<|>|\\|)",
+                               replacement = "",
+                               x = post.scraped$title))
+        print(f.path)
+        writeLines(my.content, f.path)
+        
+        # Saving the scrapped post to a dataframe
+        posts <- rbind(posts, data.frame(title=post.scraped$title,
+                                         author=post.scraped$author,
+                                         date=post.scraped$date,
+                                         week.day=post.scraped$week.day,
+                                         content=post.scraped$content))
+        tags <- rbind(tags, data.frame(title=rep(post.scraped$title,
+                                                 length(post.scraped$tags)),
+                                       author=rep(post.scraped$author,
+                                                  length(post.scraped$tags)),
+                                       tags=post.scraped$tags))
+    }
 }
+
+# Required type adjustements on the data frames
 posts$title <- as.character(posts$title)
 posts$week.day <- as.integer(posts$week.day)
 posts$date <- as.POSIXct(as.integer(posts$date), origin = "1970-01-01")
@@ -165,6 +162,6 @@ posts$content <- as.character(posts$content)
 
 tags$title <- as.character(tags$title)
 
-# Save data into csv files
-write.csv(posts, paste(post.cache, "posts.csv", sep="/"))
-write.csv(tags, paste(post.cache, "tags.csv", sep="/"))
+# Save data frames into csv files
+write.csv(posts, paste(post.cache, "posts.csv", sep="/"), row.names=FALSE)
+write.csv(tags, paste(post.cache, "tags.csv", sep="/"), row.names=FALSE)
