@@ -20,7 +20,7 @@ options(stringAsFactors = FALSE)
 ################################################################################
 authors <- c("kunalj", "tavish")
 blog.url <- "http://www.analyticsvidhya.com/blog/author/"
-limit.date <- "2014-07-07"
+limit.date <- as.POSIXct("2014-07-07")
 post.storage <- "../data"
 post.cache <- "../cache"
 
@@ -124,3 +124,22 @@ tdm <- generateTDM(posts$content)
 tdm.stack <- convertTDM(tdm)
 tdm.stack <- cbind(posts[c("author", "date")], tdm.stack)
 
+# Define the train and test sets for the data mining model based on the date
+train.idx <- which(tdm.stack$date < limit.date)
+test.idx <- which(tdm.stack$date >= limit.date)
+
+# Model - KNN
+# Extract author name
+tdm.author <- tdm.stack[, "author"]
+# Extract all columns but the candidate column
+tdm.stack.nl <- tdm.stack[, !colnames(tdm.stack) %in% c("author", "date")]
+
+# K-nearest Neighbor
+knn.pred <- knn(tdm.stack.nl[train.idx, ], tdm.stack.nl[test.idx, ], tdm.author[train.idx])
+knn.train.data <- tdm.stack[train.idx, ]
+
+# Confusion Matrix
+conf.mat <- table("Predictions" = knn.pred, Actual = tdm.author[test.idx])
+
+# Accuracy
+(accuracy <- sum(diag(conf.mat))/length(test.idx) * 100)
