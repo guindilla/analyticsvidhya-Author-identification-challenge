@@ -129,7 +129,6 @@ for (a in authors) {
         
         # Scrap the file and store it as an html file
         post.scraped <- scrape.post(my.content)
-        print(post.scraped$title)
         f.path <- sprintf("%s/%s-%s.html",
                           a.path,
                           format(post.scraped$date, format="%Y%m%d"),
@@ -137,7 +136,6 @@ for (a in authors) {
                           gsub(pattern = "(\\\\|/|:|*|\\?|<|>|\\|)",
                                replacement = "",
                                x = post.scraped$title))
-        print(f.path)
         writeLines(my.content, f.path)
         
         # Saving the scrapped post to a dataframe
