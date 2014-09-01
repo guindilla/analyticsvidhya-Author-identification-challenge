@@ -21,6 +21,7 @@ options(stringAsFactors = FALSE)
 authors <- c("kunalj", "tavish")
 blog.url <- "http://www.analyticsvidhya.com/blog/author/"
 limit.date <- as.POSIXct("2014-07-07")
+competition.date <- as.POSIXct("2014-08-14")
 post.storage <- "../data"
 post.cache <- "../cache"
 
@@ -55,7 +56,6 @@ cleanCorpus <- function(corpus, language = "english",
     # Apply Text Mining Clean-up Functions
 
     corpus.tmp <- corpus
-    print(inherits(corpus.tmp, "TextDocument"))
     
     for (f in custom.functions) {
         corpus.tmp <- tm_map(corpus.tmp, f)
@@ -72,7 +72,6 @@ cleanCorpus <- function(corpus, language = "english",
     # This line converts the corpus to TextDocument, required for tm >= v.0.6
     # http://stackoverflow.com/a/24206825
     corpus.tmp <- tm_map(corpus.tmp, PlainTextDocument)
-    print(inherits(corpus.tmp, "TextDocument"))
     
     return(corpus.tmp)
 }
@@ -113,33 +112,41 @@ convertTDM <- function(tdm) {
 # Main program
 ################################################################################
 
-# Load data
-posts <- loadPosts(post.cache)
-tags <- loadTags(post.cache)
-
-# Generage term document matrix function on all texts
-tdm <- generateTDM(posts$content)
-
-# Convert term document matrix to data frame and add it to posts data frame
-tdm.stack <- convertTDM(tdm)
-tdm.stack <- cbind(posts[c("author", "date")], tdm.stack)
-
-# Define the train and test sets for the data mining model based on the date
-train.idx <- which(tdm.stack$date < limit.date)
-test.idx <- which(tdm.stack$date >= limit.date)
-
-# Model - KNN
-# Extract author name
-tdm.author <- tdm.stack[, "author"]
-# Extract all columns but the candidate column
-tdm.stack.nl <- tdm.stack[, !colnames(tdm.stack) %in% c("author", "date")]
-
-# K-nearest Neighbor
-knn.pred <- knn(tdm.stack.nl[train.idx, ], tdm.stack.nl[test.idx, ], tdm.author[train.idx])
-knn.train.data <- tdm.stack[train.idx, ]
-
-# Confusion Matrix
-conf.mat <- table("Predictions" = knn.pred, Actual = tdm.author[test.idx])
-
-# Accuracy
-(accuracy <- sum(diag(conf.mat))/length(test.idx) * 100)
+main <- function(sparse) {
+    
+    # Load data
+    posts <- loadPosts(post.cache)
+    
+    # Remove competition post
+    posts <- posts[strptime(posts$date, "%Y-%m-%d") != competition.date, ]
+    
+    # Generage term document matrix function on all texts
+    tdm <- generateTDM(posts$content, sparse=sparse)
+    
+    # Convert term document matrix to data frame and add it to posts data frame
+    tdm.stack <- convertTDM(tdm)
+    tdm.stack <- cbind(posts[c("author", "date")], tdm.stack)
+        
+    # Define the train and test sets for the data mining model based on the date
+    train.idx <- which(tdm.stack$date < limit.date)
+    test.idx <- which(tdm.stack$date >= limit.date)
+    
+    # Model - KNN
+    # Extract author name
+    tdm.author <- tdm.stack[, "author"]
+    # Extract all columns but the candidate column
+    tdm.stack.nl <- tdm.stack[, !colnames(tdm.stack) %in% c("author", "date")]
+    
+    # K-nearest Neighbor
+    knn.pred.test <- knn(tdm.stack.nl[train.idx, ], tdm.stack.nl[test.idx, ], tdm.author[train.idx])
+    knn.pred.train <- knn(tdm.stack.nl[train.idx, ], tdm.stack.nl[train.idx, ], tdm.author[train.idx])
+    knn.train.data <- tdm.stack[train.idx, ]
+    
+    # Confusion Matrix
+    conf.mat.test <- table("Predictions" = knn.pred.test, Actual = tdm.author[test.idx])
+    conf.mat.train <- table("Predictions" = knn.pred.train, Actual = tdm.author[train.idx])
+    
+    # Accuracy
+    (accuracy <- mean(c(sum(diag(conf.mat.test)/length(test.idx) * 100),
+                        sum(diag(conf.mat.train)/length(train.idx) * 100))))
+}
