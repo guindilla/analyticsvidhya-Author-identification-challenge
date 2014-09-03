@@ -118,64 +118,69 @@ loadTags <- function(post.cache) {
 # Main program
 ################################################################################
 
-# Prepare data frames where information will be stored
-posts <- data.frame(title=character(),
-                    author=factor(),
-                    date=numeric(),
-                    week.day=numeric(),
-                    content=character())
-tags <- data.frame(title=character(),
-                   author=factor(),
-                   tags=character(),
-                   stringsAsFactors = FALSE)
-
-for (a in authors) {
-    # Get URLs of posts for the author
-    urls <- scrape.urls(blog.url, a)
+downloadData <- function(authors, blog.url, limit.date,
+                         post.storage, post.cache) {
+    # Prepare data frames where information will be stored
+    posts <- data.frame(title=character(),
+                        author=factor(),
+                        date=numeric(),
+                        week.day=numeric(),
+                        content=character())
+    tags <- data.frame(title=character(),
+                       author=factor(),
+                       tags=character(),
+                       stringsAsFactors = FALSE)
     
-    # Create author folders
-    a.path <- sprintf("%s/%s", post.storage, a)
-    if (!file.exists(a.path)) {
-        dir.create(a.path)
+    for (a in authors) {
+        # Get URLs of posts for the author
+        urls <- scrape.urls(blog.url, a)
+        
+        # Create author folders
+        a.path <- sprintf("%s/%s", post.storage, a)
+        if (!file.exists(a.path)) {
+            dir.create(a.path)
+        }
+        
+        for (u in urls) {
+            # Download each file
+            my.content <- content(GET(u), as="text")
+            
+            # Scrap the file and store it as an html file
+            post.scraped <- scrape.post(my.content)
+            f.path <- sprintf("%s/%s-%s.html",
+                              a.path,
+                              format(post.scraped$date, format="%Y%m%d"),
+                              # Removing forbiden characters in windows path
+                              gsub(pattern = "(\\\\|/|:|*|\\?|<|>|\\|)",
+                                   replacement = "",
+                                   x = post.scraped$title))
+            writeLines(my.content, f.path)
+            
+            # Saving the scrapped post to a dataframe
+            posts <- rbind(posts, data.frame(title=post.scraped$title,
+                                             author=post.scraped$author,
+                                             date=post.scraped$date,
+                                             week.day=post.scraped$week.day,
+                                             content=post.scraped$content))
+            tags <- rbind(tags, data.frame(title=rep(post.scraped$title,
+                                                     length(post.scraped$tags)),
+                                           author=rep(post.scraped$author,
+                                                      length(post.scraped$tags)),
+                                           tags=post.scraped$tags))
+        }
     }
     
-    for (u in urls) {
-        # Download each file
-        my.content <- content(GET(u), as="text")
-        
-        # Scrap the file and store it as an html file
-        post.scraped <- scrape.post(my.content)
-        f.path <- sprintf("%s/%s-%s.html",
-                          a.path,
-                          format(post.scraped$date, format="%Y%m%d"),
-                          # Removing forbiden characters in windows path
-                          gsub(pattern = "(\\\\|/|:|*|\\?|<|>|\\|)",
-                               replacement = "",
-                               x = post.scraped$title))
-        writeLines(my.content, f.path)
-        
-        # Saving the scrapped post to a dataframe
-        posts <- rbind(posts, data.frame(title=post.scraped$title,
-                                         author=post.scraped$author,
-                                         date=post.scraped$date,
-                                         week.day=post.scraped$week.day,
-                                         content=post.scraped$content))
-        tags <- rbind(tags, data.frame(title=rep(post.scraped$title,
-                                                 length(post.scraped$tags)),
-                                       author=rep(post.scraped$author,
-                                                  length(post.scraped$tags)),
-                                       tags=post.scraped$tags))
-    }
+    # Required type adjustements on the data frames
+    posts$title <- as.character(posts$title)
+    posts$week.day <- as.integer(posts$week.day)
+    posts$date <- as.POSIXct(as.integer(posts$date), origin = "1970-01-01")
+    posts$content <- as.character(posts$content)
+    
+    tags$title <- as.character(tags$title)
+    
+    # Save data frames into csv files
+    write.csv(posts, paste(post.cache, "posts.csv", sep="/"), row.names=FALSE)
+    write.csv(tags, paste(post.cache, "tags.csv", sep="/"), row.names=FALSE)
 }
 
-# Required type adjustements on the data frames
-posts$title <- as.character(posts$title)
-posts$week.day <- as.integer(posts$week.day)
-posts$date <- as.POSIXct(as.integer(posts$date), origin = "1970-01-01")
-posts$content <- as.character(posts$content)
-
-tags$title <- as.character(tags$title)
-
-# Save data frames into csv files
-write.csv(posts, paste(post.cache, "posts.csv", sep="/"), row.names=FALSE)
-write.csv(tags, paste(post.cache, "tags.csv", sep="/"), row.names=FALSE)
+# downloadData(authors, blog.url, limit.date, post.storage, post.cache)
