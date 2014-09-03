@@ -183,4 +183,4 @@ downloadData <- function(authors, blog.url, limit.date,
     write.csv(tags, paste(post.cache, "tags.csv", sep="/"), row.names=FALSE)
 }
 
-# downloadData(authors, blog.url, limit.date, post.storage, post.cache)
+# main(authors, blog.url, limit.date, post.storage, post.cache)
