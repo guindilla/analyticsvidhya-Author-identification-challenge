@@ -111,6 +111,7 @@ loadPosts <- function(post.cache) {
 loadTags <- function(post.cache) {
     tags <- read.csv(paste(post.cache, "tags.csv", sep="/"))
     tags$title <- as.character(tags$title)
+    tags$tags <- as.character(tags$tags)
     return(tags)
 }
 
@@ -177,10 +178,11 @@ downloadData <- function(authors, blog.url, limit.date,
     posts$content <- as.character(posts$content)
     
     tags$title <- as.character(tags$title)
+    tags$tags <- as.character(tags$tags)
     
     # Save data frames into csv files
     write.csv(posts, paste(post.cache, "posts.csv", sep="/"), row.names=FALSE)
     write.csv(tags, paste(post.cache, "tags.csv", sep="/"), row.names=FALSE)
 }
 
-# main(authors, blog.url, limit.date, post.storage, post.cache)
+# downloadData(authors, blog.url, limit.date, post.storage, post.cache)
