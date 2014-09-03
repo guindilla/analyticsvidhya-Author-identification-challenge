@@ -98,6 +98,22 @@ scrape.post <- function(file) {
          tags = tags)
 }
 
+# Load data
+loadPosts <- function(post.cache) {
+    posts <- read.csv(paste(post.cache, "posts.csv", sep="/"))
+    posts$title <- as.character(posts$title)
+    posts$week.day <- as.integer(posts$week.day)
+    posts$date <- as.POSIXct(posts$date)
+    posts$content <- as.character(posts$content)
+    return(posts)
+}
+
+loadTags <- function(post.cache) {
+    tags <- read.csv(paste(post.cache, "tags.csv", sep="/"))
+    tags$title <- as.character(tags$title)
+    return(tags)
+}
+
 ################################################################################
 # Main program
 ################################################################################

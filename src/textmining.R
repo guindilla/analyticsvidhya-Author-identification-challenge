@@ -27,21 +27,6 @@ post.cache <- "../cache"
 ################################################################################
 # Helper functions
 ################################################################################
-# Load data
-loadPosts <- function(post.cache) {
-    posts <- read.csv(paste(post.cache, "posts.csv", sep="/"))
-    posts$title <- as.character(posts$title)
-    posts$week.day <- as.integer(posts$week.day)
-    posts$date <- as.POSIXct(posts$date)
-    posts$content <- as.character(posts$content)
-    return(posts)
-}
-
-loadTags <- function(post.cache) {
-    tags <- read.csv(paste(post.cache, "tags.csv", sep="/"))
-    tags$title <- as.character(tags$title)
-    return(tags)
-}
 
 # Custom cleaning functions
 convertPrettyApostrophe <- function(x) gsub("’", "'", x)
@@ -111,10 +96,7 @@ convertTDM <- function(tdm) {
 # Main program
 ################################################################################
 
-main <- function(sparse, testing = "competition") {
-    
-    # Load data
-    posts <- loadPosts(post.cache)
+main <- function(posts, sparse, testing = "competition") {
     
     # Remove competition post
     posts <- posts[strptime(posts$date, "%Y-%m-%d") != competition.date, ]
