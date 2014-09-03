@@ -4,12 +4,11 @@
 ################################################################################
 # Load libraries
 ################################################################################
-libs <- c("class",
-          "plyr",
-          "SnowballC", # Required for stemming
-          "tm")
-lapply(libs, require, character.only=TRUE)
-
+library("class")
+library("plyr")
+library("SnowballC")  # Required for stemming
+library("tm")
+        
 ################################################################################
 # Setting global options
 ################################################################################
