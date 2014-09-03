@@ -112,7 +112,7 @@ convertTDM <- function(tdm) {
 # Main program
 ################################################################################
 
-main <- function(sparse) {
+main <- function(sparse, testing = "competition") {
     
     # Load data
     posts <- loadPosts(post.cache)
@@ -127,9 +127,16 @@ main <- function(sparse) {
     tdm.stack <- convertTDM(tdm)
     tdm.stack <- cbind(posts[c("author", "date")], tdm.stack)
         
-    # Define the train and test sets for the data mining model based on the date
-    train.idx <- which(tdm.stack$date < limit.date)
-    test.idx <- which(tdm.stack$date >= limit.date)
+    # Define the train and test sets for the data mining model
+    if (testing == "competition") {
+        train.idx <- which(tdm.stack$date < limit.date)
+        test.idx <- which(tdm.stack$date >= limit.date)
+    } else if (testing == "random") {
+        train.idx <- sample(nrow(tdm.stack), ceiling(nrow(tdm.stack) * .70))
+        test.idx <- (1:nrow(tdm.stack))[- train.idx]
+    } else {
+        stop("Parameter 'testing' incorrect: ", testing)
+    }
     
     # Model - KNN
     # Extract author name
